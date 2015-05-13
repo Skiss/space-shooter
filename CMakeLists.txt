@@ -1,0 +1,46 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(space-shooter)
+
+SET(SRC
+	sources/main.cpp
+	sources/Game.cpp
+	)
+
+SET(HDRS
+	includes/Game.hpp
+	)
+
+SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/;${CMAKE_MODULE_PATH}")
+SET(SFML_ROOT "G:/SFML-2.2-windows-vc12-32-bit/SFML-2.2" CACHE PATH "SFML top-level directory")
+
+FIND_PACKAGE(SFML 2 COMPONENTS audio graphics window system network)
+
+IF(SFML_FOUND)
+	INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
+ELSE()
+	SET(SFML_ROOT "" CACHE PATH "SFML top-level directory")
+	MESSAGE("\n-> SFML directory not found. Set SFML_ROOT to SFML's top-level path (containing \"include\" and \"lib\" directories).")
+	MESSAGE("-> Make sure the SFML libraries with the same configuration (Release/Debug, Static/Dynamic) exist.\n")
+ENDIF()
+
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/includes)
+
+ADD_EXECUTABLE(space-shooter ${SRC} ${HDRS})
+
+IF(SFML_STATIC_LIBRARIES)
+	SET_TARGET_PROPERTIES(space-shooter PROPERTIES COMPILE_DEFINITIONS "SFML_STATIC")
+ENDIF()
+
+SET_TARGET_PROPERTIES(space-shooter PROPERTIES OUTPUT_NAME "Space-Shooter")
+
+TARGET_LINK_LIBRARIES(
+	space-shooter
+	${SFML_LIBRARIES}
+	gdi32
+	${GLEW_LIBRARY}
+	${JPEG_LIBRARY}
+	opengl32
+	winmm
+	)
