@@ -6,7 +6,7 @@
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
 {
-    texture_.loadFromFile("C:/Users/Jeremy/Projects/space-shooter/Media/Textures/Eagle.png");
+    texture_.loadFromFile("../Media/Textures/Eagle.png");
 
     player_.setTexture(&texture_);
     player_.setRadius(40.f);
