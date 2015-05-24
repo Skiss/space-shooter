@@ -9,6 +9,8 @@ SET(SRC
 
 SET(HDRS
 	includes/Game.hpp
+	includes/ResourceHolder.hpp
+	includes/ResourceHolder.inl
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")

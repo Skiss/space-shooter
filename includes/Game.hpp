@@ -1,8 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "ResourceHolder.hpp"
+
 #include <SFML/Graphics.hpp>
 
+
+enum class TextureID
+{
+    Eagle
+};
 
 class Game
 {
@@ -19,8 +26,9 @@ private:
 
     void handleInputEvents(sf::Keyboard::Key key, bool isPressed);
 
+    ResourceHolder<sf::Texture, TextureID> resourceHolder_;
+
     sf::RenderWindow    window_;
-    sf::Texture         texture_;
     sf::CircleShape     player_;
 
     bool movingUp_ = false;

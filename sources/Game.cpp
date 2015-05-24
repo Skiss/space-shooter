@@ -6,9 +6,9 @@
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
 {
-    texture_.loadFromFile("../Media/Textures/Eagle.png");
+    resourceHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
 
-    player_.setTexture(&texture_);
+    player_.setTexture(&resourceHolder_.get(TextureID::Eagle));
     player_.setRadius(40.f);
     player_.setPosition(100.f, 100.f);
     player_.setFillColor(sf::Color::Cyan);
