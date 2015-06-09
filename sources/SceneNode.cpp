@@ -17,3 +17,18 @@ void SceneNode::removeChild(const SceneNode& child)
         return node.get() == &child;
     }));
 }
+
+void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    states.transform *= getTransform();
+
+    drawCurrent(target, states);
+
+    for (const auto& c : children_)
+        c->draw(target, states);
+}
+
+void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    // Nothing to do by default
+}
