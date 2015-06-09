@@ -5,12 +5,14 @@ PROJECT(space-shooter)
 SET(SRC
 	sources/main.cpp
 	sources/Game.cpp
+	sources/Scenenode.cpp
 	)
 
 SET(HDRS
 	includes/Game.hpp
 	includes/ResourceHolder.hpp
 	includes/ResourceHolder.inl
+	includes/SceneNode.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
