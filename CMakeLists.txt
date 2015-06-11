@@ -6,6 +6,8 @@ SET(SRC
 	sources/main.cpp
 	sources/Game.cpp
 	sources/Scenenode.cpp
+	#sources/Entity.cpp
+	sources/Aircraft.cpp
 	)
 
 SET(HDRS
@@ -13,6 +15,8 @@ SET(HDRS
 	includes/ResourceHolder.hpp
 	includes/ResourceHolder.inl
 	includes/SceneNode.hpp
+	includes/Entity.hpp
+	includes/Aircraft.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")

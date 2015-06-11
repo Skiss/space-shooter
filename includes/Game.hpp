@@ -3,7 +3,7 @@
 
 #include "ResourceHolder.hpp"
 
-#include <SFML/Graphics.hpp>
+#include "Aircraft.hpp"
 
 
 enum class TextureID
@@ -26,10 +26,10 @@ private:
 
     void handleInputEvents(sf::Keyboard::Key key, bool isPressed);
 
-    ResourceHolder<sf::Texture, TextureID> resourceHolder_;
+    ResourceHolder<sf::Texture, TextureID> textureHolder_;
 
     sf::RenderWindow    window_;
-    sf::CircleShape     player_;
+    Aircraft*           player_ = nullptr;
 
     bool movingUp_ = false;
     bool movingDown_ = false;

@@ -1,22 +1,17 @@
 #include "Game.hpp"
 
-#include <iostream>
-
 
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
 {
-    resourceHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
+    textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
 
-    player_.setTexture(&resourceHolder_.get(TextureID::Eagle));
-    player_.setRadius(40.f);
-    player_.setPosition(100.f, 100.f);
-    player_.setFillColor(sf::Color::Cyan);
+    player_ = new Aircraft(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
 }
 
 Game::~Game()
 {
-
+    delete player_;
 }
 
 void Game::run()
@@ -68,13 +63,13 @@ void Game::update(const sf::Time& deltaTime)
     if (movingRight_)
         movement.x += playerSpeed_;
 
-    player_.move(movement * deltaTime.asSeconds());
+    player_->move(movement * deltaTime.asSeconds());
 }
 
 void Game::render()
 {
     window_.clear();
-    window_.draw(player_);
+    window_.draw(*player_);
     window_.display();
 }
 

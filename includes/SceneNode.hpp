@@ -13,6 +13,7 @@ class SceneNode : public sf::Drawable, public sf::Transformable
 public:
     typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
+    SceneNode() = default;
     SceneNode(const SceneNode&) = delete;
     SceneNode& operator=(const SceneNode&) = delete;
 
@@ -20,10 +21,10 @@ public:
     void removeChild(const SceneNode& child);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
-    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+    virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-    SceneNode*                  parent_;
+    SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;
 };
 
