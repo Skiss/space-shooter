@@ -1,21 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "ResourceHolder.hpp"
-
+#include "World.hpp"
 #include "Aircraft.hpp"
 
-
-enum class TextureID
-{
-    Eagle
-};
 
 class Game
 {
 public:
     Game();
-    ~Game();
+    ~Game() = default;
 
     void run();
 
@@ -26,10 +20,9 @@ private:
 
     void handleInputEvents(sf::Keyboard::Key key, bool isPressed);
 
-    ResourceHolder<sf::Texture, TextureID> textureHolder_;
-
+    TextureHolder       textureHolder_;
     sf::RenderWindow    window_;
-    Aircraft*           player_ = nullptr;
+    World               world_;
 
     bool movingUp_ = false;
     bool movingDown_ = false;

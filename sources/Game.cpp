@@ -3,15 +3,9 @@
 
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
+    , world_(window_, textureHolder_)
 {
-    textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
 
-    player_ = new Aircraft(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
-}
-
-Game::~Game()
-{
-    delete player_;
 }
 
 void Game::run()
@@ -62,14 +56,12 @@ void Game::update(const sf::Time& deltaTime)
         movement.x -= playerSpeed_;
     if (movingRight_)
         movement.x += playerSpeed_;
-
-    player_->move(movement * deltaTime.asSeconds());
 }
 
 void Game::render()
 {
     window_.clear();
-    window_.draw(*player_);
+    world_.render();
     window_.display();
 }
 
