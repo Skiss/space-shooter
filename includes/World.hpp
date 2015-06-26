@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <array>
+
 
 enum class TextureID
 {
@@ -28,12 +30,22 @@ public:
     void render();
 
 private:
-    void loadTextures();
+    enum Layer
+    {
+        BACKGROUND,
+        AIR,
+        LAYER_COUNT
+    };
 
-    TextureHolder&              textureHolder_;
-    sf::RenderWindow&           window_;
-    std::unique_ptr<SceneNode>  sceneGraph_;
-    sf::View                    view_;
+    void loadTextures();
+    void buildScene();
+
+
+    TextureHolder&                              textureHolder_;
+    sf::RenderWindow&                           window_;
+    std::unique_ptr<SceneNode>                  sceneGraph_;
+    std::array<SceneNode*, Layer::LAYER_COUNT>  layers_;
+    sf::View                                    view_;
 };
 
 #endif
