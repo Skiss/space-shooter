@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 #include "Aircraft.hpp"
+#include "SpriteNode.hpp"
 
 
 World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
@@ -27,7 +28,7 @@ void World::render()
 
 void World::loadTextures()
 {
-    textureHolder_.load(TextureID::Background, "../Media/Textures/dry.jpg");
+    textureHolder_.load(TextureID::Background, "../Media/Textures/Desert.png");
     textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
 }
 
@@ -48,5 +49,10 @@ void World::buildScene()
 
     // Player node
     auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
+    player->setPosition(320, 240);
     layers_[Layer::AIR]->addChild(std::move(player));
+
+    // Background node
+    auto bg = std::make_unique<SpriteNode>(textureHolder_.get(TextureID::Background));
+    layers_[Layer::BACKGROUND]->addChild(std::move(bg));
 }

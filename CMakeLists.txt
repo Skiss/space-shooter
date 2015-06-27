@@ -9,6 +9,7 @@ SET(SRC
 	#sources/Entity.cpp
 	sources/Aircraft.cpp
 	sources/World.cpp
+	sources/SpriteNode.cpp
 	)
 
 SET(HDRS
@@ -19,6 +20,7 @@ SET(HDRS
 	includes/Entity.hpp
 	includes/Aircraft.hpp
 	includes/World.hpp
+	includes/SpriteNode.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
