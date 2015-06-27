@@ -26,7 +26,7 @@ public:
     World(const World&) = delete;
     World& operator=(const World&) = delete;
 
-    void update();
+    void update(const sf::Time& dt);
     void render();
 
 private:

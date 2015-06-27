@@ -6,7 +6,7 @@ SET(SRC
 	sources/main.cpp
 	sources/Game.cpp
 	sources/Scenenode.cpp
-	#sources/Entity.cpp
+	sources/Entity.cpp
 	sources/Aircraft.cpp
 	sources/World.cpp
 	sources/SpriteNode.cpp

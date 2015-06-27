@@ -38,30 +38,33 @@ void Game::processEvents()
         case sf::Event::KeyReleased:
             handleInputEvents(event.key.code, false);
             break;
-        default:
-            break;
         }
     }
 }
 
 void Game::update(const sf::Time& deltaTime)
 {
-    sf::Vector2f movement(0.f, 0.f);
+    world_.update(deltaTime);
 
-    if (movingUp_)
-        movement.y -= playerSpeed_;
-    if (movingDown_)
-        movement.y += playerSpeed_;
-    if (movingLeft_)
-        movement.x -= playerSpeed_;
-    if (movingRight_)
-        movement.x += playerSpeed_;
+    //sf::Vector2f movement(0.f, 0.f);
+
+    //if (movingUp_)
+    //    movement.y -= playerSpeed_;
+    //if (movingDown_)
+    //    movement.y += playerSpeed_;
+    //if (movingLeft_)
+    //    movement.x -= playerSpeed_;
+    //if (movingRight_)
+    //    movement.x += playerSpeed_;
 }
 
 void Game::render()
 {
     window_.clear();
+
     world_.render();
+
+    window_.setView(window_.getDefaultView());
     window_.display();
 }
 

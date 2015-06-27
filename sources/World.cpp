@@ -15,9 +15,9 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
 }
 
 
-void World::update()
+void World::update(const sf::Time& dt)
 {
-
+    sceneGraph_->update(dt);
 }
 
 void World::render()
@@ -48,7 +48,7 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(airLayer));
 
     // Player node
-    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
+    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle), sf::Vector2f(0.f, -40.f));
     player->setPosition(320, 240);
     layers_[Layer::AIR]->addChild(std::move(player));
 

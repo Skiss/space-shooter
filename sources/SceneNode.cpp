@@ -28,7 +28,20 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
         c->draw(target, states);
 }
 
+void SceneNode::update(const sf::Time& dt)
+{
+    updateCurrent(dt);
+
+    for (const auto& c : children_)
+        c->update(dt);
+}
+
 void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // Nothing to do by default
+}
+
+void SceneNode::updateCurrent(const sf::Time& dt)
+{
+    // Nothing to do here either
 }
