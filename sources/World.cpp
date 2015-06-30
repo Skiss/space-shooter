@@ -57,6 +57,7 @@ void World::buildScene()
     // Player node
     auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
     player->setPosition(playerSpawnPos_);
+    player->setVelocity(0.f, scrollSpeed_);
     layers_[Layer::AIR]->addChild(std::move(player));
 
     // Background texture has to be repeated
