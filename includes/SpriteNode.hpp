@@ -10,6 +10,7 @@ class SpriteNode : public SceneNode
 {
 public:
     SpriteNode(const sf::Texture& texture);
+    SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
 
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
