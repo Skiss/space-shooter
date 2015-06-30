@@ -15,7 +15,7 @@ public:
         Raptor
     };
 
-    Aircraft(Type type, const sf::Texture& texture, const sf::Vector2f& velocity);
+    Aircraft(Type type, const sf::Texture& texture);
 
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 

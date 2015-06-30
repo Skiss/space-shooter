@@ -1,8 +1,8 @@
 #include "Aircraft.hpp"
 
 
-Aircraft::Aircraft(Type type, const sf::Texture& texture, const sf::Vector2f& velocity)
-    : Entity(velocity)
+Aircraft::Aircraft(Type type, const sf::Texture& texture)
+    : Entity()
     , type_(type)
     , sprite_(texture)
 {
