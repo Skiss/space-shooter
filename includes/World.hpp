@@ -46,6 +46,9 @@ private:
     std::unique_ptr<SceneNode>                  sceneGraph_;
     std::array<SceneNode*, Layer::LAYER_COUNT>  layers_;
     sf::View                                    view_;
+    sf::FloatRect                               worldBounds_;
+    sf::Vector2f                                playerSpawnPos_;
+    float                                       scrollSpeed_;
 };
 
 #endif

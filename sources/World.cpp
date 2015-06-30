@@ -9,14 +9,21 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
     , window_(window)
     , sceneGraph_(nullptr)
     , view_(window_.getDefaultView())
+    , worldBounds_(0.f, 0.f, view_.getSize().x, 2000.f)
+    , playerSpawnPos_(view_.getSize().x / 2.f, worldBounds_.height - view_.getSize().y / 2.f)
+    , scrollSpeed_(-50.f)
 {
     loadTextures();
     buildScene();
+
+    view_.setCenter(playerSpawnPos_);
 }
 
 
 void World::update(const sf::Time& dt)
 {
+    view_.move(0.f, scrollSpeed_ * dt.asSeconds());
+
     sceneGraph_->update(dt);
 }
 
@@ -48,11 +55,17 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(airLayer));
 
     // Player node
-    player->setPosition(320, 240);
     auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
+    player->setPosition(playerSpawnPos_);
     layers_[Layer::AIR]->addChild(std::move(player));
 
+    // Background texture has to be repeated
+    auto& texture = textureHolder_.get(TextureID::Background);
+    sf::IntRect textureRect(worldBounds_);
+    texture.setRepeated(true);
+
     // Background node
-    auto bg = std::make_unique<SpriteNode>(textureHolder_.get(TextureID::Background));
+    auto bg = std::make_unique<SpriteNode>(textureHolder_.get(TextureID::Background), textureRect);
+    bg->setPosition(worldBounds_.left, worldBounds_.top);
     layers_[Layer::BACKGROUND]->addChild(std::move(bg));
 }
