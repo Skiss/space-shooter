@@ -8,6 +8,7 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
     : textureHolder_(textureHolder)
     , window_(window)
     , sceneGraph_(nullptr)
+    , player_(nullptr)
     , view_(window_.getDefaultView())
     , worldBounds_(0.f, 0.f, view_.getSize().x, 2000.f)
     , playerSpawnPos_(view_.getSize().x / 2.f, worldBounds_.height - view_.getSize().y / 2.f)
@@ -58,6 +59,7 @@ void World::buildScene()
     auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
+    player_ = player.get();
     layers_[Layer::AIR]->addChild(std::move(player));
 
     // Background texture has to be repeated

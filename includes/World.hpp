@@ -44,6 +44,7 @@ private:
     TextureHolder&                              textureHolder_;
     sf::RenderWindow&                           window_;
     std::unique_ptr<SceneNode>                  sceneGraph_;
+    SceneNode*                                  player_;
     std::array<SceneNode*, Layer::LAYER_COUNT>  layers_;
     sf::View                                    view_;
     sf::FloatRect                               worldBounds_;
