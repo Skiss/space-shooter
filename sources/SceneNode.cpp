@@ -45,3 +45,18 @@ void SceneNode::updateCurrent(const sf::Time& dt)
 {
     // Nothing to do here either
 }
+
+sf::Transform SceneNode::getWorldTransform() const
+{
+    sf::Transform res = sf::Transform::Identity;
+
+    for (auto node = this; node != nullptr; node = node->parent_)
+        res = node->getTransform() * res;
+
+    return res;
+}
+
+sf::Vector2f SceneNode::getWorldPosition() const
+{
+    return getWorldTransform() * sf::Vector2f();
+}

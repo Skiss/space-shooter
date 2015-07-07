@@ -25,9 +25,13 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
     void update(const sf::Time& dt);
 
+    sf::Vector2f getWorldPosition() const;
+
 private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(const sf::Time& dt);
+
+    sf::Transform getWorldTransform() const;
 
     SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;
