@@ -1,11 +1,13 @@
 #include "Game.hpp"
 
+#include <sstream>
+
 
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , world_(window_, textureHolder_)
 {
-
+    initFPSDisplay();
 }
 
 void Game::run()
@@ -15,6 +17,7 @@ void Game::run()
     while (window_.isOpen())
     {
         sf::Time deltaTime = clock.restart();
+        elapsedTime_ += deltaTime.asSeconds();
 
         processEvents();
         update(deltaTime);
@@ -46,16 +49,14 @@ void Game::update(const sf::Time& deltaTime)
 {
     world_.update(deltaTime);
 
-    //sf::Vector2f movement(0.f, 0.f);
+    if (elapsedTime_ > 1.f)
+    {
+        std::stringstream ss;
+        ss << static_cast<int>(1.f / deltaTime.asSeconds());
+        fps_.setString("FPS: " + ss.str());
 
-    //if (movingUp_)
-    //    movement.y -= playerSpeed_;
-    //if (movingDown_)
-    //    movement.y += playerSpeed_;
-    //if (movingLeft_)
-    //    movement.x -= playerSpeed_;
-    //if (movingRight_)
-    //    movement.x += playerSpeed_;
+        elapsedTime_ = 0.f;
+    }
 }
 
 void Game::render()
@@ -65,6 +66,7 @@ void Game::render()
     world_.render();
 
     window_.setView(window_.getDefaultView());
+    window_.draw(fps_);
     window_.display();
 }
 
@@ -84,4 +86,15 @@ void Game::handleInputEvents(sf::Keyboard::Key key, bool isPressed)
         if (key == sf::Keyboard::Escape)
             window_.close();
     }
+}
+
+void Game::initFPSDisplay()
+{
+    font_.loadFromFile("../Media/Sansation.ttf");
+
+    fps_.setFont(font_);
+    fps_.setStyle(sf::Text::Bold);
+    fps_.setColor(sf::Color::Red);
+    fps_.setCharacterSize(16);
+    fps_.setPosition(10.f, 10.f);
 }
