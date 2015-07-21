@@ -10,6 +10,7 @@ SET(SRC
 	sources/Aircraft.cpp
 	sources/World.cpp
 	sources/SpriteNode.cpp
+	sources/CommandQueue.cpp
 	)
 
 SET(HDRS
@@ -22,6 +23,7 @@ SET(HDRS
 	includes/World.hpp
 	includes/SpriteNode.hpp
 	includes/Command.hpp
+	includes/CommandQueue.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
