@@ -21,6 +21,7 @@ SET(HDRS
 	includes/Aircraft.hpp
 	includes/World.hpp
 	includes/SpriteNode.hpp
+	includes/Command.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
