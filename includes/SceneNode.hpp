@@ -1,6 +1,7 @@
 #ifndef SCENENODE_H
 #define SCENENODE_H
 
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
@@ -9,6 +10,8 @@
 #include <memory>
 #include <vector>
 
+
+struct Command;
 
 class SceneNode : public sf::Drawable, public sf::Transformable
 {
@@ -25,7 +28,11 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
     void update(const sf::Time& dt);
 
+    void execCommand(const Command& c, const sf::Time& dt);
+
     sf::Vector2f getWorldPosition() const;
+
+    virtual unsigned getCategory() const;
 
 private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

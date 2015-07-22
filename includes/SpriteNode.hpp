@@ -14,6 +14,8 @@ public:
 
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+    unsigned getCategory() const override final;
+
 private:
     sf::Sprite sprite_;
 };

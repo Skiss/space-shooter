@@ -24,6 +24,7 @@ SET(HDRS
 	includes/SpriteNode.hpp
 	includes/Command.hpp
 	includes/CommandQueue.hpp
+	includes/Category.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")

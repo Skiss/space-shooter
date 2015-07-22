@@ -1,5 +1,7 @@
 #include "SceneNode.hpp"
 
+#include "Command.hpp"
+
 #include <algorithm>
 
 
@@ -59,4 +61,18 @@ sf::Transform SceneNode::getWorldTransform() const
 sf::Vector2f SceneNode::getWorldPosition() const
 {
     return getWorldTransform() * sf::Vector2f();
+}
+
+void SceneNode::execCommand(const Command& c, const sf::Time& dt)
+{
+    if (getCategory() & c.category_)
+        c.action_(this, dt);
+
+    for (const auto& child : children_)
+        child->execCommand(c, dt);
+}
+
+unsigned SceneNode::getCategory() const
+{
+    return Category::Empty;
 }
