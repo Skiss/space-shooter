@@ -1,6 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "CommandQueue.hpp"
 #include "ResourceHolder.hpp"
 #include "SceneNode.hpp"
 
@@ -29,6 +30,8 @@ public:
     void update(const sf::Time& dt);
     void render();
 
+    CommandQueue& getCommandQueue();
+
 private:
     enum Layer
     {
@@ -43,6 +46,7 @@ private:
 
     TextureHolder&                              textureHolder_;
     sf::RenderWindow&                           window_;
+    CommandQueue                                commandQueue_;
     std::unique_ptr<SceneNode>                  sceneGraph_;
     SceneNode*                                  player_;
     std::array<SceneNode*, Layer::LAYER_COUNT>  layers_;

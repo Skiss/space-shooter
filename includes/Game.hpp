@@ -5,6 +5,8 @@
 #include "Aircraft.hpp"
 
 
+class CommandQueue;
+
 class Game
 {
 public:
@@ -25,6 +27,8 @@ private:
     TextureHolder       textureHolder_;
     sf::RenderWindow    window_;
     World               world_;
+    CommandQueue&       commandQueue_;
+
     sf::Text            fps_;
     sf::Font            font_;
 

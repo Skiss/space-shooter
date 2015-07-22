@@ -1,11 +1,13 @@
 #include "Game.hpp"
 
+#include "Command.hpp"
 #include <sstream>
 
 
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , world_(window_, textureHolder_)
+    , commandQueue_(world_.getCommandQueue())
 {
     initFPSDisplay();
 }

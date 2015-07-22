@@ -34,6 +34,11 @@ void World::render()
     window_.draw(*sceneGraph_);
 }
 
+CommandQueue& World::getCommandQueue()
+{
+    return commandQueue_;
+}
+
 void World::loadTextures()
 {
     textureHolder_.load(TextureID::Background, "../Media/Textures/Desert.png");
