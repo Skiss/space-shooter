@@ -25,6 +25,9 @@ void World::update(const sf::Time& dt)
 {
     view_.move(0.f, scrollSpeed_ * dt.asSeconds());
 
+    while (!commandQueue_.isEmpty())
+        sceneGraph_->execCommand(*commandQueue_.pop(), dt);
+
     sceneGraph_->update(dt);
 }
 
