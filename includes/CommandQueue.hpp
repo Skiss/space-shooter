@@ -4,7 +4,7 @@
 #include <queue>
 
 
-class Command;
+struct Command;
 
 class CommandQueue
 {
