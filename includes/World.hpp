@@ -3,7 +3,6 @@
 
 #include "CommandQueue.hpp"
 #include "ResourceHolder.hpp"
-#include "SceneNode.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -17,6 +16,9 @@ enum class TextureID
 };
 
 typedef ResourceHolder<sf::Texture, TextureID> TextureHolder;
+
+class SceneNode;
+class Aircraft;
 
 class World
 {
@@ -48,7 +50,7 @@ private:
     sf::RenderWindow&                           window_;
     CommandQueue                                commandQueue_;
     std::unique_ptr<SceneNode>                  sceneGraph_;
-    SceneNode*                                  player_;
+    Aircraft*                                   player_;
     std::array<SceneNode*, Layer::LAYER_COUNT>  layers_;
     sf::View                                    view_;
     sf::FloatRect                               worldBounds_;

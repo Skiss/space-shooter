@@ -1,14 +1,37 @@
 #include "Game.hpp"
 
 #include "Command.hpp"
+
 #include <sstream>
 
+
+namespace
+{
+    template <typename TargetType>
+    std::function<void(SceneNode*, const sf::Time& dt)> createAction(std::function<void(Entity& e)> func)
+    {
+        return [=] (SceneNode* node, const sf::Time& )
+        {
+            assert(dynamic_cast<TargetType*>(node));
+
+            func(static_cast<TargetType&>(*node));
+        };
+    }
+}
 
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , world_(window_, textureHolder_)
     , commandQueue_(world_.getCommandQueue())
 {
+    playerMoveFunc_ = [=] (Entity& e, sf::Vector2f vel)
+    {
+        e.accelerate(vel);
+    };
+
+    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Left].category_ = Category::PlayerEntity;
+
     initFPSDisplay();
 }
 
@@ -76,8 +99,8 @@ void Game::handleInputEvents(sf::Keyboard::Key key, bool isPressed)
 {
     if (key == sf::Keyboard::W)
         movingUp_ = isPressed;
-    if (key == sf::Keyboard::A)
-        movingLeft_ = isPressed;
+    if (key == sf::Keyboard::A && isPressed == true)
+        commandQueue_.push(&commandBinding_[sf::Keyboard::Left]);
     if (key == sf::Keyboard::S)
         movingDown_ = isPressed;
     if (key == sf::Keyboard::D)

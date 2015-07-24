@@ -1,8 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "World.hpp"
 #include "Aircraft.hpp"
+#include "Command.hpp"
+#include "World.hpp"
+
+#include <unordered_map>
 
 
 class CommandQueue;
@@ -32,13 +35,16 @@ private:
     sf::Text            fps_;
     sf::Font            font_;
 
-    bool movingUp_ = false;
-    bool movingDown_ = false;
-    bool movingLeft_ = false;
+    bool movingUp_ =    false;
+    bool movingDown_ =  false;
+    bool movingLeft_ =  false;
     bool movingRight_ = false;
 
-    float elapsedTime_ = 0.f;
-    const float playerSpeed_ = 200.f;
+    float elapsedTime_ =        0.f;
+    const float playerSpeed_ =  10000.f;
+
+    std::function<void(Entity& e, sf::Vector2f vel)>    playerMoveFunc_;
+    std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;
 };
 
 #endif

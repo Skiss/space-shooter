@@ -3,6 +3,8 @@
 #include "Aircraft.hpp"
 #include "SpriteNode.hpp"
 
+#include <iostream>
+
 
 World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
     : textureHolder_(textureHolder)
@@ -25,8 +27,12 @@ void World::update(const sf::Time& dt)
 {
     view_.move(0.f, scrollSpeed_ * dt.asSeconds());
 
+    player_->setVelocity(sf::Vector2f(0.f, 0.f));
+
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(*commandQueue_.pop(), dt);
+
+    player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));
 
     sceneGraph_->update(dt);
 }
