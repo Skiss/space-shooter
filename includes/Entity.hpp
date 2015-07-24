@@ -12,7 +12,9 @@ public:
 
     sf::Vector2f getVelocity() const { return velocity_; }
 
-private:
+    void accelerate(const sf::Vector2f& vel);
+
+protected:
     void updateCurrent(const sf::Time& dt) override;
 
     sf::Vector2f velocity_;
