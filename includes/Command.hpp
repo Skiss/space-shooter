@@ -17,6 +17,10 @@ namespace sf
 struct Command
 {
     Command() = default;
+    Command(std::function<void(SceneNode*, const sf::Time& dt)> action, Category::Type category)
+        : action_(action)
+        , category_(category)
+    {}
     ~Command() = default;
 
     Command(const Command&) = delete;
