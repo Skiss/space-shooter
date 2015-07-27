@@ -29,8 +29,14 @@ Game::Game()
         e.accelerate(vel);
     };
 
-    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Right].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Right].category_ = Category::PlayerEntity;
+    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(-playerSpeed_, 0.f)));
     commandBinding_[sf::Keyboard::Left].category_ = Category::PlayerEntity;
+    commandBinding_[sf::Keyboard::Up].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, -playerSpeed_)));
+    commandBinding_[sf::Keyboard::Up].category_ = Category::PlayerEntity;
+    commandBinding_[sf::Keyboard::Down].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, playerSpeed_)));
+    commandBinding_[sf::Keyboard::Down].category_ = Category::PlayerEntity;
 
     initFPSDisplay();
 }
@@ -53,6 +59,7 @@ void Game::run()
 void Game::processEvents()
 {
     sf::Event event;
+
     while (window_.pollEvent(event))
     {
         switch (event.type)
@@ -60,13 +67,16 @@ void Game::processEvents()
         case sf::Event::Closed:
             window_.close();
             break;
-        case sf::Event::KeyPressed:
-            handleInputEvents(event.key.code, true);
-            break;
-        case sf::Event::KeyReleased:
-            handleInputEvents(event.key.code, false);
-            break;
         }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        window_.close();
+
+    for (auto& pair : commandBinding_)
+    {
+        if (sf::Keyboard::isKeyPressed(pair.first))
+            commandQueue_.push(&pair.second);
     }
 }
 
@@ -93,24 +103,6 @@ void Game::render()
     window_.setView(window_.getDefaultView());
     window_.draw(fps_);
     window_.display();
-}
-
-void Game::handleInputEvents(sf::Keyboard::Key key, bool isPressed)
-{
-    if (key == sf::Keyboard::W)
-        movingUp_ = isPressed;
-    if (key == sf::Keyboard::A && isPressed == true)
-        commandQueue_.push(&commandBinding_[sf::Keyboard::Left]);
-    if (key == sf::Keyboard::S)
-        movingDown_ = isPressed;
-    if (key == sf::Keyboard::D)
-        movingRight_ = isPressed;
-
-    if (!isPressed)
-    {
-        if (key == sf::Keyboard::Escape)
-            window_.close();
-    }
 }
 
 void Game::initFPSDisplay()

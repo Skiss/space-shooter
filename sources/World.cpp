@@ -3,8 +3,6 @@
 #include "Aircraft.hpp"
 #include "SpriteNode.hpp"
 
-#include <iostream>
-
 
 World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
     : textureHolder_(textureHolder)

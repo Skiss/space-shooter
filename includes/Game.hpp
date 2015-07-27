@@ -41,7 +41,7 @@ private:
     bool movingRight_ = false;
 
     float elapsedTime_ =        0.f;
-    const float playerSpeed_ =  10000.f;
+    const float playerSpeed_ =  100.f;
 
     std::function<void(Entity& e, sf::Vector2f vel)>    playerMoveFunc_;
     std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;
