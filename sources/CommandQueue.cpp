@@ -10,7 +10,7 @@ void CommandQueue::push(Command* c)
 
 Command* CommandQueue::pop()
 {
-    Command* c = commandQueue_.back();
+    Command* c = commandQueue_.front();
     commandQueue_.pop();
 
     return c;
