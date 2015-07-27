@@ -33,12 +33,12 @@ void World::update(const sf::Time& dt)
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(*commandQueue_.pop(), dt);
 
-    // Matching at least the scroll speed
-    player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));
-
     // Correcting the diagonal velocity, if any
     if (player_->getVelocity().x != 0.f && player_->getVelocity().y != 0.f)
         player_->setVelocity(player_->getVelocity() / sqrtTwo);
+
+    // Matching at least the scroll speed
+    player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));
 
     sceneGraph_->update(dt);
 }
