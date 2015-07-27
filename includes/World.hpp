@@ -44,6 +44,7 @@ private:
 
     void loadTextures();
     void buildScene();
+    void correctingVelocity() const;
 
 
     TextureHolder&                              textureHolder_;

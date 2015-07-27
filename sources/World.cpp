@@ -33,12 +33,7 @@ void World::update(const sf::Time& dt)
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(*commandQueue_.pop(), dt);
 
-    // Correcting the diagonal velocity, if any
-    if (player_->getVelocity().x != 0.f && player_->getVelocity().y != 0.f)
-        player_->setVelocity(player_->getVelocity() / sqrtTwo);
-
-    // Matching at least the scroll speed
-    player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));
+    correctingVelocity();
 
     sceneGraph_->update(dt);
 }
@@ -91,4 +86,14 @@ void World::buildScene()
     auto bg = std::make_unique<SpriteNode>(textureHolder_.get(TextureID::Background), textureRect);
     bg->setPosition(worldBounds_.left, worldBounds_.top);
     layers_[Layer::BACKGROUND]->addChild(std::move(bg));
+}
+
+void World::correctingVelocity() const
+{
+    // Correcting the diagonal velocity, if any
+    if (player_->getVelocity().x != 0.f && player_->getVelocity().y != 0.f)
+        player_->setVelocity(player_->getVelocity() / sqrtTwo);
+
+    // Matching at least the scroll speed
+    player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));
 }
