@@ -23,21 +23,9 @@ Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , world_(window_, textureHolder_)
     , commandQueue_(world_.getCommandQueue())
+    , playerMoveFunc_([] (Entity& e, sf::Vector2f vel) { e.accelerate(vel); })
 {
-    playerMoveFunc_ = [=] (Entity& e, sf::Vector2f vel)
-    {
-        e.accelerate(vel);
-    };
-
-    commandBinding_[sf::Keyboard::Right].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
-    commandBinding_[sf::Keyboard::Right].category_ = Category::PlayerEntity;
-    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(-playerSpeed_, 0.f)));
-    commandBinding_[sf::Keyboard::Left].category_ = Category::PlayerEntity;
-    commandBinding_[sf::Keyboard::Up].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, -playerSpeed_)));
-    commandBinding_[sf::Keyboard::Up].category_ = Category::PlayerEntity;
-    commandBinding_[sf::Keyboard::Down].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, playerSpeed_)));
-    commandBinding_[sf::Keyboard::Down].category_ = Category::PlayerEntity;
-
+    createActions();
     initFPSDisplay();
 }
 
@@ -80,18 +68,11 @@ void Game::processEvents()
     }
 }
 
-void Game::update(const sf::Time& deltaTime)
+void Game::update(const sf::Time& dt)
 {
-    world_.update(deltaTime);
+    world_.update(dt);
 
-    if (elapsedTime_ > 1.f)
-    {
-        std::stringstream ss;
-        ss << static_cast<int>(1.f / deltaTime.asSeconds());
-        fps_.setString("FPS: " + ss.str());
-
-        elapsedTime_ = 0.f;
-    }
+    updateFPS(dt);
 }
 
 void Game::render()
@@ -103,6 +84,33 @@ void Game::render()
     window_.setView(window_.getDefaultView());
     window_.draw(fps_);
     window_.display();
+}
+
+void Game::updateFPS(const sf::Time& dt)
+{
+    if (elapsedTime_ > 1.f)
+    {
+        std::stringstream ss;
+        ss << static_cast<int>(1.f / dt.asSeconds());
+        fps_.setString("FPS: " + ss.str());
+
+        elapsedTime_ = 0.f;
+    }
+}
+
+void Game::createActions()
+{
+    commandBinding_[sf::Keyboard::Right].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Right].category_ = Category::PlayerEntity;
+
+    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(-playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Left].category_ = Category::PlayerEntity;
+
+    commandBinding_[sf::Keyboard::Up].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, -playerSpeed_)));
+    commandBinding_[sf::Keyboard::Up].category_ = Category::PlayerEntity;
+
+    commandBinding_[sf::Keyboard::Down].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, playerSpeed_)));
+    commandBinding_[sf::Keyboard::Down].category_ = Category::PlayerEntity;
 }
 
 void Game::initFPSDisplay()

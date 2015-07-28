@@ -20,11 +20,14 @@ public:
 
 private:
     void processEvents();
-    void update(const sf::Time& deltaTime);
+    void update(const sf::Time& dt);
     void render();
 
     void handleInputEvents(sf::Keyboard::Key key, bool isPressed);
 
+    void updateFPS(const sf::Time& dt);
+
+    void createActions();
     void initFPSDisplay();
 
     TextureHolder       textureHolder_;
