@@ -11,6 +11,8 @@ SET(SRC
 	sources/World.cpp
 	sources/SpriteNode.cpp
 	sources/CommandQueue.cpp
+	sources/StateStack.cpp
+	sources/State.cpp
 	)
 
 SET(HDRS
@@ -25,6 +27,8 @@ SET(HDRS
 	includes/Command.hpp
 	includes/CommandQueue.hpp
 	includes/Category.hpp
+	includes/StateStack.hpp
+	includes/State.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
