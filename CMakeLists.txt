@@ -13,6 +13,10 @@ SET(SRC
 	sources/CommandQueue.cpp
 	sources/StateStack.cpp
 	sources/State.cpp
+	sources/GameState.cpp
+	sources/MenuState.cpp
+	sources/PauseState.cpp
+	sources/TitleState.cpp
 	)
 
 SET(HDRS
@@ -29,6 +33,10 @@ SET(HDRS
 	includes/Category.hpp
 	includes/StateStack.hpp
 	includes/State.hpp
+	includes/GameState.hpp
+	includes/MenuState.hpp
+	includes/PauseState.hpp
+	includes/TitleState.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
