@@ -7,6 +7,8 @@ namespace sf
     class RenderWindow;
 }
 
+class StateStack;
+
 class State
 {
 public:
@@ -24,15 +26,16 @@ public:
         sf::RenderWindow& window;
     };
 
-    State(Context context);
+    State(StateStack& stateStack, Context context);
     virtual ~State() = default;
 
-    virtual void draw() = 0;
+    virtual void render() = 0;
     virtual bool update() = 0;
     virtual bool handleEvent() = 0;
 
 private:
-    Context context_;
+    Context     context_;
+    StateStack& stack_;
 };
 
 #endif

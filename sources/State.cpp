@@ -1,8 +1,11 @@
 #include "State.hpp"
 
+#include "StateStack.hpp"
 
-State::State(Context context)
+
+State::State(StateStack& stateStack, Context context)
     : context_(context)
+    , stack_(stateStack)
 {
 
 }
