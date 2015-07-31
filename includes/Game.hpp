@@ -3,6 +3,7 @@
 
 #include "Aircraft.hpp"
 #include "Command.hpp"
+#include "StateStack.hpp"
 #include "World.hpp"
 
 #include <unordered_map>
@@ -28,6 +29,7 @@ private:
     void updateFPS(const sf::Time& dt);
 
     void createActions();
+    void registerStates();
     void initFPSDisplay();
 
     TextureHolder       textureHolder_;
@@ -45,6 +47,8 @@ private:
 
     float elapsedTime_ =        0.f;
     const float playerSpeed_ =  100.f;
+
+    StateStack stateStack_;
 
     std::function<void(Entity& e, sf::Vector2f vel)>    playerMoveFunc_;
     std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;

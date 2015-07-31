@@ -1,6 +1,10 @@
 #include "Game.hpp"
 
 #include "Command.hpp"
+#include "GameState.hpp"
+#include "MenuState.hpp"
+#include "PauseState.hpp"
+#include "TitleState.hpp"
 
 #include <sstream>
 
@@ -23,10 +27,14 @@ Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , world_(window_, textureHolder_)
     , commandQueue_(world_.getCommandQueue())
+    , stateStack_({window_})
     , playerMoveFunc_([] (Entity& e, sf::Vector2f vel) { e.accelerate(vel); })
 {
     createActions();
+    registerStates();
     initFPSDisplay();
+
+    stateStack_.pushState(State::ID::Game);
 }
 
 void Game::run()
@@ -111,6 +119,14 @@ void Game::createActions()
 
     commandBinding_[sf::Keyboard::Down].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, playerSpeed_)));
     commandBinding_[sf::Keyboard::Down].category_ = Category::PlayerEntity;
+}
+
+void Game::registerStates()
+{
+    stateStack_.registerState<TitleState>(State::ID::Title);
+    stateStack_.registerState<GameState>(State::ID::Game);
+    stateStack_.registerState<MenuState>(State::ID::Menu);
+    stateStack_.registerState<PauseState>(State::ID::Pause);
 }
 
 void Game::initFPSDisplay()
