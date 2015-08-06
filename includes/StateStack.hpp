@@ -38,6 +38,8 @@ public:
     void update(const sf::Time& dt);
     void render();
 
+    bool isEmpty() const;
+
 private:
     State::Context context_;
 
