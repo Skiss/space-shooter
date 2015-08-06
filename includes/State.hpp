@@ -1,6 +1,9 @@
 #ifndef STATE_H
 #define STATE_H
 
+#include "ResourceHolder.hpp"
+#include "ResourceIDs.hpp"
+
 
 namespace sf
 {
@@ -25,7 +28,8 @@ public:
 
     struct Context
     {
-        sf::RenderWindow& window;
+        sf::RenderWindow&   window;
+        TextureHolder&      textureHolder_;
     };
 
     State(StateStack& stateStack, Context context);
