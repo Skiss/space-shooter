@@ -14,12 +14,12 @@ void PauseState::render()
 
 }
 
-bool PauseState::update()
+bool PauseState::update(const sf::Time& dt)
 {
     return true;
 }
 
-bool PauseState::handleEvent()
+bool PauseState::handleEvent(const sf::Event& event)
 {
     return true;
 }

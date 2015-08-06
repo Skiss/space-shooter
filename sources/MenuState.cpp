@@ -14,12 +14,12 @@ void MenuState::render()
 
 }
 
-bool MenuState::update()
+bool MenuState::update(const sf::Time& dt)
 {
     return true;
 }
 
-bool MenuState::handleEvent()
+bool MenuState::handleEvent(const sf::Event& event)
 {
     return true;
 }

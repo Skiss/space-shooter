@@ -4,7 +4,9 @@
 
 namespace sf
 {
+    class Event;
     class RenderWindow;
+    class Time;
 }
 
 class StateStack;
@@ -30,8 +32,8 @@ public:
     virtual ~State() = default;
 
     virtual void render() = 0;
-    virtual bool update() = 0;
-    virtual bool handleEvent() = 0;
+    virtual bool update(const sf::Time& dt) = 0;
+    virtual bool handleEvent(const sf::Event& event) = 0;
 
 private:
     Context     context_;

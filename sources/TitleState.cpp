@@ -14,12 +14,12 @@ void TitleState::render()
 
 }
 
-bool TitleState::update()
+bool TitleState::update(const sf::Time& dt)
 {
     return true;
 }
 
-bool TitleState::handleEvent()
+bool TitleState::handleEvent(const sf::Event& event)
 {
     return true;
 }
