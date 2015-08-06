@@ -1,15 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Aircraft.hpp"
-#include "Command.hpp"
+#include "ResourceHolder.hpp"
 #include "StateStack.hpp"
-#include "World.hpp"
 
-#include <unordered_map>
+#include <SFML/Graphics.hpp>
 
-
-class CommandQueue;
 
 class Game
 {
@@ -24,34 +20,21 @@ private:
     void update(const sf::Time& dt);
     void render();
 
-    void handleInputEvents(sf::Keyboard::Key key, bool isPressed);
-
     void updateFPS(const sf::Time& dt);
 
-    void createActions();
     void registerStates();
     void initFPSDisplay();
 
     TextureHolder       textureHolder_;
     sf::RenderWindow    window_;
-    World               world_;
-    CommandQueue&       commandQueue_;
 
-    sf::Text            fps_;
-    sf::Font            font_;
-
-    bool movingUp_ =    false;
-    bool movingDown_ =  false;
-    bool movingLeft_ =  false;
-    bool movingRight_ = false;
+    sf::Text    fps_;
+    sf::Font    font_;
 
     float elapsedTime_ =        0.f;
     const float playerSpeed_ =  100.f;
 
     StateStack stateStack_;
-
-    std::function<void(Entity& e, sf::Vector2f vel)>    playerMoveFunc_;
-    std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;
 };
 
 #endif

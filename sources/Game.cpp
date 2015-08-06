@@ -1,6 +1,5 @@
 #include "Game.hpp"
 
-#include "Command.hpp"
 #include "GameState.hpp"
 #include "MenuState.hpp"
 #include "PauseState.hpp"
@@ -9,28 +8,10 @@
 #include <sstream>
 
 
-namespace
-{
-    template <typename TargetType>
-    std::function<void(SceneNode*, const sf::Time& dt)> createAction(std::function<void(Entity& e)> func)
-    {
-        return [=] (SceneNode* node, const sf::Time& )
-        {
-            assert(dynamic_cast<TargetType*>(node));
-
-            func(static_cast<TargetType&>(*node));
-        };
-    }
-}
-
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
-    , world_(window_, textureHolder_)
-    , commandQueue_(world_.getCommandQueue())
-    , stateStack_({window_})
-    , playerMoveFunc_([] (Entity& e, sf::Vector2f vel) { e.accelerate(vel); })
+    , stateStack_({window_, textureHolder_})
 {
-    createActions();
     registerStates();
     initFPSDisplay();
 
@@ -41,7 +22,7 @@ void Game::run()
 {
     sf::Clock clock;
 
-    while (window_.isOpen())
+    while (window_.isOpen() && !stateStack_.isEmpty())
     {
         sf::Time deltaTime = clock.restart();
         elapsedTime_ += deltaTime.asSeconds();
@@ -65,20 +46,13 @@ void Game::processEvents()
             break;
         }
     }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        window_.close();
-
-    for (auto& pair : commandBinding_)
-    {
-        if (sf::Keyboard::isKeyPressed(pair.first))
-            commandQueue_.push(&pair.second);
-    }
+ 
+    stateStack_.handleEvent(event);
 }
 
 void Game::update(const sf::Time& dt)
 {
-    world_.update(dt);
+    stateStack_.update(dt);
 
     updateFPS(dt);
 }
@@ -87,7 +61,7 @@ void Game::render()
 {
     window_.clear();
 
-    world_.render();
+    stateStack_.render();
 
     window_.setView(window_.getDefaultView());
     window_.draw(fps_);
@@ -104,21 +78,6 @@ void Game::updateFPS(const sf::Time& dt)
 
         elapsedTime_ = 0.f;
     }
-}
-
-void Game::createActions()
-{
-    commandBinding_[sf::Keyboard::Right].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
-    commandBinding_[sf::Keyboard::Right].category_ = Category::PlayerEntity;
-
-    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(-playerSpeed_, 0.f)));
-    commandBinding_[sf::Keyboard::Left].category_ = Category::PlayerEntity;
-
-    commandBinding_[sf::Keyboard::Up].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, -playerSpeed_)));
-    commandBinding_[sf::Keyboard::Up].category_ = Category::PlayerEntity;
-
-    commandBinding_[sf::Keyboard::Down].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, playerSpeed_)));
-    commandBinding_[sf::Keyboard::Down].category_ = Category::PlayerEntity;
 }
 
 void Game::registerStates()
