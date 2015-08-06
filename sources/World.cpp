@@ -54,6 +54,7 @@ void World::loadTextures()
 {
     textureHolder_.load(TextureID::Background, "../Media/Textures/Desert.png");
     textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
+    textureHolder_.load(TextureID::Raptor, "../Media/Textures/Raptor.png");
 }
 
 void World::buildScene()

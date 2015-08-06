@@ -10,7 +10,8 @@ namespace sf
 enum class TextureID
 {
     Background,
-    Eagle
+    Eagle,
+    Raptor
 };
 
 template <typename ResourceType, typename Id>
