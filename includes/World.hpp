@@ -2,20 +2,13 @@
 #define WORLD_H
 
 #include "CommandQueue.hpp"
-#include "ResourceHolder.hpp"
+#include "ResourceIDs.hpp"
 
 #include <SFML/Graphics.hpp>
 
 #include <array>
+#include <memory>
 
-
-enum class TextureID
-{
-    Background,
-    Eagle
-};
-
-typedef ResourceHolder<sf::Texture, TextureID> TextureHolder;
 
 class SceneNode;
 class Aircraft;

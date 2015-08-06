@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 #include "Aircraft.hpp"
+#include "ResourceHolder.hpp"
 #include "SpriteNode.hpp"
 
 
