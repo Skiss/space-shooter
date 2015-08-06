@@ -9,3 +9,18 @@ State::State(StateStack& stateStack, Context context)
 {
 
 }
+
+void State::pushOnStack(State::ID id)
+{
+    stack_.pushState(id);
+}
+
+void State::popStack()
+{
+    stack_.popState();
+}
+
+void State::clearStack()
+{
+    stack_.clearStates();
+}

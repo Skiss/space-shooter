@@ -39,6 +39,11 @@ public:
     virtual bool update(const sf::Time& dt) = 0;
     virtual bool handleEvent(const sf::Event& event) = 0;
 
+protected:
+    void pushOnStack(State::ID id);
+    void popStack();
+    void clearStack();
+
 private:
     Context     context_;
     StateStack& stack_;
