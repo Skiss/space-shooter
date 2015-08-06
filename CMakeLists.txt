@@ -37,6 +37,7 @@ SET(HDRS
 	includes/MenuState.hpp
 	includes/PauseState.hpp
 	includes/TitleState.hpp
+	includes/ResourceIDs.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
