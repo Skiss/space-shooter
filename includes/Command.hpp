@@ -3,11 +3,10 @@
 
 
 #include "Category.hpp"
+#include "SceneNode.hpp"
 
 #include <functional>
 
-
-class SceneNode;
 
 namespace sf
 {
