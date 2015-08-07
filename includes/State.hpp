@@ -44,8 +44,9 @@ protected:
     void popStack();
     void clearStack();
 
+    Context context_;
+
 private:
-    Context     context_;
     StateStack& stack_;
 };
 
