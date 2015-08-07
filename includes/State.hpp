@@ -30,6 +30,7 @@ public:
     {
         sf::RenderWindow&   window;
         TextureHolder&      textureHolder_;
+        FontHolder&         fontHolder_;
     };
 
     State(StateStack& stateStack, Context context);

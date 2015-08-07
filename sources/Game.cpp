@@ -10,8 +10,10 @@
 
 Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
-    , stateStack_({window_, textureHolder_})
+    , stateStack_({window_, textureHolder_, fontHolder_})
 {
+    fontHolder_.load(FontID::Sensation, "../Media/Sansation.ttf");
+
     registerStates();
     initFPSDisplay();
 
@@ -90,9 +92,7 @@ void Game::registerStates()
 
 void Game::initFPSDisplay()
 {
-    font_.loadFromFile("../Media/Sansation.ttf");
-
-    fps_.setFont(font_);
+    fps_.setFont(fontHolder_.get(FontID::Sensation));
     fps_.setStyle(sf::Text::Bold);
     fps_.setColor(sf::Color::Red);
     fps_.setCharacterSize(16);

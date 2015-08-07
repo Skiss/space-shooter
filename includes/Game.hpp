@@ -25,11 +25,11 @@ private:
     void registerStates();
     void initFPSDisplay();
 
+    FontHolder          fontHolder_;
     TextureHolder       textureHolder_;
     sf::RenderWindow    window_;
 
-    sf::Text    fps_;
-    sf::Font    font_;
+    sf::Text fps_;
 
     float elapsedTime_ =        0.f;
     const float playerSpeed_ =  100.f;
