@@ -11,7 +11,8 @@ enum class TextureID
 {
     Background,
     Eagle,
-    Raptor
+    Raptor,
+    TitleScreen
 };
 
 template <typename ResourceType, typename Id>

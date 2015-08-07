@@ -3,6 +3,8 @@
 
 #include "State.hpp"
 
+#include <SFML/Graphics.hpp>
+
 
 class TitleState : public State
 {
@@ -12,6 +14,9 @@ public:
     void render() override;
     bool update(const sf::Time& dt) override;
     bool handleEvent(const sf::Event& event) override;
+
+private:
+    sf::Sprite background_;
 };
 
 #endif

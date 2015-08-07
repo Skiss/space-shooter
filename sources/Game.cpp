@@ -15,7 +15,7 @@ Game::Game()
     registerStates();
     initFPSDisplay();
 
-    stateStack_.pushState(State::ID::Game);
+    stateStack_.pushState(State::ID::Title);
 }
 
 void Game::run()
