@@ -16,7 +16,9 @@ public:
     bool handleEvent(const sf::Event& event) override;
 
 private:
-    sf::Sprite background_;
+    sf::Sprite      background_;
+    sf::Text        text_;
+    sf::Vector2f    textPos_;
 };
 
 #endif
