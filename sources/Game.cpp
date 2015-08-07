@@ -12,7 +12,7 @@ Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , stateStack_({window_, textureHolder_, fontHolder_})
 {
-    fontHolder_.load(FontID::Sensation, "../Media/Sansation.ttf");
+    fontHolder_.load(FontID::Sensation, "../Media/Fonts/Sansation.ttf");
 
     registerStates();
     initFPSDisplay();
