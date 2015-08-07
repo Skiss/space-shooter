@@ -95,6 +95,6 @@ void Game::initFPSDisplay()
     fps_.setFont(fontHolder_.get(FontID::Sensation));
     fps_.setStyle(sf::Text::Bold);
     fps_.setColor(sf::Color::Red);
-    fps_.setCharacterSize(16);
-    fps_.setPosition(10.f, 10.f);
+    fps_.setCharacterSize(fpsSize_);
+    fps_.setPosition(fpsPos_);
 }

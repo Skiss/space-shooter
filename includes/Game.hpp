@@ -29,7 +29,9 @@ private:
     TextureHolder       textureHolder_;
     sf::RenderWindow    window_;
 
-    sf::Text fps_;
+    sf::Text            fps_;
+    const unsigned      fpsSize_ = 16;
+    const sf::Vector2f  fpsPos_ = { 10.f, 10.f };
 
     float elapsedTime_ =        0.f;
     const float playerSpeed_ =  100.f;
