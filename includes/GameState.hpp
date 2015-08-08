@@ -26,7 +26,7 @@ private:
     World           world_;
     CommandQueue&   commandQueue_;
 
-    const float playerSpeed_ = 100.f;
+    const float playerSpeed_ = 200.f;
 
     std::function<void(Entity& e, sf::Vector2f vel)>    playerMoveFunc_;
     std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;
