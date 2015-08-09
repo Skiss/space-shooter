@@ -33,10 +33,11 @@ bool TitleState::handleEvent(const sf::Event& event)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         popStack();
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
     {
         popStack();
-        pushOnStack(State::ID::Game);
+        pushOnStack(State::ID::Menu);
     }
 
     return true;
