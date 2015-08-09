@@ -41,6 +41,8 @@ void Game::processEvents()
 
     while (window_.pollEvent(event))
     {
+        stateStack_.handleEvent(event);
+
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -48,8 +50,6 @@ void Game::processEvents()
             break;
         }
     }
- 
-    stateStack_.handleEvent(event);
 }
 
 void Game::update(const sf::Time& dt)
