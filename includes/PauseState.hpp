@@ -16,7 +16,9 @@ public:
     bool handleEvent(const sf::Event& event) override;
 
 private:
-    sf::RectangleShape background_;
+    sf::RectangleShape  background_;
+    sf::Text            pausedText_;
+    sf::Text            instructionsText_;
 };
 
 #endif
