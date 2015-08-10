@@ -24,8 +24,9 @@ void StateStack::clearStates()
 
 void StateStack::handleEvent(const sf::Event& event)
 {
-    for (auto& state : statesStack_)
-        state->handleEvent(event);
+    for (auto it = statesStack_.rbegin(); it != statesStack_.rend(); ++it)
+        if (!(*it)->handleEvent(event))
+            break;
 
     for (const auto& pair : pendingActions_)
     {
@@ -50,8 +51,9 @@ void StateStack::handleEvent(const sf::Event& event)
 
 void StateStack::update(const sf::Time& dt)
 {
-    for (auto& state : statesStack_)
-        state->update(dt);
+    for (auto it = statesStack_.rbegin(); it != statesStack_.rend(); ++it)
+        if (!(*it)->update(dt))
+            break;
 }
 
 void StateStack::render()
