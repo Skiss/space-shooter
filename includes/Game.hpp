@@ -24,6 +24,7 @@ private:
 
     void registerStates();
     void initFPSDisplay();
+    void loadTextures();
 
     FontHolder          fontHolder_;
     TextureHolder       textureHolder_;

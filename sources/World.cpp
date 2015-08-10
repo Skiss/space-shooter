@@ -18,7 +18,6 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
     , playerSpawnPos_(view_.getSize().x / 2.f, worldBounds_.height - view_.getSize().y / 2.f)
     , scrollSpeed_(-50.f)
 {
-    loadTextures();
     buildScene();
 
     view_.setCenter(playerSpawnPos_);
@@ -48,13 +47,6 @@ void World::render()
 CommandQueue& World::getCommandQueue()
 {
     return commandQueue_;
-}
-
-void World::loadTextures()
-{
-    textureHolder_.load(TextureID::Background, "../Media/Textures/Desert.png");
-    textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
-    textureHolder_.load(TextureID::Raptor, "../Media/Textures/Raptor.png");
 }
 
 void World::buildScene()

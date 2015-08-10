@@ -35,7 +35,6 @@ private:
         LAYER_COUNT
     };
 
-    void loadTextures();
     void buildScene();
     void correctingVelocity() const;
 

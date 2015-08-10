@@ -16,6 +16,7 @@ Game::Game()
 
     registerStates();
     initFPSDisplay();
+    loadTextures();
 
     stateStack_.pushState(State::ID::Title);
 }
@@ -97,4 +98,11 @@ void Game::initFPSDisplay()
     fps_.setColor(sf::Color::Red);
     fps_.setCharacterSize(fpsSize_);
     fps_.setPosition(fpsPos_);
+}
+
+void Game::loadTextures()
+{
+    textureHolder_.load(TextureID::Background, "../Media/Textures/Desert.png");
+    textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
+    textureHolder_.load(TextureID::Raptor, "../Media/Textures/Raptor.png");
 }
