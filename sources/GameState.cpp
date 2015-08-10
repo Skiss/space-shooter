@@ -37,21 +37,26 @@ bool GameState::update(const sf::Time& dt)
 {
     world_.update(dt);
 
+    handleRealTimeInput();
+
     return true;
 }
 
 bool GameState::handleEvent(const sf::Event& event)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        popStack();
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+        pushOnStack(State::ID::Pause);
 
+    return true;
+}
+
+void GameState::handleRealTimeInput()
+{
     for (auto& pair : commandBinding_)
     {
         if (sf::Keyboard::isKeyPressed(pair.first))
             commandQueue_.push(&pair.second);
     }
-
-    return true;
 }
 
 void GameState::createActions()

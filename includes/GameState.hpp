@@ -21,6 +21,7 @@ public:
     bool handleEvent(const sf::Event& event) override;
 
 private:
+    void handleRealTimeInput();
     void createActions();
 
     World           world_;
