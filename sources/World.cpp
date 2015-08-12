@@ -65,7 +65,7 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(airLayer));
 
     // Player node
-    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_.get(TextureID::Eagle));
+    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
     player_ = player.get();
