@@ -8,8 +8,9 @@
 static const float sqrtTwo = std::sqrt(2.f);
 
 
-World::World(sf::RenderWindow& window, TextureHolder& textureHolder)
+World::World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontHolder& fontHolder)
     : textureHolder_(textureHolder)
+    , fontHolder_(fontHolder)
     , window_(window)
     , sceneGraph_(nullptr)
     , player_(nullptr)
@@ -65,7 +66,7 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(airLayer));
 
     // Player node
-    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_);
+    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_, fontHolder_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
     player_ = player.get();

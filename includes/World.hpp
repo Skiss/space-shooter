@@ -16,7 +16,7 @@ class Aircraft;
 class World
 {
 public:
-    World(sf::RenderWindow& window, TextureHolder& textureHolder);
+    World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontHolder& fontHolder);
     ~World() = default;
 
     World(const World&) = delete;
@@ -40,6 +40,7 @@ private:
 
 
     TextureHolder&                              textureHolder_;
+    const FontHolder&                           fontHolder_;
     sf::RenderWindow&                           window_;
     CommandQueue                                commandQueue_;
     std::unique_ptr<SceneNode>                  sceneGraph_;

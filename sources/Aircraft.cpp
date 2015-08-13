@@ -2,6 +2,7 @@
 
 #include "Category.hpp"
 #include "ResourceHolder.hpp"
+#include "TextNode.hpp"
 
 
 namespace
@@ -24,7 +25,7 @@ namespace
     std::vector<Aircraft::Data> data = initAircraftData();
 }
 
-Aircraft::Aircraft(Type type, const TextureHolder& textureHolder)
+Aircraft::Aircraft(Type type, const TextureHolder& textureHolder, const FontHolder& fontHolder)
     : Entity()
     , type_(type)
     , data_(data[type_])
@@ -32,6 +33,12 @@ Aircraft::Aircraft(Type type, const TextureHolder& textureHolder)
 {
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+    auto textNode = std::make_unique<TextNode>("", fontHolder);
+    healthText_ = textNode.get();
+    healthText_->setPosition(0, -50.f);
+
+    addChild(std::move(textNode));
 }
 
 void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -42,4 +49,11 @@ void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 unsigned Aircraft::getCategory() const
 {
     return (type_ == Type::Eagle) ? Category::PlayerEntity : Category::EnemyEntity;
+}
+
+void Aircraft::updateCurrent(const sf::Time& dt)
+{
+    Entity::updateCurrent(dt);
+    healthText_->setText(std::to_string(data_.hp) + " HP");
+    healthText_->setRotation(-getRotation());
 }

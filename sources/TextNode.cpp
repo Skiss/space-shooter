@@ -4,12 +4,18 @@
 
 
 TextNode::TextNode(const std::string& text, const FontHolder& fontHolder)
-    : text_(text, fontHolder.get(FontID::Sensation))
+    : text_(text, fontHolder.get(FontID::Sensation), 18)
 {
     centerOrigin();
 }
 
-void TextNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states)
+void TextNode::setText(const std::string& text)
+{
+    text_.setString(text);
+    centerOrigin();
+}
+
+void TextNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(text_, states);
 }

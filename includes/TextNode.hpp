@@ -12,10 +12,10 @@ class TextNode : public SceneNode
 public:
     TextNode(const std::string& text, const FontHolder& fontHolder);
 
-    void setText(const std::string& text) { text_.setString(text); }
+    void setText(const std::string& text);
 
 private:
-    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states);
+    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
     void centerOrigin();
 
     sf::Text text_;
