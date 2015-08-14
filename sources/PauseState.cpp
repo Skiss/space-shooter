@@ -10,13 +10,13 @@ PauseState::PauseState(StateStack& stateStack, State::Context context)
     background_.setSize(sf::Vector2f(context.window.getSize()));
     background_.setFillColor(sf::Color(0, 0, 0, 127));
 
-    pausedText_.setFont(context_.fontHolder_.get(FontID::Sensation));
+    pausedText_.setFont(context_.fontHolder.get(FontID::Sensation));
     pausedText_.setString("Game Paused");
     pausedText_.setCharacterSize(70);
     pausedText_.setOrigin(pausedText_.getLocalBounds().width / 2.f, pausedText_.getLocalBounds().height / 2.f);
     pausedText_.setPosition(context_.window.getView().getSize().x / 2.f, pausedText_.getLocalBounds().height);
 
-    instructionsText_.setFont(context_.fontHolder_.get(FontID::Sensation));
+    instructionsText_.setFont(context_.fontHolder.get(FontID::Sensation));
     instructionsText_.setString("Press Backspace to return to the menu");
     instructionsText_.setCharacterSize(32);
     instructionsText_.setOrigin(instructionsText_.getLocalBounds().width / 2.f, instructionsText_.getLocalBounds().height / 2.f);

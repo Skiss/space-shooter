@@ -21,7 +21,7 @@ namespace
 
 GameState::GameState(StateStack& stateStack, State::Context context)
     : State(stateStack, context)
-    , world_(context.window, context.textureHolder_, context.fontHolder_)
+    , world_(context.window, context.textureHolder, context.fontHolder)
     , playerMoveFunc_([] (Entity& e, sf::Vector2f vel) { e.accelerate(vel); })
     , commandQueue_(world_.getCommandQueue())
 {

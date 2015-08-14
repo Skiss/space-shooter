@@ -6,11 +6,11 @@
 
 TitleState::TitleState(StateStack& stateStack, State::Context context)
     : State(stateStack, context)
-    , text_("Press Enter to continue or Escape to exit", context_.fontHolder_.get(FontID::Sensation))
+    , text_("Press Enter to continue or Escape to exit", context_.fontHolder.get(FontID::Sensation))
 {
-    context.textureHolder_.load(TextureID::TitleScreen, "../Media/Textures/TitleScreen.png");
+    context.textureHolder.load(TextureID::TitleScreen, "../Media/Textures/TitleScreen.png");
 
-    background_.setTexture(context.textureHolder_.get(TextureID::TitleScreen));
+    background_.setTexture(context.textureHolder.get(TextureID::TitleScreen));
 
     textPos_.y = (context_.window.getSize().y / 2.f) - (text_.getLocalBounds().height / 2.f);
     textPos_.x = (context_.window.getSize().x / 2.f) - (text_.getLocalBounds().width / 2.f);

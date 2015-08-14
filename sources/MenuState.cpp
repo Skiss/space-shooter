@@ -5,7 +5,7 @@
 
 MenuState::MenuState(StateStack& stateStack, State::Context context)
     : State(stateStack, context)
-    , background_(context.textureHolder_.get(TextureID::TitleScreen))
+    , background_(context.textureHolder.get(TextureID::TitleScreen))
 {
     initOptionsText();
 }
@@ -59,7 +59,7 @@ void MenuState::initOptionsText()
 {
     sf::Text option;
 
-    option.setFont(context_.fontHolder_.get(FontID::Sensation));
+    option.setFont(context_.fontHolder.get(FontID::Sensation));
     option.setString("Play");
     option.setOrigin(option.getLocalBounds().width / 2.f, option.getLocalBounds().height / 2.f);
     option.setPosition(context_.window.getView().getSize() / 2.f);

@@ -29,8 +29,8 @@ public:
     struct Context
     {
         sf::RenderWindow&   window;
-        TextureHolder&      textureHolder_;
-        FontHolder&         fontHolder_;
+        TextureHolder&      textureHolder;
+        FontHolder&         fontHolder;
     };
 
     State(StateStack& stateStack, Context context);
