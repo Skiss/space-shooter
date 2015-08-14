@@ -1,6 +1,6 @@
 #include "GameState.hpp"
 
-#include "Entity.hpp"
+#include "Aircraft.hpp"
 #include "SceneNode.hpp"
 #include "StateStack.hpp"
 
@@ -8,7 +8,7 @@
 namespace
 {
     template <typename TargetType>
-    std::function<void(SceneNode*, const sf::Time& dt)> createAction(std::function<void(Entity& e)> func)
+    std::function<void(SceneNode*, const sf::Time& dt)> createAction(std::function<void(Aircraft& a)> func)
     {
         return [=](SceneNode* node, const sf::Time&)
         {
@@ -22,7 +22,7 @@ namespace
 GameState::GameState(StateStack& stateStack, State::Context context)
     : State(stateStack, context)
     , world_(context.window, context.textureHolder, context.fontHolder)
-    , playerMoveFunc_([] (Entity& e, sf::Vector2f vel) { e.accelerate(vel); })
+    , playerMoveFunc_([] (Aircraft& a, sf::Vector2f direction) { a.accelerate(direction * a.getSpeed()); })
     , commandQueue_(world_.getCommandQueue())
 {
     createActions();
@@ -61,15 +61,15 @@ void GameState::handleRealTimeInput()
 
 void GameState::createActions()
 {
-    commandBinding_[sf::Keyboard::Right].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Right].action_ = createAction<Aircraft>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(1.f, 0.f)));
     commandBinding_[sf::Keyboard::Right].category_ = Category::PlayerEntity;
 
-    commandBinding_[sf::Keyboard::Left].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(-playerSpeed_, 0.f)));
+    commandBinding_[sf::Keyboard::Left].action_ = createAction<Aircraft>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(-1.f, 0.f)));
     commandBinding_[sf::Keyboard::Left].category_ = Category::PlayerEntity;
 
-    commandBinding_[sf::Keyboard::Up].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, -playerSpeed_)));
+    commandBinding_[sf::Keyboard::Up].action_ = createAction<Aircraft>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, -1.f)));
     commandBinding_[sf::Keyboard::Up].category_ = Category::PlayerEntity;
 
-    commandBinding_[sf::Keyboard::Down].action_ = createAction<Entity>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, playerSpeed_)));
+    commandBinding_[sf::Keyboard::Down].action_ = createAction<Aircraft>(std::bind(playerMoveFunc_, std::placeholders::_1, sf::Vector2f(0.f, 1.f)));
     commandBinding_[sf::Keyboard::Down].category_ = Category::PlayerEntity;
 }

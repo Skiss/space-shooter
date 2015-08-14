@@ -33,7 +33,7 @@ public:
     unsigned getCategory() const override final;
 
     int getHP() const { return data_.hp; }
-    float getspeed() const { return data_.speed; }
+    float getSpeed() const { return data_.speed; }
 
 private:
     void updateCurrent(const sf::Time& dt) override;
