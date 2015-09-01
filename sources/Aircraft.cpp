@@ -18,6 +18,7 @@ namespace
         data[Aircraft::Raptor].hp = 20;
         data[Aircraft::Raptor].speed = 80.f;
         data[Aircraft::Raptor].textureID = TextureID::Raptor;
+        data[Aircraft::Raptor].movements.push_back(Aircraft::Movement{0, 100});
 
         return data;
     }
@@ -53,7 +54,40 @@ unsigned Aircraft::getCategory() const
 
 void Aircraft::updateCurrent(const sf::Time& dt)
 {
+    updateMovements(dt);
+
     Entity::updateCurrent(dt);
     healthText_->setText(std::to_string(data_.hp) + " HP");
     healthText_->setRotation(-getRotation());
+}
+
+void Aircraft::updateMovements(const sf::Time& dt)
+{
+    const auto& movements = data_.movements;
+
+    if (movements.empty())
+        return;
+
+    // Checking if we need to change direction
+    if (distanceTravelled_ >= movements.at(data_.movementsIndex).distance)
+    {
+        distanceTravelled_ = 0.f;
+        data_.movementsIndex = (data_.movementsIndex + 1) % data_.movements.size();
+    }
+
+    const auto& move = data_.movements.at(data_.movementsIndex);
+    sf::Vector2f vel(0, 1);
+
+    if (move.angle == 45)
+    {
+        vel.y = 0.86602540378f * data_.speed;
+        vel.x = 0.5f * data_.speed;
+    }
+
+    if (move.angle < 0)
+        vel.x = -vel.x;
+
+    setVelocity(vel);
+
+    distanceTravelled_ += getSpeed() * dt.asSeconds();
 }

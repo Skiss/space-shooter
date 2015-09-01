@@ -5,7 +5,7 @@
 #include "SpriteNode.hpp"
 
 
-static const float sqrtTwo = std::sqrt(2.f);
+static const float SQRT_TWO = std::sqrt(2.f);
 
 
 World::World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontHolder& fontHolder)
@@ -87,7 +87,7 @@ void World::correctingVelocity() const
 {
     // Correcting the diagonal velocity, if any
     if (player_->getVelocity().x != 0.f && player_->getVelocity().y != 0.f)
-        player_->setVelocity(player_->getVelocity() / sqrtTwo);
+        player_->setVelocity(player_->getVelocity() / SQRT_TWO);
 
     // Matching at least the scroll speed
     player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));

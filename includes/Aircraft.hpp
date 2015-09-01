@@ -19,11 +19,19 @@ public:
         TypeCount
     };
 
+    struct Movement
+    {
+        int         angle;
+        unsigned    distance;
+    };
+
     struct Data
     {
-        int         hp;
-        float       speed;
-        TextureID   textureID;
+        int                     hp;
+        float                   speed;
+        TextureID               textureID;
+        std::vector<Movement>   movements;
+        unsigned                movementsIndex = 0;
     };
 
     Aircraft(Type type, const TextureHolder& textureHolder, const FontHolder& fontHolder);
@@ -37,11 +45,13 @@ public:
 
 private:
     void updateCurrent(const sf::Time& dt) override;
+    void updateMovements(const sf::Time& dt);
 
     Type            type_;
     Data            data_;
     sf::Sprite      sprite_;
     TextNode*       healthText_;
+    unsigned        distanceTravelled_ = 0;
 };
 
 #endif
