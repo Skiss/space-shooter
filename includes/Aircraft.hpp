@@ -22,7 +22,7 @@ public:
     struct Movement
     {
         int         angle;
-        unsigned    distance;
+        float       distance;
     };
 
     struct Data
@@ -51,7 +51,7 @@ private:
     Data            data_;
     sf::Sprite      sprite_;
     TextNode*       healthText_;
-    unsigned        distanceTravelled_ = 0;
+    float           distanceTravelled_ = 0.f;
 };
 
 #endif
