@@ -36,7 +36,7 @@ private:
     };
 
     void buildScene();
-    void correctingVelocity() const;
+    void correctVelocity() const;
 
 
     TextureHolder&                              textureHolder_;

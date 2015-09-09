@@ -34,7 +34,7 @@ void World::update(const sf::Time& dt)
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(*commandQueue_.pop(), dt);
 
-    correctingVelocity();
+    correctVelocity();
 
     sceneGraph_->update(dt);
 }
@@ -66,12 +66,12 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(airLayer));
 
     // Player node
-    auto player = std::make_unique<Aircraft>(Aircraft::Type::Eagle, textureHolder_, fontHolder_);
+    auto player = std::make_unique<Aircraft>(Aircraft::Eagle, textureHolder_, fontHolder_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
     player_ = player.get();
     layers_[Layer::AIR]->addChild(std::move(player));
-
+    
     // Background texture has to be repeated
     auto& texture = textureHolder_.get(TextureID::Background);
     sf::IntRect textureRect(worldBounds_);
@@ -83,7 +83,7 @@ void World::buildScene()
     layers_[Layer::BACKGROUND]->addChild(std::move(bg));
 }
 
-void World::correctingVelocity() const
+void World::correctVelocity() const
 {
     // Correcting the diagonal velocity, if any
     if (player_->getVelocity().x != 0.f && player_->getVelocity().y != 0.f)
