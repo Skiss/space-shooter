@@ -1,10 +1,9 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "Aircraft.hpp"
 #include "CommandQueue.hpp"
-#include "ResourceIDs.hpp"
 
-#include <SFML/Graphics.hpp>
 
 #include <array>
 #include <memory>
@@ -28,6 +27,13 @@ public:
     CommandQueue& getCommandQueue();
 
 private:
+    struct SpawnPosition
+    {
+        Aircraft::Type  type;
+        float           x;
+        float           y;
+    };
+
     enum Layer
     {
         BACKGROUND,
@@ -50,6 +56,7 @@ private:
     sf::FloatRect                               worldBounds_;
     sf::Vector2f                                playerSpawnPos_;
     float                                       scrollSpeed_;
+    std::vector<SpawnPosition>                  enemiesSpawnPos_
 };
 
 #endif
