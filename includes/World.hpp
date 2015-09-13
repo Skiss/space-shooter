@@ -56,7 +56,7 @@ private:
     sf::FloatRect                               worldBounds_;
     sf::Vector2f                                playerSpawnPos_;
     float                                       scrollSpeed_;
-    std::vector<SpawnPosition>                  enemiesSpawnPos_
+    std::vector<SpawnPosition>                  enemiesSpawnPos_;
 };
 
 #endif
