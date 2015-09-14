@@ -29,6 +29,12 @@ public:
 private:
     struct SpawnPosition
     {
+        SpawnPosition(Aircraft::Type type, float x, float y)
+            : type(type)
+            , x(x)
+            , y(y)
+        {}
+
         Aircraft::Type  type;
         float           x;
         float           y;
@@ -43,6 +49,9 @@ private:
 
     void buildScene();
     void correctVelocity() const;
+    bool isInsideSpawnZone(const SpawnPosition& pos) const;
+    void addSpawnPoints();
+    void spawnEnemies();
 
 
     TextureHolder&                              textureHolder_;

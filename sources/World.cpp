@@ -31,6 +31,8 @@ void World::update(const sf::Time& dt)
 
     player_->setVelocity(sf::Vector2f(0.f, 0.f));
 
+    spawnEnemies();
+
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(*commandQueue_.pop(), dt);
 
@@ -81,6 +83,9 @@ void World::buildScene()
     auto bg = std::make_unique<SpriteNode>(textureHolder_.get(TextureID::Background), textureRect);
     bg->setPosition(worldBounds_.left, worldBounds_.top);
     layers_[Layer::BACKGROUND]->addChild(std::move(bg));
+
+    // Adding spawn positions
+    addSpawnPoints();
 }
 
 void World::correctVelocity() const
@@ -91,4 +96,47 @@ void World::correctVelocity() const
 
     // Matching at least the scroll speed
     player_->accelerate(sf::Vector2f(0.f, scrollSpeed_));
+}
+
+bool World::isInsideSpawnZone(const SpawnPosition& pos) const
+{
+    const float topScreen = view_.getCenter().y - window_.getSize().y / 2.f;
+
+    if (pos.y <= topScreen && pos.y >= topScreen - 50.f)
+        return true;
+
+    return false;
+}
+
+void World::addSpawnPoints()
+{
+    float xCenter = view_.getCenter().x;
+
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 1300.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter + 100.f, 1100.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter - 100.f, 900.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 500.f);
+    
+    std::sort(begin(enemiesSpawnPos_),
+              end(enemiesSpawnPos_),
+              [](const SpawnPosition& sp1, const SpawnPosition& sp2)
+    {
+        return sp1.y < sp2.y;
+    });
+}
+
+void World::spawnEnemies()
+{
+    if (!enemiesSpawnPos_.empty())
+    {
+        if (isInsideSpawnZone(enemiesSpawnPos_.back()))
+        {
+            auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, textureHolder_, fontHolder_);
+            enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
+            enemy->setRotation(180.f);
+            layers_[Layer::AIR]->addChild(std::move(enemy));
+
+            enemiesSpawnPos_.pop_back();
+        }
+    }
 }
