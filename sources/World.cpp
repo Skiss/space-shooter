@@ -115,7 +115,10 @@ void World::addSpawnPoints()
     enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 1300.f);
     enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter + 100.f, 1100.f);
     enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter - 100.f, 900.f);
-    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 500.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 1500.f);
+
+    enemiesSpawnPos_.emplace_back(Aircraft::Avenger, xCenter + 50.f, 500.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Avenger, xCenter - 50.f, 500.f);
     
     std::sort(begin(enemiesSpawnPos_),
               end(enemiesSpawnPos_),
