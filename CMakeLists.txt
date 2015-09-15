@@ -18,6 +18,7 @@ SET(SRC
 	sources/PauseState.cpp
 	sources/TitleState.cpp
 	sources/TextNode.cpp
+	sources/Projectile.cpp
 	)
 
 SET(HDRS
@@ -40,6 +41,7 @@ SET(HDRS
 	includes/TitleState.hpp
 	includes/ResourceIDs.hpp
 	includes/TextNode.hpp
+	includes/Projectile.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")

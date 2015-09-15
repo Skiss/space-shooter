@@ -106,4 +106,6 @@ void Game::loadTextures()
     textureHolder_.load(TextureID::Eagle, "../Media/Textures/Eagle.png");
     textureHolder_.load(TextureID::Raptor, "../Media/Textures/Raptor.png");
     textureHolder_.load(TextureID::Avenger, "../Media/Textures/Avenger.png");
+    textureHolder_.load(TextureID::Raptor, "../Media/Textures/Bullet.png");
+    textureHolder_.load(TextureID::Avenger, "../Media/Textures/Missile.png");
 }
