@@ -80,12 +80,15 @@ void Aircraft::updateMovements(const sf::Time& dt)
 
     if (move.angle == 45)
     {
-        vel.y = 0.86602540378f * data_.speed;
-        vel.x = 0.5f * data_.speed;
+        vel.y = 0.86602540378f;
+        vel.x = 0.5f;
     }
 
     if (move.angle < 0)
         vel.x = -vel.x;
+
+    vel.x *= data_.speed;
+    vel.y *= data_.speed;
 
     setVelocity(vel);
 
