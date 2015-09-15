@@ -16,6 +16,7 @@ public:
     {
         Eagle,
         Raptor,
+        Avenger,
         TypeCount
     };
 

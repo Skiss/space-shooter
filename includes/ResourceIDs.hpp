@@ -13,6 +13,7 @@ enum class TextureID
     Background,
     Eagle,
     Raptor,
+    Avenger,
     TitleScreen
 };
 
