@@ -5,22 +5,7 @@
 
 namespace
 {
-    std::vector<Projectile::Data> initAircraftData()
-    {
-        std::vector<Projectile::Data> data(Projectile::TypeCount);
-
-        data[Projectile::Missile].damage = 200;
-        data[Projectile::Missile].speed = 150.f;
-        data[Projectile::Missile].textureID = TextureID::Missile;
-
-        data[Projectile::Bullet].damage = 10;
-        data[Projectile::Bullet].speed = 300.f;
-        data[Projectile::Bullet].textureID = TextureID::Bullet;
-
-        return data;
-    }
-
-    std::vector<Projectile::Data> data = initAircraftData();
+    std::vector<Data::ProjectileData> data = Data::initProjectileData();
 }
 
 Projectile::Projectile(Type type, TextureHolder& textureHolder)

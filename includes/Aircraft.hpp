@@ -1,6 +1,7 @@
 #ifndef AIRCRAFT_H
 #define AIRCRAFT_H
 
+#include "Data.hpp"
 #include "Entity.hpp"
 #include "ResourceIDs.hpp"
 
@@ -20,21 +21,6 @@ public:
         TypeCount
     };
 
-    struct Movement
-    {
-        int         angle;
-        float       distance;
-    };
-
-    struct Data
-    {
-        int                     hp;
-        float                   speed;
-        TextureID               textureID;
-        std::vector<Movement>   movements;
-        unsigned                movementsIndex = 0;
-    };
-
     Aircraft(Type type, const TextureHolder& textureHolder, const FontHolder& fontHolder);
 
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
@@ -48,11 +34,11 @@ private:
     void updateCurrent(const sf::Time& dt) override;
     void updateMovements(const sf::Time& dt);
 
-    Type            type_;
-    Data            data_;
-    sf::Sprite      sprite_;
-    TextNode*       healthText_;
-    float           distanceTravelled_ = 0.f;
+    Type                type_;
+    Data::AircraftData  data_;
+    sf::Sprite          sprite_;
+    TextNode*           healthText_;
+    float               distanceTravelled_ = 0.f;
 };
 
 #endif
