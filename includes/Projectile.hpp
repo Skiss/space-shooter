@@ -10,12 +10,20 @@
 class Projectile : public Entity
 {
 public:
-    enum class Type
+    enum Type
     {
         Missile,
-        Bullet
+        Bullet,
+        TypeCount
     };
 
+    struct Data
+    {
+        int         damage;
+        float       speed;
+        TextureID   textureID;
+    };
+    
     Projectile(Type type, TextureHolder& textureHolder);
 
 private:
@@ -23,6 +31,7 @@ private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
     Type        type_;
+    Data        data_;
     sf::Sprite  sprite_;
 };
 

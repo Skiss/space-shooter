@@ -14,6 +14,8 @@ enum class TextureID
     Eagle,
     Raptor,
     Avenger,
+    Missile,
+    Bullet,
     TitleScreen
 };
 
