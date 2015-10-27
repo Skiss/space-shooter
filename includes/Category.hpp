@@ -9,8 +9,10 @@ namespace Category
         Empty = 0,
         Scene = 1,
         PlayerEntity = 1 << 1,
-        AllyEntity = 1 << 2,
-        EnemyEntity = 1 << 3
+        AllyAircraft = 1 << 2,
+        AllyProjectile = 1 << 3,
+        EnemyAircraft = 1 << 4,
+        EnemyProjectile = 1 << 5
     };
 }
 

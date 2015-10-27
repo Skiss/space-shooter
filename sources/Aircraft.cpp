@@ -33,7 +33,7 @@ void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 
 unsigned Aircraft::getCategory() const
 {
-    return (type_ == Type::Eagle) ? Category::PlayerEntity : Category::EnemyEntity;
+    return (type_ == Type::Eagle) ? Category::PlayerEntity : Category::EnemyAircraft;
 }
 
 void Aircraft::updateCurrent(const sf::Time& dt)

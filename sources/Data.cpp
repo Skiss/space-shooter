@@ -37,13 +37,17 @@ namespace Data
     {
         std::vector<ProjectileData> data(Projectile::TypeCount);
 
-        data[Projectile::Missile].damage = 200;
-        data[Projectile::Missile].speed = 150.f;
-        data[Projectile::Missile].textureID = TextureID::Missile;
+        data[Projectile::EnemyMissile].damage = 200;
+        data[Projectile::EnemyMissile].speed = 150.f;
+        data[Projectile::EnemyMissile].textureID = TextureID::Missile;
 
-        data[Projectile::Bullet].damage = 10;
-        data[Projectile::Bullet].speed = 300.f;
-        data[Projectile::Bullet].textureID = TextureID::Bullet;
+        data[Projectile::EnemyBullet].damage = 10;
+        data[Projectile::EnemyBullet].speed = 300.f;
+        data[Projectile::EnemyBullet].textureID = TextureID::Bullet;
+
+        data[Projectile::AllyBullet].damage = 10;
+        data[Projectile::AllyBullet].speed = 300.f;
+        data[Projectile::AllyBullet].textureID = TextureID::Bullet;
 
         return data;
     }
