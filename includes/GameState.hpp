@@ -27,7 +27,9 @@ private:
     World           world_;
     CommandQueue&   commandQueue_;
 
-    std::function<void(Aircraft& e, sf::Vector2f vel)>    playerMoveFunc_;
+    std::function<void(Aircraft& a, sf::Vector2f vel)>  playerMoveFunc_;
+    std::function<void(Aircraft& a)>                    playerFireFunc_;
+    std::function<void(Aircraft& a)>                    playerLaunchMissileFunc_;
     std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;
 };
 

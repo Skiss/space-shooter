@@ -30,15 +30,25 @@ public:
     int getHP() const { return data_.hp; }
     float getSpeed() const { return data_.speed; }
 
+    void setIsFiring();
+    void setIsLaunchingMissile();
+
 private:
     void updateCurrent(const sf::Time& dt) override;
     void updateMovements(const sf::Time& dt);
+
+    void fireProjectiles();
+
+    void fire();
+    void launchMissile();
 
     Type                type_;
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
     TextNode*           healthText_;
     float               distanceTravelled_ = 0.f;
+    bool                isFiring_ = false;
+    bool                isLaunchingMissile_ = false;
 };
 
 #endif

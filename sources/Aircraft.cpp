@@ -4,6 +4,8 @@
 #include "ResourceHolder.hpp"
 #include "TextNode.hpp"
 
+#include <iostream>
+
 
 namespace
 {
@@ -36,9 +38,31 @@ unsigned Aircraft::getCategory() const
     return (type_ == Type::Eagle) ? Category::PlayerEntity : Category::EnemyAircraft;
 }
 
+void Aircraft::setIsFiring()
+{
+    isFiring_ = true;
+}
+
+void Aircraft::setIsLaunchingMissile()
+{
+    isLaunchingMissile_ = true;
+}
+
+void Aircraft::fire()
+{
+    std::cout << "Fire" << std::endl;
+}
+
+void Aircraft::launchMissile()
+{
+    std::cout << "Launch Missile" << std::endl;
+}
+
 void Aircraft::updateCurrent(const sf::Time& dt)
 {
     updateMovements(dt);
+
+    fireProjectiles();
 
     Entity::updateCurrent(dt);
     healthText_->setText(std::to_string(data_.hp) + " HP");
@@ -77,4 +101,19 @@ void Aircraft::updateMovements(const sf::Time& dt)
     setVelocity(vel);
 
     distanceTravelled_ += getSpeed() * dt.asSeconds();
+}
+
+void Aircraft::fireProjectiles()
+{
+    if (isFiring_)
+    {
+        fire();
+        isFiring_ = false;
+    }
+
+    if (isLaunchingMissile_)
+    {
+        launchMissile();
+        isLaunchingMissile_ = false;
+    }
 }
