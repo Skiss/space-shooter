@@ -37,7 +37,7 @@ private:
     void updateCurrent(const sf::Time& dt) override;
     void updateMovements(const sf::Time& dt);
 
-    void fireProjectiles();
+    void fireProjectiles(const sf::Time& dt);
 
     void fire();
     void launchMissile();
@@ -49,6 +49,8 @@ private:
     float               distanceTravelled_ = 0.f;
     bool                isFiring_ = false;
     bool                isLaunchingMissile_ = false;
+    sf::Time            fireCooldown_ = sf::Time::Zero;
+    const float         FIRE_RATE = 2.f;
 };
 
 #endif

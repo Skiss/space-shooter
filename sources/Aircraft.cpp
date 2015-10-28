@@ -62,7 +62,7 @@ void Aircraft::updateCurrent(const sf::Time& dt)
 {
     updateMovements(dt);
 
-    fireProjectiles();
+    fireProjectiles(dt);
 
     Entity::updateCurrent(dt);
     healthText_->setText(std::to_string(data_.hp) + " HP");
@@ -103,13 +103,16 @@ void Aircraft::updateMovements(const sf::Time& dt)
     distanceTravelled_ += getSpeed() * dt.asSeconds();
 }
 
-void Aircraft::fireProjectiles()
+void Aircraft::fireProjectiles(const sf::Time& dt)
 {
-    if (isFiring_)
+    if (isFiring_ && fireCooldown_ <= sf::Time::Zero)
     {
         fire();
         isFiring_ = false;
+        fireCooldown_ = sf::seconds(FIRE_RATE);
     }
+    else
+        fireCooldown_ -= dt;
 
     if (isLaunchingMissile_)
     {
