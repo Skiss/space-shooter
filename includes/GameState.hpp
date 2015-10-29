@@ -23,6 +23,7 @@ public:
 private:
     void handleRealTimeInput();
     void createActions();
+    bool isEventKey(const sf::Keyboard::Key& key) const;
 
     World           world_;
     CommandQueue&   commandQueue_;
@@ -31,6 +32,7 @@ private:
     std::function<void(Aircraft& a)>                    playerFireFunc_;
     std::function<void(Aircraft& a)>                    playerLaunchMissileFunc_;
     std::unordered_map<sf::Keyboard::Key, Command>      commandBinding_;
+    std::vector<sf::Keyboard::Key>                      eventKeys_;
 };
 
 #endif

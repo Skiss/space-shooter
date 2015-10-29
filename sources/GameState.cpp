@@ -4,7 +4,6 @@
 #include "SceneNode.hpp"
 #include "StateStack.hpp"
 
-
 namespace
 {
     template <typename TargetType>
@@ -28,6 +27,9 @@ GameState::GameState(StateStack& stateStack, State::Context context)
     , commandQueue_(world_.getCommandQueue())
 {
     createActions();
+
+    eventKeys_.push_back(sf::Keyboard::Escape);
+    eventKeys_.push_back(sf::Keyboard::RControl);
 }
 
 void GameState::render()
@@ -46,8 +48,13 @@ bool GameState::update(const sf::Time& dt)
 
 bool GameState::handleEvent(const sf::Event& event)
 {
-    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-        pushOnStack(State::ID::Pause);
+    if (event.type == sf::Event::KeyPressed)
+    {
+        if (event.key.code == sf::Keyboard::Escape)
+            pushOnStack(State::ID::Pause);
+        else if (isEventKey(event.key.code))
+            commandQueue_.push(&commandBinding_[event.key.code]);
+    }
 
     return true;
 }
@@ -56,7 +63,7 @@ void GameState::handleRealTimeInput()
 {
     for (auto& pair : commandBinding_)
     {
-        if (sf::Keyboard::isKeyPressed(pair.first))
+        if (sf::Keyboard::isKeyPressed(pair.first) && !isEventKey(pair.first))
             commandQueue_.push(&pair.second);
     }
 }
@@ -80,4 +87,13 @@ void GameState::createActions()
 
     commandBinding_[sf::Keyboard::RControl].action_ = createAction<Aircraft>(std::bind(playerLaunchMissileFunc_, std::placeholders::_1));
     commandBinding_[sf::Keyboard::RControl].category_ = Category::PlayerEntity;
+}
+
+bool GameState::isEventKey(const sf::Keyboard::Key& key) const
+{
+    for (auto k : eventKeys_)
+        if (k == key)
+            return true;
+
+    return false;
 }
