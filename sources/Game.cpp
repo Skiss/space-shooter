@@ -12,6 +12,8 @@ Game::Game()
     : window_(sf::VideoMode(640, 480), "Shooter")
     , stateStack_({window_, textureHolder_, fontHolder_})
 {
+    window_.setKeyRepeatEnabled(false);
+
     fontHolder_.load(FontID::Sensation, "../Media/Fonts/Sansation.ttf");
 
     registerStates();
