@@ -12,7 +12,8 @@ namespace Category
         AllyAircraft = 1 << 2,
         AllyProjectile = 1 << 3,
         EnemyAircraft = 1 << 4,
-        EnemyProjectile = 1 << 5
+        EnemyProjectile = 1 << 5,
+        SceneAirLayer = 1 << 6
     };
 }
 

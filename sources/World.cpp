@@ -63,7 +63,7 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(bgLayer));
 
     // Air layer
-    auto airLayer = std::make_unique<SceneNode>();
+    auto airLayer = std::make_unique<SceneNode>(Category::SceneAirLayer);
     layers_[Layer::AIR] = airLayer.get();
     sceneGraph_->addChild(std::move(airLayer));
 
