@@ -7,6 +7,8 @@
 
 #include <SFML/System/Time.hpp>
 
+#include "Category.hpp"
+
 #include <memory>
 #include <vector>
 
@@ -18,7 +20,7 @@ class SceneNode : public sf::Drawable, public sf::Transformable
 public:
     typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
-    SceneNode() = default;
+    SceneNode(Category::Type type = Category::Empty);
     SceneNode(const SceneNode&) = delete;
     SceneNode& operator=(const SceneNode&) = delete;
 
@@ -42,6 +44,7 @@ private:
 
     SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;
+    Category::Type              type_;
 };
 
 #endif

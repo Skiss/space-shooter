@@ -5,6 +5,12 @@
 #include <algorithm>
 
 
+SceneNode::SceneNode(Category::Type type)
+    : type_(type)
+{
+
+}
+
 void SceneNode::addChild(SceneNodePtr child)
 {
     child->parent_ = this;
