@@ -68,7 +68,7 @@ void World::buildScene()
     sceneGraph_->addChild(std::move(airLayer));
 
     // Player node
-    auto player = std::make_unique<Aircraft>(Aircraft::Eagle, textureHolder_, fontHolder_);
+    auto player = std::make_unique<Aircraft>(Aircraft::Eagle, commandQueue_, textureHolder_, fontHolder_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
     player_ = player.get();
@@ -134,7 +134,7 @@ void World::spawnEnemies()
     {
         if (isInsideSpawnZone(enemiesSpawnPos_.back()))
         {
-            auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, textureHolder_, fontHolder_);
+            auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
             enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
             enemy->setRotation(180.f);
             layers_[Layer::AIR]->addChild(std::move(enemy));

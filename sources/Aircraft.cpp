@@ -12,11 +12,12 @@ namespace
     std::vector<Data::AircraftData> data = Data::initAircraftData();
 }
 
-Aircraft::Aircraft(Type type, const TextureHolder& textureHolder, const FontHolder& fontHolder)
+Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder)
     : Entity()
     , type_(type)
     , data_(data[type_])
     , sprite_(textureHolder.get(data_.textureID))
+    , commandQueue_(commandQueue)
 {
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);

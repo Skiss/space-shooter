@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 
+class CommandQueue;
 class TextNode;
 
 class Aircraft : public Entity
@@ -21,7 +22,7 @@ public:
         TypeCount
     };
 
-    Aircraft(Type type, const TextureHolder& textureHolder, const FontHolder& fontHolder);
+    Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder);
 
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
@@ -46,6 +47,7 @@ private:
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
     TextNode*           healthText_;
+    CommandQueue&       commandQueue_;
     float               distanceTravelled_ = 0.f;
     bool                isFiring_ = false;
     bool                isLaunchingMissile_ = false;
