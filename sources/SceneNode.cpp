@@ -80,5 +80,5 @@ void SceneNode::execCommand(const Command& c, const sf::Time& dt)
 
 unsigned SceneNode::getCategory() const
 {
-    return Category::Empty;
+    return type_;
 }
