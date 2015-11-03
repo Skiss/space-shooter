@@ -1,8 +1,10 @@
 #ifndef AIRCRAFT_H
 #define AIRCRAFT_H
 
+#include "Command.hpp"
 #include "Data.hpp"
 #include "Entity.hpp"
+#include "Projectile.hpp"
 #include "ResourceIDs.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -40,14 +42,17 @@ private:
 
     void fireProjectiles(const sf::Time& dt);
 
-    void fire();
-    void launchMissile();
+    void createBullet(SceneNode& node, const TextureHolder& textureHolder);
 
     Type                type_;
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
     TextNode*           healthText_;
+
     CommandQueue&       commandQueue_;
+    Command             fireCommand_;
+    Command             launchMissileCommand_;
+
     float               distanceTravelled_ = 0.f;
     bool                isFiring_ = false;
     bool                isLaunchingMissile_ = false;

@@ -1,10 +1,9 @@
 #include "Aircraft.hpp"
 
 #include "Category.hpp"
+#include "CommandQueue.hpp"
 #include "ResourceHolder.hpp"
 #include "TextNode.hpp"
-
-#include <iostream>
 
 
 namespace
@@ -25,6 +24,20 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     auto textNode = std::make_unique<TextNode>("", fontHolder);
     healthText_ = textNode.get();
     healthText_->setPosition(0, -50.f);
+
+    // Init shoot commands
+    fireCommand_.category_ = Category::SceneAirLayer;
+    fireCommand_.action_ = [this, &textureHolder] (SceneNode* node, const sf::Time& dt)
+    {
+        createBullet(*node, textureHolder);
+    };
+
+    launchMissileCommand_.category_ = Category::SceneAirLayer;
+    launchMissileCommand_.action_ = [] (SceneNode*, const sf::Time& dt)
+    {
+
+    };
+
 
     addChild(std::move(textNode));
 }
@@ -49,14 +62,16 @@ void Aircraft::setIsLaunchingMissile()
     isLaunchingMissile_ = true;
 }
 
-void Aircraft::fire()
+void Aircraft::createBullet(SceneNode& node, const TextureHolder& textureHolder)
 {
-    std::cout << "Fire" << std::endl;
-}
+    Projectile::Type bulletType = (type_ == Eagle) ? Projectile::AllyBullet : Projectile::EnemyBullet;
 
-void Aircraft::launchMissile()
-{
-    std::cout << "Launch Missile" << std::endl;
+    std::unique_ptr<Projectile> bullet(new Projectile(bulletType, textureHolder));
+
+    bullet->setPosition(this->getPosition());
+    bullet->setVelocity({0, -bullet->getSpeed()});
+
+    node.addChild(std::move(bullet));
 }
 
 void Aircraft::updateCurrent(const sf::Time& dt)
@@ -108,7 +123,7 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
 {
     if (isFiring_ && fireCooldown_ <= sf::Time::Zero)
     {
-        fire();
+        commandQueue_.push(&fireCommand_);
         isFiring_ = false;
         fireCooldown_ = sf::seconds(FIRE_RATE);
     }
@@ -117,7 +132,6 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
 
     if (isLaunchingMissile_)
     {
-        launchMissile();
         isLaunchingMissile_ = false;
     }
 }
