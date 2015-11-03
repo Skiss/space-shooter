@@ -20,6 +20,7 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
 
 void Projectile::updateCurrent(const sf::Time& dt)
 {
+    Entity::updateCurrent(dt);
 }
 
 void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
