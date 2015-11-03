@@ -19,15 +19,16 @@ public:
         TypeCount
     };
 
-    Projectile(Type type, TextureHolder& textureHolder);
+    Projectile(Type type, const TextureHolder& textureHolder);
+
+    int getDamage() const { return data_.damage; }
+    float getSpeed() const { return data_.speed; }
 
 private:
     void updateCurrent(const sf::Time& dt) override;
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
     unsigned getCategory() const override final;
-    int getDamage() const { return data_.damage; }
-    float getSpeed() const { return data_.speed; }
 
     Type                    type_;
     Data::ProjectileData    data_;

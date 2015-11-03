@@ -9,7 +9,7 @@ namespace
     std::vector<Data::ProjectileData> data = Data::initProjectileData();
 }
 
-Projectile::Projectile(Type type, TextureHolder& textureHolder)
+Projectile::Projectile(Type type, const TextureHolder& textureHolder)
     : type_(type)
     , data_(data[type])
     , sprite_(textureHolder.get(data_.textureID))
