@@ -41,8 +41,9 @@ private:
     void updateMovements(const sf::Time& dt);
 
     void fireProjectiles(const sf::Time& dt);
-
     void createBullet(SceneNode& node, const TextureHolder& textureHolder);
+
+    bool isPlayer() const { return type_ == Eagle; }
 
     Type                type_;
     Data::AircraftData  data_;

@@ -64,12 +64,13 @@ void Aircraft::setIsLaunchingMissile()
 
 void Aircraft::createBullet(SceneNode& node, const TextureHolder& textureHolder)
 {
-    Projectile::Type bulletType = (type_ == Eagle) ? Projectile::AllyBullet : Projectile::EnemyBullet;
+    Projectile::Type bulletType = (isPlayer()) ? Projectile::AllyBullet : Projectile::EnemyBullet;
+    int bulletDirection = (isPlayer()) ? -1 : 1;
 
     std::unique_ptr<Projectile> bullet(new Projectile(bulletType, textureHolder));
 
     bullet->setPosition(this->getPosition());
-    bullet->setVelocity({0, -bullet->getSpeed()});
+    bullet->setVelocity({0, bullet->getSpeed() * bulletDirection});
 
     node.addChild(std::move(bullet));
 }
@@ -121,7 +122,7 @@ void Aircraft::updateMovements(const sf::Time& dt)
 
 void Aircraft::fireProjectiles(const sf::Time& dt)
 {
-    if (isFiring_ && fireCooldown_ <= sf::Time::Zero)
+    if (isFiring_ && fireCooldown_ < sf::Time::Zero)
     {
         commandQueue_.push(&fireCommand_);
         isFiring_ = false;
