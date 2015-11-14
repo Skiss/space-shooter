@@ -125,11 +125,12 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
     if (isFiring_ && fireCooldown_ < sf::Time::Zero)
     {
         commandQueue_.push(&fireCommand_);
-        isFiring_ = false;
         fireCooldown_ = sf::seconds(FIRE_RATE);
     }
     else
         fireCooldown_ -= dt;
+
+    isFiring_ = false;
 
     if (isLaunchingMissile_)
     {
