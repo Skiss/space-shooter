@@ -2,6 +2,7 @@
 
 #include "Category.hpp"
 #include "ResourceHolder.hpp"
+#include "Utils.hpp"
 
 
 namespace
@@ -20,6 +21,13 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
 
 void Projectile::updateCurrent(const sf::Time& dt)
 {
+    // Handle missile auto-guidance
+    if (type_ & Projectile::Missile)
+    {
+        velocity_ = utils::normalize(data_.targetPos_ - getPosition());
+        velocity_ *= data_.speed;
+    }
+
     Entity::updateCurrent(dt);
 }
 
