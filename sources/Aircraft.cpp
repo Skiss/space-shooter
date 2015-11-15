@@ -64,7 +64,7 @@ void Aircraft::setIsLaunchingMissile()
 
 void Aircraft::createBullet(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
 {
-    if (type == Projectile::Bullet)
+    if (type & Projectile::Bullet)
         type = (isPlayer()) ? Projectile::AllyBullet : Projectile::EnemyBullet;
     else
         type = (isPlayer()) ? Projectile::AllyMissile : Projectile::EnemyMissile;

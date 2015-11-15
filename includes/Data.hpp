@@ -3,6 +3,8 @@
 
 #include "ResourceIDs.hpp"
 
+#include <SFML/System/Vector2.hpp>
+
 #include <vector>
 
 
@@ -25,9 +27,10 @@ namespace Data
 
     struct ProjectileData
     {
-        int         damage;
-        float       speed;
-        TextureID   textureID;
+        int             damage;
+        float           speed;
+        sf::Vector2f    targetPos_;
+        TextureID       textureID;
     };
 
     std::vector<AircraftData> initAircraftData();
