@@ -13,11 +13,11 @@ class Projectile : public Entity
 public:
     enum Type
     {
-        EnemyBullet = 0,
-        AllyBullet = 1 << 0,
+        EnemyBullet = 1 << 0,
+        AllyBullet = 1 << 1,
         Bullet = EnemyBullet | AllyBullet,
-        AllyMissile = 1 << 1,
-        EnemyMissile = 1 << 2,
+        AllyMissile = 1 << 2,
+        EnemyMissile = 1 << 3,
         Missile = EnemyMissile | AllyMissile,
         TypeCount
     };
