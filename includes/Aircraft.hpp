@@ -41,7 +41,7 @@ private:
     void updateMovements(const sf::Time& dt);
 
     void fireProjectiles(const sf::Time& dt);
-    void createBullet(SceneNode& node, const TextureHolder& textureHolder);
+    void createBullet(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type);
 
     bool isPlayer() const { return type_ == Eagle; }
 

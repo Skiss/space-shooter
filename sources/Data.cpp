@@ -41,13 +41,13 @@ namespace Data
         data[Projectile::EnemyMissile].speed = 150.f;
         data[Projectile::EnemyMissile].textureID = TextureID::Missile;
 
+        data[Projectile::AllyMissile] = data[Projectile::EnemyMissile];
+
         data[Projectile::EnemyBullet].damage = 10;
         data[Projectile::EnemyBullet].speed = 300.f;
         data[Projectile::EnemyBullet].textureID = TextureID::Bullet;
 
-        data[Projectile::AllyBullet].damage = 10;
-        data[Projectile::AllyBullet].speed = 300.f;
-        data[Projectile::AllyBullet].textureID = TextureID::Bullet;
+        data[Projectile::AllyBullet] = data[Projectile::EnemyBullet];
 
         return data;
     }

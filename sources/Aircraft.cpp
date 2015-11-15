@@ -29,13 +29,13 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     fireCommand_.category_ = Category::SceneAirLayer;
     fireCommand_.action_ = [this, &textureHolder] (SceneNode* node, const sf::Time& dt)
     {
-        createBullet(*node, textureHolder);
+        createBullet(*node, textureHolder, Projectile::AllyBullet);
     };
 
     launchMissileCommand_.category_ = Category::SceneAirLayer;
-    launchMissileCommand_.action_ = [] (SceneNode*, const sf::Time& dt)
+    launchMissileCommand_.action_ = [this, &textureHolder](SceneNode* node, const sf::Time& dt)
     {
-
+        createBullet(*node, textureHolder, Projectile::AllyMissile);
     };
 
 
@@ -62,12 +62,16 @@ void Aircraft::setIsLaunchingMissile()
     isLaunchingMissile_ = true;
 }
 
-void Aircraft::createBullet(SceneNode& node, const TextureHolder& textureHolder)
+void Aircraft::createBullet(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
 {
-    Projectile::Type bulletType = (isPlayer()) ? Projectile::AllyBullet : Projectile::EnemyBullet;
+    if (type == Projectile::AllyBullet || type == Projectile::EnemyBullet)
+        type = (isPlayer()) ? Projectile::AllyBullet : Projectile::EnemyBullet;
+    else
+        type = (isPlayer()) ? Projectile::AllyMissile : Projectile::EnemyMissile;
+
     int bulletDirection = (isPlayer()) ? -1 : 1;
 
-    std::unique_ptr<Projectile> bullet(new Projectile(bulletType, textureHolder));
+    std::unique_ptr<Projectile> bullet(new Projectile(type, textureHolder));
 
     bullet->setPosition(this->getPosition());
     bullet->setVelocity({0, bullet->getSpeed() * bulletDirection});
@@ -134,6 +138,9 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
 
     if (isLaunchingMissile_)
     {
-        isLaunchingMissile_ = false;
+        commandQueue_.push(&launchMissileCommand_);
+        //fireCooldown_ = sf::seconds(FIRE_RATE);
     }
+
+    isLaunchingMissile_ = false;
 }

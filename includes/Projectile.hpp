@@ -16,6 +16,7 @@ public:
         EnemyMissile,
         EnemyBullet,
         AllyBullet,
+        AllyMissile,
         TypeCount
     };
 
