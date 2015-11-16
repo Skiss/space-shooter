@@ -20,6 +20,7 @@ SET(SRC
 	sources/TextNode.cpp
 	sources/Projectile.cpp
 	sources/Data.cpp
+	sources/Utils.cpp
 	)
 
 SET(HDRS
@@ -44,6 +45,7 @@ SET(HDRS
 	includes/TextNode.hpp
 	includes/Projectile.hpp
 	includes/Data.hpp
+	includes/Utils.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
