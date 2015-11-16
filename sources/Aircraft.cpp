@@ -38,7 +38,6 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
         createBullet(*node, textureHolder, Projectile::AllyMissile);
     };
 
-
     addChild(std::move(textNode));
 }
 
