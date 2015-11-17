@@ -130,16 +130,13 @@ void World::addSpawnPoints()
 
 void World::spawnEnemies()
 {
-    if (!enemiesSpawnPos_.empty())
+    if (!enemiesSpawnPos_.empty() && isInsideSpawnZone(enemiesSpawnPos_.back()))
     {
-        if (isInsideSpawnZone(enemiesSpawnPos_.back()))
-        {
-            auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
-            enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
-            enemy->setRotation(180.f);
-            layers_[Layer::AIR]->addChild(std::move(enemy));
+        auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
+        enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
+        enemy->setRotation(180.f);
+        layers_[Layer::AIR]->addChild(std::move(enemy));
 
-            enemiesSpawnPos_.pop_back();
-        }
+        enemiesSpawnPos_.pop_back();
     }
 }
