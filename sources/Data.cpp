@@ -40,6 +40,7 @@ namespace Data
         data[Projectile::EnemyMissile].damage = 200;
         data[Projectile::EnemyMissile].speed = 150.f;
         data[Projectile::EnemyMissile].textureID = TextureID::Missile;
+        data[Projectile::EnemyMissile].targetPos_ = {0, 0};
 
         data[Projectile::AllyMissile] = data[Projectile::EnemyMissile];
 

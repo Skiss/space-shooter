@@ -24,8 +24,12 @@ void Projectile::updateCurrent(const sf::Time& dt)
     // Handle missile auto-guidance
     if (type_ & Projectile::Missile)
     {
-        velocity_ = utils::normalize(data_.targetPos_ - getPosition());
-        velocity_ *= data_.speed;
+        sf::Vector2f newVelocity = utils::normalize(data_.targetPos_ - getPosition());
+        newVelocity *= data_.speed;
+        velocity_ = newVelocity;
+
+        float angle = std::atan2f(velocity_.y, velocity_.x);
+        setRotation(utils::toDegree(angle) + 90.f);
     }
 
     Entity::updateCurrent(dt);
