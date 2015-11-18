@@ -14,10 +14,14 @@ public:
 
     void accelerate(const sf::Vector2f& vel);
 
+    bool isDestroyed() const { return isDestroyed_; }
+    void destroy() { isDestroyed_ = true;  }
+
 protected:
     void updateCurrent(const sf::Time& dt) override;
 
-    sf::Vector2f velocity_;
+    sf::Vector2f    velocity_;
+    bool            isDestroyed_ = false;
 };
 
 #endif

@@ -24,7 +24,6 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontH
     view_.setCenter(playerSpawnPos_);
 }
 
-
 void World::update(const sf::Time& dt)
 {
     view_.move(0.f, scrollSpeed_ * dt.asSeconds());
@@ -32,6 +31,7 @@ void World::update(const sf::Time& dt)
     player_->setVelocity(sf::Vector2f(0.f, 0.f));
 
     spawnEnemies();
+    destroyEnemies();
 
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(*commandQueue_.pop(), dt);
@@ -108,6 +108,16 @@ bool World::isInsideSpawnZone(const SpawnPosition& pos) const
     return false;
 }
 
+bool World::isOutOfGameZone(const sf::Vector2f& pos) const
+{
+    const float bottomScreen = view_.getCenter().y + window_.getSize().y / 2.f;
+
+    if (pos.y > bottomScreen + 50.f)
+        return true;
+
+    return false;
+}
+
 void World::addSpawnPoints()
 {
     float xCenter = view_.getCenter().x;
@@ -135,8 +145,16 @@ void World::spawnEnemies()
         auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
         enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
         enemy->setRotation(180.f);
+        activeEnemies_.push_back(enemy.get());
         layers_[Layer::AIR]->addChild(std::move(enemy));
 
         enemiesSpawnPos_.pop_back();
     }
+}
+
+void World::destroyEnemies()
+{
+    for (auto e : activeEnemies_)
+        if (isOutOfGameZone(e->getPosition()))
+            e->destroy();
 }

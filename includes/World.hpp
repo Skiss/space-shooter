@@ -50,8 +50,10 @@ private:
     void buildScene();
     void correctVelocity() const;
     bool isInsideSpawnZone(const SpawnPosition& pos) const;
+    bool isOutOfGameZone(const sf::Vector2f& pos) const;
     void addSpawnPoints();
     void spawnEnemies();
+    void destroyEnemies();
 
 
     TextureHolder&                              textureHolder_;
@@ -66,6 +68,7 @@ private:
     sf::Vector2f                                playerSpawnPos_;
     float                                       scrollSpeed_;
     std::vector<SpawnPosition>                  enemiesSpawnPos_;
+    std::vector<Aircraft*>                      activeEnemies_ ;
 };
 
 #endif
