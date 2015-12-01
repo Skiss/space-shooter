@@ -8,6 +8,9 @@
 #include <vector>
 
 
+class Aircraft;
+
+
 namespace Data
 { 
     struct Movement
@@ -29,7 +32,7 @@ namespace Data
     {
         int             damage;
         float           speed;
-        sf::Vector2f    targetPos_;
+        Aircraft*       target_;
         TextureID       textureID;
     };
 

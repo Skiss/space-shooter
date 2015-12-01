@@ -35,13 +35,14 @@ public:
 
     void setIsFiring();
     void setIsLaunchingMissile();
+    void setEnemyList(std::vector<Aircraft*>& list);
 
 private:
     void updateCurrent(const sf::Time& dt) override;
     void updateMovements(const sf::Time& dt);
 
     void fireProjectiles(const sf::Time& dt);
-    void createBullet(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type);
+    void createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type);
 
     bool isPlayer() const { return type_ == Eagle; }
 
@@ -49,6 +50,8 @@ private:
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
     TextNode*           healthText_;
+
+    const std::vector<Aircraft*>*   enemyList_ = nullptr;
 
     CommandQueue&       commandQueue_;
     Command             fireCommand_;

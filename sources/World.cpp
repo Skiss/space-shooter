@@ -71,6 +71,7 @@ void World::buildScene()
     auto player = std::make_unique<Aircraft>(Aircraft::Eagle, commandQueue_, textureHolder_, fontHolder_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
+    player->setEnemyList(activeEnemies_);
     player_ = player.get();
     layers_[Layer::AIR]->addChild(std::move(player));
     

@@ -7,6 +7,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <cassert>
+
 
 class Projectile : public Entity
 {
@@ -26,6 +28,12 @@ public:
 
     int getDamage() const { return data_.damage; }
     float getSpeed() const { return data_.speed; }
+
+    void setMissileTarget(Aircraft* target)
+    {
+        assert(type_ == Type::AllyMissile);
+        data_.target_ = target;
+    }
 
 private:
     void updateCurrent(const sf::Time& dt) override;

@@ -1,5 +1,6 @@
 #include "Projectile.hpp"
 
+#include "Aircraft.hpp"
 #include "Category.hpp"
 #include "ResourceHolder.hpp"
 #include "Utils.hpp"
@@ -24,7 +25,7 @@ void Projectile::updateCurrent(const sf::Time& dt)
     // Handle missile auto-guidance
     if (type_ & Projectile::Missile)
     {
-        sf::Vector2f newVelocity = utils::normalize(data_.targetPos_ - getPosition());
+        sf::Vector2f newVelocity = (data_.target_) ? utils::normalize(data_.target_->getPosition() - getPosition()) : sf::Vector2f(0.f, -1.f);
         newVelocity *= data_.speed;
         velocity_ = newVelocity;
 

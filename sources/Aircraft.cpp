@@ -5,6 +5,8 @@
 #include "ResourceHolder.hpp"
 #include "TextNode.hpp"
 
+#include <cassert>
+
 
 namespace
 {
@@ -29,13 +31,13 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     fireCommand_.category_ = Category::SceneAirLayer;
     fireCommand_.action_ = [this, &textureHolder] (SceneNode* node, const sf::Time& dt)
     {
-        createBullet(*node, textureHolder, Projectile::AllyBullet);
+        createProjectile(*node, textureHolder, Projectile::AllyBullet);
     };
 
     launchMissileCommand_.category_ = Category::SceneAirLayer;
     launchMissileCommand_.action_ = [this, &textureHolder](SceneNode* node, const sf::Time& dt)
     {
-        createBullet(*node, textureHolder, Projectile::AllyMissile);
+        createProjectile(*node, textureHolder, Projectile::AllyMissile);
     };
 
     addChild(std::move(textNode));
@@ -61,21 +63,47 @@ void Aircraft::setIsLaunchingMissile()
     isLaunchingMissile_ = true;
 }
 
-void Aircraft::createBullet(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
+void Aircraft::setEnemyList(std::vector<Aircraft*>& list)
+{
+    enemyList_ = &list;
+}
+
+void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
 {
     if (type & Projectile::Bullet)
         type = (isPlayer()) ? Projectile::AllyBullet : Projectile::EnemyBullet;
     else
         type = (isPlayer()) ? Projectile::AllyMissile : Projectile::EnemyMissile;
 
-    int bulletDirection = (isPlayer()) ? -1 : 1;
+    int projectileDirection = (isPlayer()) ? -1 : 1;
 
-    std::unique_ptr<Projectile> bullet(new Projectile(type, textureHolder));
+    std::unique_ptr<Projectile> projectile(new Projectile(type, textureHolder));
 
-    bullet->setPosition(this->getPosition());
-    bullet->setVelocity({0, bullet->getSpeed() * bulletDirection});
+    projectile->setPosition(this->getPosition());
+    projectile->setVelocity({0, projectile->getSpeed() * projectileDirection});
 
-    node.addChild(std::move(bullet));
+    if (type == Projectile::AllyMissile)
+    {
+        assert(enemyList_ != nullptr);
+
+        if (!enemyList_->empty())
+        {
+            Aircraft* target = nullptr;
+            float maxDistance = std::numeric_limits<float>::max();
+
+            for (const auto e : *enemyList_)
+            {
+                float length = std::abs((e->getPosition().x - getPosition().x) + (e->getPosition().y - getPosition().y));
+
+                if (length < maxDistance)
+                    target = e;
+            }
+
+            projectile->setMissileTarget(target);
+        }
+    }
+
+    node.addChild(std::move(projectile));
 }
 
 void Aircraft::updateCurrent(const sf::Time& dt)
@@ -138,7 +166,6 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
     if (isLaunchingMissile_)
     {
         commandQueue_.push(&launchMissileCommand_);
-        //fireCooldown_ = sf::seconds(FIRE_RATE);
     }
 
     isLaunchingMissile_ = false;
