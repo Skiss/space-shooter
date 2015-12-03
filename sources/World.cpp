@@ -156,6 +156,17 @@ void World::spawnEnemies()
 void World::destroyEnemies()
 {
     for (auto e : activeEnemies_)
+    {
         if (isOutOfGameZone(e->getPosition()))
             e->destroy();
+
+        if (e->isDestroyed())
+            layers_[Layer::AIR]->removeChild(*e);
+    }
+
+    auto iter = std::remove_if(begin(activeEnemies_), end(activeEnemies_), [](const Aircraft* a)
+    {
+        return a->isDestroyed();
+    });
+    activeEnemies_.erase(iter, end(activeEnemies_));
 }
