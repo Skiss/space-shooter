@@ -22,6 +22,11 @@ struct Command
     {}
     ~Command() = default;
 
+    Command(Command&& c)
+        : action_(c.action_)
+        , category_(c.category_)
+    { }
+
     Command(const Command&) = delete;
     Command& operator=(const Command&) = delete;
 
