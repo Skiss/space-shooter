@@ -7,6 +7,21 @@
 
 static const float SQRT_TWO = std::sqrt(2.f);
 
+namespace
+{
+    std::function<void(SceneNode*, const sf::Time& dt)> createRemoveMissileTargetAction(Aircraft* a)
+    {
+        return [=] (SceneNode* node, const sf::Time& dt)
+        {
+            Projectile* projectile = static_cast<Projectile*>(node);
+
+            if (projectile->getMissileTarget()->getID() == a->getID())
+            {
+            }
+        };
+    }
+}
+
 
 World::World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontHolder& fontHolder)
     : textureHolder_(textureHolder)
@@ -155,13 +170,22 @@ void World::spawnEnemies()
 
 void World::destroyEnemies()
 {
+    queuededCommands_.clear();
+
     for (auto e : activeEnemies_)
     {
-        if (isOutOfGameZone(e->getPosition()))
+        if (e->isOutOfGameZone())
+        {
             e->destroy();
-
-        if (e->isDestroyed())
             layers_[Layer::AIR]->removeChild(*e);
+        }
+
+        if (isOutOfGameZone(e->getPosition()))
+        {
+            e->setIsOutOfGameZone(true);
+            queuededCommands_.emplace_back(createRemoveMissileTargetAction(e), Category::EnemyProjectile);
+            commandQueue_.push(&queuededCommands_.back());
+        }
     }
 
     auto iter = std::remove_if(begin(activeEnemies_), end(activeEnemies_), [](const Aircraft* a)

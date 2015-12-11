@@ -69,6 +69,7 @@ private:
     float                                       scrollSpeed_;
     std::vector<SpawnPosition>                  enemiesSpawnPos_;
     std::vector<Aircraft*>                      activeEnemies_ ;
+    std::vector<Command>                        queuededCommands_;
 };
 
 #endif
