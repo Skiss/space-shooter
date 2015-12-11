@@ -9,7 +9,7 @@ namespace
     template <typename TargetType>
     std::function<void(SceneNode*, const sf::Time& dt)> createAction(std::function<void(Aircraft& a)> func)
     {
-        return [=](SceneNode* node, const sf::Time&)
+        return [=] (SceneNode* node, const sf::Time&)
         {
             assert(dynamic_cast<TargetType*>(node));
 

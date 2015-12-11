@@ -29,9 +29,14 @@ public:
     int getDamage() const { return data_.damage; }
     float getSpeed() const { return data_.speed; }
 
+    const Aircraft* getMissileTarget() const
+    {
+        assert(type_ & Type::Missile);
+        return data_.target_;
+    }
     void setMissileTarget(Aircraft* target)
     {
-        assert(type_ == Type::AllyMissile);
+        assert(type_ & Type::Missile);
         data_.target_ = target;
     }
 
