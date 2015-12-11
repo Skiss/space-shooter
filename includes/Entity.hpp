@@ -14,6 +14,9 @@ public:
 
     void accelerate(const sf::Vector2f& vel);
 
+    void setIsOutOfGameZone(bool val) { isOutOfGameZone_ = val; }
+    bool isOutOfGameZone() const { return isOutOfGameZone_; }
+
     bool isDestroyed() const { return isDestroyed_; }
     void destroy() { isDestroyed_ = true;  }
 
@@ -21,6 +24,7 @@ protected:
     void updateCurrent(const sf::Time& dt) override;
 
     sf::Vector2f    velocity_;
+    bool            isOutOfGameZone_ = false;
     bool            isDestroyed_ = false;
 };
 
