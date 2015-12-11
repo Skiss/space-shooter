@@ -183,7 +183,7 @@ void World::destroyEnemies()
         if (isOutOfGameZone(e->getPosition()))
         {
             e->setIsOutOfGameZone(true);
-            queuededCommands_.emplace_back(createRemoveMissileTargetAction(e), Category::EnemyProjectile);
+            queuededCommands_.emplace_back(createRemoveMissileTargetAction(e), Category::AllyProjectile);
             commandQueue_.push(&queuededCommands_.back());
         }
     }
