@@ -8,6 +8,9 @@
 #include <cassert>
 
 
+unsigned Aircraft::idCpt_ = 0;
+
+
 namespace
 {
     std::vector<Data::AircraftData> data = Data::initAircraftData();
@@ -15,6 +18,7 @@ namespace
 
 Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder)
     : Entity()
+    , id_(idCpt_++)
     , type_(type)
     , data_(data[type_])
     , sprite_(textureHolder.get(data_.textureID))

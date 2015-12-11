@@ -25,11 +25,13 @@ public:
     };
 
     Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder);
+    ~Aircraft() = default;
 
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
     unsigned getCategory() const override final;
 
+    unsigned getID() const { return id_; }
     int getHP() const { return data_.hp; }
     float getSpeed() const { return data_.speed; }
 
@@ -46,6 +48,9 @@ private:
 
     bool isPlayer() const { return type_ == Eagle; }
 
+    static unsigned     idCpt_;
+    unsigned            id_;
+    
     Type                type_;
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
