@@ -18,6 +18,8 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
 {
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+    setVelocity(sf::Vector2f(0.f, -1.f));
 }
 
 void Projectile::updateCurrent(const sf::Time& dt)
@@ -25,7 +27,10 @@ void Projectile::updateCurrent(const sf::Time& dt)
     // Handle missile auto-guidance
     if (type_ & Projectile::Missile)
     {
-        sf::Vector2f newVelocity = (data_.target_) ? utils::normalize(data_.target_->getPosition() - getPosition()) : sf::Vector2f(0.f, -1.f);
+        sf::Vector2f newVelocity = (data_.target_ && !data_.target_->isDestroyed())
+                                    ? utils::normalize(data_.target_->getPosition() - getPosition())
+                                    : utils::normalize(velocity_);
+
         newVelocity *= data_.speed;
         velocity_ = newVelocity;
 
@@ -43,7 +48,7 @@ void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 
 unsigned Projectile::getCategory() const
 {
-    if (type_ == AllyBullet)
+    if (type_ == AllyBullet || type_ == AllyMissile)
         return Category::AllyProjectile;
     else
         return Category::EnemyProjectile;
