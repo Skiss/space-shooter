@@ -27,9 +27,6 @@ struct Command
         , category_(c.category_)
     { }
 
-    Command(const Command&) = delete;
-    Command& operator=(const Command&) = delete;
-
     std::function<void(SceneNode*, const sf::Time& dt)> action_;
     Category::Type                                      category_ = Category::Empty;
 };

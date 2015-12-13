@@ -1,16 +1,14 @@
 #include "CommandQueue.hpp"
 
-#include "Command.hpp"
 
-
-void CommandQueue::push(Command* c)
+void CommandQueue::push(const Command& c)
 {
     commandQueue_.push(c);
 }
 
-Command* CommandQueue::pop()
+Command CommandQueue::pop()
 {
-    Command* c = commandQueue_.front();
+    Command c = commandQueue_.front();
     commandQueue_.pop();
 
     return c;

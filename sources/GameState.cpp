@@ -53,7 +53,7 @@ bool GameState::handleEvent(const sf::Event& event)
         if (event.key.code == sf::Keyboard::Escape)
             pushOnStack(State::ID::Pause);
         else if (isEventKey(event.key.code))
-            commandQueue_.push(&commandBinding_[event.key.code]);
+            commandQueue_.push(commandBinding_[event.key.code]);
     }
 
     return true;
@@ -64,7 +64,7 @@ void GameState::handleRealTimeInput()
     for (auto& pair : commandBinding_)
     {
         if (sf::Keyboard::isKeyPressed(pair.first) && !isEventKey(pair.first))
-            commandQueue_.push(&pair.second);
+            commandQueue_.push(pair.second);
     }
 }
 

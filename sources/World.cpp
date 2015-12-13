@@ -49,7 +49,7 @@ void World::update(const sf::Time& dt)
     destroyEnemies();
 
     while (!commandQueue_.isEmpty())
-        sceneGraph_->execCommand(*commandQueue_.pop(), dt);
+        sceneGraph_->execCommand(commandQueue_.pop(), dt);
 
     correctVelocity();
 
@@ -184,7 +184,7 @@ void World::destroyEnemies()
         {
             e->setIsOutOfGameZone(true);
             queuededCommands_.emplace_back(createRemoveMissileTargetAction(e), Category::AllyProjectile);
-            commandQueue_.push(&queuededCommands_.back());
+            commandQueue_.push(queuededCommands_.back());
         }
     }
 
