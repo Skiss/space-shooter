@@ -1,6 +1,7 @@
 #include "Data.hpp"
 
 #include "Aircraft.hpp"
+#include "Pickup.hpp"
 #include "Projectile.hpp"
 
 
@@ -51,6 +52,13 @@ namespace Data
         data[Projectile::EnemyBullet].textureID = TextureID::Bullet;
 
         data[Projectile::AllyBullet] = data[Projectile::EnemyBullet];
+
+        return data;
+    }
+
+    std::vector<PickupData> initPickupData()
+    {
+        std::vector<PickupData> data(Pickup::TypeCount);
 
         return data;
     }

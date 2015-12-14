@@ -5,6 +5,7 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include <functional>
 #include <vector>
 
 
@@ -37,8 +38,15 @@ namespace Data
         TextureID       textureID;
     };
 
+    struct PickupData
+    {
+        TextureID                       textureID;
+        std::function<void(Aircraft&)>  action;
+    };
+
     std::vector<AircraftData> initAircraftData();
     std::vector<ProjectileData> initProjectileData();
+    std::vector<PickupData> initPickupData();
 }
 
 #endif

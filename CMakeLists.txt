@@ -21,6 +21,7 @@ SET(SRC
 	sources/Projectile.cpp
 	sources/Data.cpp
 	sources/Utils.cpp
+	sources/Pickup.cpp
 	)
 
 SET(HDRS
@@ -46,6 +47,7 @@ SET(HDRS
 	includes/Projectile.hpp
 	includes/Data.hpp
 	includes/Utils.hpp
+	includes/Pickup.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
