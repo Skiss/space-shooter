@@ -31,6 +31,7 @@ void Projectile::updateCurrent(const sf::Time& dt)
                                     ? utils::normalize(data_.target_->getPosition() - getPosition())
                                     : utils::normalize(velocity_);
 
+        newVelocity = utils::normalize(newVelocity + (velocity_ * data_.homingFactor));
         newVelocity *= data_.speed;
         velocity_ = newVelocity;
 

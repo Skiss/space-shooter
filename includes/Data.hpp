@@ -32,6 +32,7 @@ namespace Data
     {
         int             damage;
         float           speed;
+        float           homingFactor;
         Aircraft*       target_;
         TextureID       textureID;
     };
