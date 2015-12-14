@@ -110,4 +110,8 @@ void Game::loadTextures()
     textureHolder_.load(TextureID::Avenger, "../Media/Textures/Avenger.png");
     textureHolder_.load(TextureID::Bullet, "../Media/Textures/Bullet.png");
     textureHolder_.load(TextureID::Missile, "../Media/Textures/Missile.png");
+    textureHolder_.load(TextureID::FireRate, "../Media/Textures/FireRate.png");
+    textureHolder_.load(TextureID::FireSpread, "../Media/Textures/FireSpread.png");
+    textureHolder_.load(TextureID::HealthRefill, "../Media/Textures/HealthRefill.png");
+    textureHolder_.load(TextureID::MissileRefill, "../Media/Textures/MissileRefill.png");
 }

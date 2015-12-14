@@ -16,7 +16,11 @@ enum class TextureID
     Avenger,
     Missile,
     Bullet,
-    TitleScreen
+    TitleScreen,
+    FireRate,
+    FireSpread,
+    HealthRefill,
+    MissileRefill
 };
 
 enum class FontID
