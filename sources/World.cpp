@@ -15,7 +15,9 @@ namespace
         {
             Projectile* projectile = static_cast<Projectile*>(node);
 
-            if (projectile->getMissileTarget() && projectile->getMissileTarget()->getID() == a->getID())
+            if (projectile->isMissile()
+                && projectile->getMissileTarget()
+                && projectile->getMissileTarget()->getID() == a->getID())
                 projectile->setMissileTarget(nullptr);
         };
     }

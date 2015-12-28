@@ -40,6 +40,8 @@ public:
         data_.target_ = target;
     }
 
+    bool isMissile() const { return type_ == Type::Missile; }
+
 private:
     void updateCurrent(const sf::Time& dt) override;
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
