@@ -72,6 +72,14 @@ void Aircraft::setEnemyList(std::vector<Aircraft*>& list)
     enemyList_ = &list;
 }
 
+void Aircraft::repair(int healAmount)
+{
+    data_.hp += healAmount;
+
+    if (data_.hp > data_.maxHp)
+        data_.hp = data_.maxHp;
+}
+
 void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
 {
     if (type & Projectile::Bullet)
@@ -160,7 +168,7 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
     if (isFiring_ && fireCooldown_ < sf::Time::Zero)
     {
         commandQueue_.push(fireCommand_);
-        fireCooldown_ = sf::seconds(FIRE_RATE);
+        fireCooldown_ = sf::seconds(data_.fireRate);
     }
     else
         fireCooldown_ -= dt;

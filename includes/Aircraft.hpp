@@ -27,8 +27,6 @@ public:
     Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder);
     ~Aircraft() = default;
 
-    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
-
     unsigned getCategory() const override final;
 
     unsigned getID() const { return id_; }
@@ -39,8 +37,12 @@ public:
     void setIsLaunchingMissile();
     void setEnemyList(std::vector<Aircraft*>& list);
 
+    void increaseFireRate() { data_.fireRate *= 2.f; }
+    void repair(int healAmount);
+
 private:
-    void updateCurrent(const sf::Time& dt) override;
+    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
+    void updateCurrent(const sf::Time& dt) override final;
     void updateMovements(const sf::Time& dt);
 
     void fireProjectiles(const sf::Time& dt);
@@ -66,7 +68,6 @@ private:
     bool                isFiring_ = false;
     bool                isLaunchingMissile_ = false;
     sf::Time            fireCooldown_ = sf::Time::Zero;
-    const float         FIRE_RATE = 2.f;
 };
 
 #endif

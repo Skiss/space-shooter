@@ -22,8 +22,10 @@ namespace Data
 
     struct AircraftData
     {
+        int                     maxHp;
         int                     hp;
         float                   speed;
+        float                   fireRate;
         TextureID               textureID;
         std::vector<Movement>   movements;
         unsigned                movementsIndex = 0;

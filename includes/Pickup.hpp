@@ -4,6 +4,8 @@
 #include "Data.hpp"
 #include "Entity.hpp"
 
+#include <SFML/Graphics.hpp>
+
 
 class Pickup : public Entity
 {
@@ -17,8 +19,15 @@ public:
         TypeCount
     };
 
+    Pickup(Type type, const TextureHolder& textureHolder);
+
+    void applyEffect(Aircraft& a) const;
+
 private:
+    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
+
     Data::PickupData    data_;
+    sf::Sprite          sprite_;
 };
 
 #endif
