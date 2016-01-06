@@ -50,7 +50,6 @@ private:
 
     Type                    type_;
     Data::ProjectileData    data_;
-    sf::Sprite              sprite_;
 };
 
 #endif

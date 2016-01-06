@@ -12,10 +12,12 @@ namespace
 }
 
 Projectile::Projectile(Type type, const TextureHolder& textureHolder)
-    : type_(type)
+    : Entity()
+    , type_(type)
     , data_(data[type])
-    , sprite_(textureHolder.get(data_.textureID))
 {
+    Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
+
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 

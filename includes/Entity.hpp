@@ -3,6 +3,8 @@
 
 #include "SceneNode.hpp"
 
+#include <SFML/Graphics/Sprite.hpp>
+
 
 class Entity : public SceneNode
 {
@@ -18,11 +20,14 @@ public:
     bool isOutOfGameZone() const { return isOutOfGameZone_; }
 
     bool isDestroyed() const { return isDestroyed_; }
-    void destroy() { isDestroyed_ = true;  }
+    void destroy() { isDestroyed_ = true; }
+
+    sf::FloatRect getBoundingBox();
 
 protected:
     void updateCurrent(const sf::Time& dt) override;
 
+    sf::Sprite      sprite_;
     sf::Vector2f    velocity_;
     bool            isOutOfGameZone_ = false;
     bool            isDestroyed_ = false;

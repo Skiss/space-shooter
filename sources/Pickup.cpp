@@ -11,9 +11,8 @@ namespace
 
 Pickup::Pickup(Type type, const TextureHolder& textureHolder)
     : data_(data[type])
-    , sprite_(textureHolder.get(data_.textureID))
 {
-
+    Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
 }
 
 void Pickup::applyEffect(Aircraft& a) const

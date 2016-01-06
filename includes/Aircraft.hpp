@@ -55,7 +55,6 @@ private:
     
     Type                type_;
     Data::AircraftData  data_;
-    sf::Sprite          sprite_;
     TextNode*           healthText_;
 
     const std::vector<Aircraft*>*   enemyList_ = nullptr;
