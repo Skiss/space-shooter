@@ -82,3 +82,32 @@ unsigned SceneNode::getCategory() const
 {
     return type_;
 }
+
+std::vector<SceneNode::SceneNodePair> SceneNode::getCollisionList()
+{
+    std::vector<SceneNodePair> list;
+
+    for (const auto& c : children_)
+    {
+        c->checkNodeCollisions(*this, list);
+
+        auto l = c->getCollisionList();
+        list.insert(end(list), begin(l), end(l));
+    }
+
+    return list;
+}
+
+void SceneNode::checkNodeCollisions(SceneNode& node, std::vector<SceneNodePair>& list)
+{
+    if (this->getBoundingBox().intersects(node.getBoundingBox()))
+        list.emplace_back(std::make_pair(this, &node));
+
+    for (const auto& c : node.children_)
+        c->checkNodeCollisions(node, list);
+}
+
+sf::FloatRect SceneNode::getBoundingBox() const
+{
+    return sf::FloatRect();
+}

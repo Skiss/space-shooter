@@ -22,7 +22,7 @@ public:
     bool isDestroyed() const { return isDestroyed_; }
     void destroy() { isDestroyed_ = true; }
 
-    sf::FloatRect getBoundingBox();
+    sf::FloatRect getBoundingBox() const override;
 
 protected:
     void updateCurrent(const sf::Time& dt) override;
