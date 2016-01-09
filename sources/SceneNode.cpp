@@ -103,7 +103,7 @@ void SceneNode::checkNodeCollisions(SceneNode& node, std::vector<SceneNodePair>&
     if (this->getBoundingBox().intersects(node.getBoundingBox()))
         list.emplace_back(std::make_pair(this, &node));
 
-    for (const auto& c : node.children_)
+    for (const auto& c : children_)
         c->checkNodeCollisions(node, list);
 }
 
