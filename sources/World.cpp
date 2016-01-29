@@ -49,6 +49,9 @@ void World::update(const sf::Time& dt)
     spawnEnemies();
     destroyEnemies();
 
+    std::set<SceneNode::SceneNodePair> collisionList;
+    layers_[Layer::AIR]->getCollisionList(*layers_[Layer::AIR], collisionList);
+
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(commandQueue_.pop(), dt);
 

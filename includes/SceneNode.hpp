@@ -10,6 +10,7 @@
 #include "Category.hpp"
 
 #include <memory>
+#include <set>
 #include <vector>
 
 
@@ -19,7 +20,7 @@ class SceneNode : public sf::Drawable, public sf::Transformable
 {
 public:
     typedef std::unique_ptr<SceneNode> SceneNodePtr;
-    typedef std::pair<SceneNode*, SceneNode*> SceneNodePair;
+    typedef std::pair<const SceneNode*, const SceneNode*> SceneNodePair;
 
     SceneNode(Category::Type type = Category::Empty);
     SceneNode(const SceneNode&) = delete;
@@ -38,7 +39,7 @@ public:
 
     virtual unsigned getCategory() const;
 
-    std::vector<SceneNodePair> getCollisionList();
+    void getCollisionList(const SceneNode& root, std::set<SceneNodePair> collisionList) const;
 
 protected:
     sf::Transform getWorldTransform() const;
@@ -47,7 +48,7 @@ private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(const sf::Time& dt);
 
-    void checkNodeCollisions(SceneNode& node, std::vector<SceneNodePair>& list);
+    void checkNodeCollisions(const SceneNode& root, std::set<SceneNodePair>& list) const;
 
     SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;

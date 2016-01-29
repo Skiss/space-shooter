@@ -83,28 +83,24 @@ unsigned SceneNode::getCategory() const
     return type_;
 }
 
-std::vector<SceneNode::SceneNodePair> SceneNode::getCollisionList()
+void SceneNode::getCollisionList(const SceneNode& root, std::set<SceneNodePair> collisionList) const
 {
-    std::vector<SceneNodePair> list;
+    checkNodeCollisions(root, collisionList);
 
-    for (const auto& c : children_)
+    for (const auto& c : root.children_)
     {
-        c->checkNodeCollisions(*this, list);
-
-        auto l = c->getCollisionList();
-        list.insert(end(list), begin(l), end(l));
+        checkNodeCollisions(*c, collisionList);
+        c->getCollisionList(*c, collisionList);
     }
-
-    return list;
 }
 
-void SceneNode::checkNodeCollisions(SceneNode& node, std::vector<SceneNodePair>& list)
+void SceneNode::checkNodeCollisions(const SceneNode& root, std::set<SceneNodePair>& set) const
 {
-    if (this->getBoundingBox().intersects(node.getBoundingBox()))
-        list.emplace_back(std::make_pair(this, &node));
+    if (this != &root && this->getBoundingBox().intersects(root.getBoundingBox()))
+        set.insert(std::minmax(this, &root));
 
     for (const auto& c : children_)
-        c->checkNodeCollisions(node, list);
+        c->checkNodeCollisions(root, set);
 }
 
 sf::FloatRect SceneNode::getBoundingBox() const
