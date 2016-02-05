@@ -83,7 +83,7 @@ unsigned SceneNode::getCategory() const
     return type_;
 }
 
-void SceneNode::getCollisionList(const SceneNode& root, std::set<SceneNodePair> collisionList) const
+void SceneNode::getCollisionList(SceneNode& root, std::set<SceneNodePair> collisionList)
 {
     checkNodeCollisions(root, collisionList);
 
@@ -94,7 +94,7 @@ void SceneNode::getCollisionList(const SceneNode& root, std::set<SceneNodePair> 
     }
 }
 
-void SceneNode::checkNodeCollisions(const SceneNode& root, std::set<SceneNodePair>& set) const
+void SceneNode::checkNodeCollisions(SceneNode& root, std::set<SceneNodePair>& set)
 {
     if (this != &root && this->getBoundingBox().intersects(root.getBoundingBox()))
         set.insert(std::minmax(this, &root));

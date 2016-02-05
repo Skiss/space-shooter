@@ -48,6 +48,7 @@ private:
     };
 
     void buildScene();
+    void handleCollisions();
     void correctVelocity() const;
     bool isInsideSpawnZone(const SpawnPosition& pos) const;
     bool isOutOfGameZone(const sf::Vector2f& pos) const;

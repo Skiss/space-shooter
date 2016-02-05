@@ -20,7 +20,7 @@ class SceneNode : public sf::Drawable, public sf::Transformable
 {
 public:
     typedef std::unique_ptr<SceneNode> SceneNodePtr;
-    typedef std::pair<const SceneNode*, const SceneNode*> SceneNodePair;
+    typedef std::pair<SceneNode*, SceneNode*> SceneNodePair;
 
     SceneNode(Category::Type type = Category::Empty);
     SceneNode(const SceneNode&) = delete;
@@ -39,7 +39,7 @@ public:
 
     virtual unsigned getCategory() const;
 
-    void getCollisionList(const SceneNode& root, std::set<SceneNodePair> collisionList) const;
+    void getCollisionList(SceneNode& root, std::set<SceneNodePair> collisionList);
 
 protected:
     sf::Transform getWorldTransform() const;
@@ -48,7 +48,7 @@ private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(const sf::Time& dt);
 
-    void checkNodeCollisions(const SceneNode& root, std::set<SceneNodePair>& list) const;
+    void checkNodeCollisions(SceneNode& root, std::set<SceneNodePair>& list);
 
     SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;
