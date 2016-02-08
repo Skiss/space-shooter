@@ -15,6 +15,11 @@ Pickup::Pickup(Type type, const TextureHolder& textureHolder)
     Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
 }
 
+unsigned Pickup::getCategory() const
+{
+    return Category::PickUp;
+}
+
 void Pickup::applyEffect(Aircraft& a) const
 {
     data_.action(a);

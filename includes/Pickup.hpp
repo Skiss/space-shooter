@@ -21,6 +21,8 @@ public:
 
     Pickup(Type type, const TextureHolder& textureHolder);
 
+    unsigned getCategory() const override final;
+
     void applyEffect(Aircraft& a) const;
 
 private:

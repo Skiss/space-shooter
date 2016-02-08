@@ -13,7 +13,8 @@ namespace Category
         AllyProjectile = 1 << 3,
         EnemyAircraft = 1 << 4,
         EnemyProjectile = 1 << 5,
-        SceneAirLayer = 1 << 6
+        SceneAirLayer = 1 << 6,
+        PickUp = 1 << 7
     };
 }
 
