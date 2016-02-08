@@ -179,10 +179,10 @@ void World::destroyEnemies()
     for (auto e : activeEnemies_)
     {
         if (e->isOutOfGameZone())
-        {
             e->destroy();
+
+        if (e->isDestroyed())
             layers_[Layer::AIR]->removeChild(*e);
-        }
 
         if (isOutOfGameZone(e->getPosition()))
         {
