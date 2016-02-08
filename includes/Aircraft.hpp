@@ -39,6 +39,7 @@ public:
 
     void increaseFireRate() { data_.fireRate *= 2.f; }
     void repair(int healAmount);
+    void damage(int dmgAmount);
 
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;

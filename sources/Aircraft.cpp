@@ -81,6 +81,14 @@ void Aircraft::repair(int healAmount)
         data_.hp = data_.maxHp;
 }
 
+void Aircraft::damage(int dmgAmount)
+{
+    data_.hp -= dmgAmount;
+
+    if (data_.hp <= 0)
+        destroy();
+}
+
 void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
 {
     if (type & Projectile::Bullet)
