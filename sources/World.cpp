@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 #include "Aircraft.hpp"
+#include "Pickup.hpp"
 #include "ResourceHolder.hpp"
 #include "SpriteNode.hpp"
 
@@ -136,8 +137,30 @@ void World::handleCollisions()
         {
             Aircraft* enemy = static_cast<Aircraft*>(pair.second);
 
-            player_->damage(0);
+            player_->damage(enemy->getHP());
             enemy->destroy();
+        }
+        else if (categoriesMatch(pair, Category::PlayerEntity, Category::PickUp))
+        {
+            Pickup* pickup = static_cast<Pickup*>(pair.second);
+
+            pickup->applyEffect(*player_);
+            pickup->destroy();
+        }
+        else if (categoriesMatch(pair, Category::PlayerEntity, Category::EnemyProjectile))
+        {
+            Projectile* projectile = static_cast<Projectile*>(pair.second);
+
+            player_->damage(projectile->getDamage());
+            projectile->destroy();
+        }
+        else if (categoriesMatch(pair, Category::EnemyAircraft, Category::AllyProjectile))
+        {
+            Aircraft* enemy = static_cast<Aircraft*>(pair.first);
+            Projectile* projectile = static_cast<Projectile*>(pair.second);
+
+            enemy->damage(projectile->getDamage());
+            projectile->destroy();
         }
     }
 }
