@@ -21,6 +21,24 @@ namespace
                 projectile->setMissileTarget(nullptr);
         };
     }
+
+    bool categoriesMatch(std::pair<SceneNode*, SceneNode*>& pair, Category::Type c1, Category::Type c2)
+    {
+        unsigned cat1 = pair.first->getCategory();
+        unsigned cat2 = pair.second->getCategory();
+
+        if (cat1 & c1 && cat2 & c2)
+        {
+            return true;
+        }
+        else if (cat1 & c2 && cat2 & c1)
+        {
+            std::swap(pair.first, pair.second);
+            return true;
+        }
+
+        return false;
+    }
 }
 
 
@@ -49,8 +67,7 @@ void World::update(const sf::Time& dt)
     spawnEnemies();
     destroyEnemies();
 
-    std::set<SceneNode::SceneNodePair> collisionList;
-    layers_[Layer::AIR]->getCollisionList(*layers_[Layer::AIR], collisionList);
+    handleCollisions();
 
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(commandQueue_.pop(), dt);
@@ -106,6 +123,23 @@ void World::buildScene()
 
     // Adding spawn positions
     addSpawnPoints();
+}
+
+void World::handleCollisions()
+{
+    std::set<std::pair<SceneNode*, SceneNode*>> collisionList;
+    layers_[Layer::AIR]->getCollisionList(*layers_[Layer::AIR], collisionList);
+
+    for (auto pair : collisionList)
+    {
+        if (categoriesMatch(pair, Category::PlayerEntity, Category::EnemyAircraft))
+        {
+            Aircraft* enemy = static_cast<Aircraft*>(pair.second);
+
+            player_->damage(0);
+            enemy->destroy();
+        }
+    }
 }
 
 void World::correctVelocity() const
