@@ -83,7 +83,7 @@ unsigned SceneNode::getCategory() const
     return type_;
 }
 
-void SceneNode::getCollisionList(SceneNode& root, std::set<SceneNodePair> collisionList)
+void SceneNode::getCollisionList(SceneNode& root, std::set<SceneNodePair>& collisionList)
 {
     checkNodeCollisions(root, collisionList);
 

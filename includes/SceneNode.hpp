@@ -39,7 +39,7 @@ public:
 
     virtual unsigned getCategory() const;
 
-    void getCollisionList(SceneNode& root, std::set<SceneNodePair> collisionList);
+    void getCollisionList(SceneNode& root, std::set<SceneNodePair>& collisionList);
 
 protected:
     sf::Transform getWorldTransform() const;
