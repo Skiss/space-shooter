@@ -26,6 +26,8 @@ public:
     SceneNode(const SceneNode&) = delete;
     SceneNode& operator=(const SceneNode&) = delete;
 
+    ~SceneNode() = default;
+
     void addChild(SceneNodePtr child);
     void removeChild(const SceneNode& child);
 
@@ -38,6 +40,9 @@ public:
     virtual sf::FloatRect getBoundingBox() const;
 
     virtual unsigned getCategory() const;
+
+    bool isDestroyed() const { return isDestroyed_; }
+    void destroy() { isDestroyed_ = true; }
 
     void getCollisionList(SceneNode& root, std::set<SceneNodePair>& collisionList);
 
@@ -53,6 +58,7 @@ private:
     SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;
     Category::Type              type_;
+    bool                        isDestroyed_ = false;
 };
 
 #endif

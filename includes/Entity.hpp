@@ -19,9 +19,6 @@ public:
     void setIsOutOfGameZone(bool val) { isOutOfGameZone_ = val; }
     bool isOutOfGameZone() const { return isOutOfGameZone_; }
 
-    bool isDestroyed() const { return isDestroyed_; }
-    void destroy() { isDestroyed_ = true; }
-
     sf::FloatRect getBoundingBox() const override;
 
 protected:
@@ -30,7 +27,6 @@ protected:
     sf::Sprite      sprite_;
     sf::Vector2f    velocity_;
     bool            isOutOfGameZone_ = false;
-    bool            isDestroyed_ = false;
 };
 
 #endif
