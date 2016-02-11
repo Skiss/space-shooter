@@ -107,3 +107,16 @@ sf::FloatRect SceneNode::getBoundingBox() const
 {
     return sf::FloatRect();
 }
+
+void SceneNode::removeDestroyedEntities()
+{
+    auto iter = std::remove_if(begin(children_), end(children_), [](const SceneNodePtr& node)
+    {
+        return node->isDestroyed();
+    });
+
+    children_.erase(iter, end(children_));
+
+    for (auto& c : children_)
+        c->removeDestroyedEntities();
+}

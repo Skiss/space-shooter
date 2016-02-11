@@ -46,6 +46,8 @@ public:
 
     void getCollisionList(SceneNode& root, std::set<SceneNodePair>& collisionList);
 
+    void removeDestroyedEntities();
+
 protected:
     sf::Transform getWorldTransform() const;
 

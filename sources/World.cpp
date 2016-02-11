@@ -75,6 +75,7 @@ void World::update(const sf::Time& dt)
 
     correctVelocity();
 
+    layers_[Layer::AIR]->removeDestroyedEntities();
     sceneGraph_->update(dt);
 }
 
@@ -237,9 +238,6 @@ void World::destroyEnemies()
     {
         if (e->isOutOfGameZone())
             e->destroy();
-
-        if (e->isDestroyed())
-            layers_[Layer::AIR]->removeChild(*e);
 
         if (isOutOfGameZone(e->getPosition()))
         {
