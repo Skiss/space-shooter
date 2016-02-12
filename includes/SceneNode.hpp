@@ -41,12 +41,11 @@ public:
 
     virtual unsigned getCategory() const;
 
-    bool isDestroyed() const { return isDestroyed_; }
-    void destroy() { isDestroyed_ = true; }
+    virtual bool mustBeRemoved() const { return false; }
 
     void getCollisionList(SceneNode& root, std::set<SceneNodePair>& collisionList);
 
-    void removeDestroyedEntities();
+    void removeMarkedNodes();
 
 protected:
     sf::Transform getWorldTransform() const;
@@ -60,7 +59,6 @@ private:
     SceneNode*                  parent_ = nullptr;
     std::vector<SceneNodePtr>   children_;
     Category::Type              type_;
-    bool                        isDestroyed_ = false;
 };
 
 #endif

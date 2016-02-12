@@ -66,16 +66,16 @@ void World::update(const sf::Time& dt)
     player_->setVelocity(sf::Vector2f(0.f, 0.f));
 
     spawnEnemies();
-    destroyEnemies();
 
     handleCollisions();
+    destroyEnemies();
 
     while (!commandQueue_.isEmpty())
         sceneGraph_->execCommand(commandQueue_.pop(), dt);
 
     correctVelocity();
 
-    layers_[Layer::AIR]->removeDestroyedEntities();
+    layers_[Layer::AIR]->removeMarkedNodes();
     sceneGraph_->update(dt);
 }
 

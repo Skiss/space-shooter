@@ -10,7 +10,8 @@ namespace
 
 
 Pickup::Pickup(Type type, const TextureHolder& textureHolder)
-    : data_(data[type])
+    : Entity(1)
+    , data_(data[type])
 {
     Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
 }

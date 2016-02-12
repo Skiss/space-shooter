@@ -12,7 +12,7 @@ namespace
 }
 
 Projectile::Projectile(Type type, const TextureHolder& textureHolder)
-    : Entity()
+    : Entity(1)
     , type_(type)
     , data_(data[type])
 {

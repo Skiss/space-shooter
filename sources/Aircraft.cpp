@@ -17,7 +17,7 @@ namespace
 }
 
 Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder)
-    : Entity()
+    : Entity(data[type].hp)
     , id_(idCpt_++)
     , type_(type)
     , data_(data[type_])
@@ -75,18 +75,10 @@ void Aircraft::setEnemyList(std::vector<Aircraft*>& list)
 
 void Aircraft::repair(int healAmount)
 {
-    data_.hp += healAmount;
+    hp_ += healAmount;
 
-    if (data_.hp > data_.maxHp)
-        data_.hp = data_.maxHp;
-}
-
-void Aircraft::damage(int dmgAmount)
-{
-    data_.hp -= dmgAmount;
-
-    if (data_.hp <= 0)
-        destroy();
+    if (hp_ > data_.maxHp)
+        hp_ = data_.maxHp;
 }
 
 void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
@@ -134,7 +126,7 @@ void Aircraft::updateCurrent(const sf::Time& dt)
     fireProjectiles(dt);
 
     Entity::updateCurrent(dt);
-    healthText_->setText(std::to_string(data_.hp) + " HP");
+    healthText_->setText(std::to_string(hp_) + " HP");
     healthText_->setRotation(-getRotation());
 }
 
@@ -185,9 +177,7 @@ void Aircraft::fireProjectiles(const sf::Time& dt)
     isFiring_ = false;
 
     if (isLaunchingMissile_)
-    {
         commandQueue_.push(launchMissileCommand_);
-    }
 
     isLaunchingMissile_ = false;
 }

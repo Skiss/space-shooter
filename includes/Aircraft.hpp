@@ -30,7 +30,6 @@ public:
     unsigned getCategory() const override final;
 
     unsigned getID() const { return id_; }
-    int getHP() const { return data_.hp; }
     float getSpeed() const { return data_.speed; }
 
     void setIsFiring();
@@ -39,7 +38,6 @@ public:
 
     void increaseFireRate() { data_.fireRate *= 2.f; }
     void repair(int healAmount);
-    void damage(int dmgAmount);
 
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
