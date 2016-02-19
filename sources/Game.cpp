@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+#include "GameOverState.hpp"
 #include "GameState.hpp"
 #include "MenuState.hpp"
 #include "PauseState.hpp"
@@ -91,6 +92,7 @@ void Game::registerStates()
     stateStack_.registerState<GameState>(State::ID::Game);
     stateStack_.registerState<MenuState>(State::ID::Menu);
     stateStack_.registerState<PauseState>(State::ID::Pause);
+    stateStack_.registerState<GameOverState>(State::ID::GameOver);
 }
 
 void Game::initFPSDisplay()

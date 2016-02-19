@@ -23,7 +23,8 @@ public:
         Title,
         Menu,
         Game,
-        Pause
+        Pause,
+        GameOver
     };
 
     struct Context

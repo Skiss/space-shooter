@@ -22,6 +22,7 @@ SET(SRC
 	sources/Data.cpp
 	sources/Utils.cpp
 	sources/Pickup.cpp
+	sources/GameOverState.cpp
 	)
 
 SET(HDRS
@@ -48,6 +49,7 @@ SET(HDRS
 	includes/Data.hpp
 	includes/Utils.hpp
 	includes/Pickup.hpp
+	includes/GameOverState.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
