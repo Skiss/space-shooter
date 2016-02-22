@@ -16,6 +16,8 @@ public:
     bool handleEvent(const sf::Event& event) override;
 
 private:
+    sf::Text            gameOverText_;
+    sf::RectangleShape  background_;
 };
 
 #endif
