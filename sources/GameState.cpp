@@ -39,9 +39,13 @@ void GameState::render()
 
 bool GameState::update(const sf::Time& dt)
 {
-    world_.update(dt);
-
-    handleRealTimeInput();
+    if (!world_.isGameOver())
+    {
+        world_.update(dt);
+        handleRealTimeInput();
+    }
+    else
+        pushOnStack(State::ID::GameOver);
 
     return true;
 }

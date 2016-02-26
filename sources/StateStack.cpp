@@ -3,9 +3,7 @@
 
 StateStack::StateStack(State::Context context)
     : context_(context)
-{
-
-}
+{}
 
 void StateStack::pushState(State::ID id)
 {

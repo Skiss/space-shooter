@@ -5,8 +5,13 @@
 #include "ResourceHolder.hpp"
 #include "SpriteNode.hpp"
 
+#include <iostream>
 
-static const float SQRT_TWO = std::sqrt(2.f);
+
+namespace
+{
+    static const float SQRT_TWO = std::sqrt(2.f);
+}
 
 namespace
 {
@@ -62,11 +67,9 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontH
 void World::update(const sf::Time& dt)
 {
     view_.move(0.f, scrollSpeed_ * dt.asSeconds());
-
     player_->setVelocity(sf::Vector2f(0.f, 0.f));
 
     spawnEnemies();
-
     handleCollisions();
     destroyEnemies();
 
@@ -75,7 +78,11 @@ void World::update(const sf::Time& dt)
 
     correctVelocity();
 
+    if (player_->isDestroyed())
+        player_ = nullptr;
+
     layers_[Layer::AIR]->removeMarkedNodes();
+
     sceneGraph_->update(dt);
 }
 
@@ -252,4 +259,9 @@ void World::destroyEnemies()
         return a->isDestroyed();
     });
     activeEnemies_.erase(iter, end(activeEnemies_));
+}
+
+bool World::isGameOver() const
+{
+    return (!player_ || view_.getCenter().y == 0.f);
 }

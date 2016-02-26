@@ -26,6 +26,8 @@ public:
 
     CommandQueue& getCommandQueue();
 
+    bool isGameOver() const;
+
 private:
     struct SpawnPosition
     {
