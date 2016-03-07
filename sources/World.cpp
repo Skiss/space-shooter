@@ -263,5 +263,5 @@ void World::destroyEnemies()
 
 bool World::isGameOver() const
 {
-    return (!player_ || view_.getCenter().y == 0.f);
+    return (!player_ || view_.getCenter().y <= window_.getSize().y / 2.f);
 }
