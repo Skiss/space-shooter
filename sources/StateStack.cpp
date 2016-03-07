@@ -26,6 +26,31 @@ void StateStack::handleEvent(const sf::Event& event)
         if (!(*it)->handleEvent(event))
             break;
 
+    applyPendingActions();
+}
+
+void StateStack::update(const sf::Time& dt)
+{
+    for (auto it = statesStack_.rbegin(); it != statesStack_.rend(); ++it)
+        if (!(*it)->update(dt))
+            break;
+
+    applyPendingActions();
+}
+
+void StateStack::render()
+{
+    for (auto& state : statesStack_)
+        state->render();
+}
+
+bool StateStack::isEmpty() const
+{
+    return statesStack_.empty() && pendingActions_.empty();
+}
+
+void StateStack::applyPendingActions()
+{
     for (const auto& pair : pendingActions_)
     {
         switch (pair.first)
@@ -45,22 +70,4 @@ void StateStack::handleEvent(const sf::Event& event)
     }
 
     pendingActions_.clear();
-}
-
-void StateStack::update(const sf::Time& dt)
-{
-    for (auto it = statesStack_.rbegin(); it != statesStack_.rend(); ++it)
-        if (!(*it)->update(dt))
-            break;
-}
-
-void StateStack::render()
-{
-    for (auto& state : statesStack_)
-        state->render();
-}
-
-bool StateStack::isEmpty() const
-{
-    return statesStack_.empty() && pendingActions_.empty();
 }

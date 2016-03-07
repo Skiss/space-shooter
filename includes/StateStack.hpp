@@ -41,6 +41,8 @@ public:
     bool isEmpty() const;
 
 private:
+    void applyPendingActions();
+
     State::Context context_;
 
     std::vector<std::unique_ptr<State>> statesStack_;
