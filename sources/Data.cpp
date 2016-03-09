@@ -48,7 +48,6 @@ namespace Data
         data[Projectile::EnemyMissile].speed = 150.f;
         data[Projectile::EnemyMissile].homingFactor = 12.f;
         data[Projectile::EnemyMissile].textureID = TextureID::Missile;
-        data[Projectile::EnemyMissile].target_ = nullptr;
 
         data[Projectile::AllyMissile] = data[Projectile::EnemyMissile];
 

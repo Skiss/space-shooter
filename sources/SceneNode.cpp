@@ -7,14 +7,12 @@
 
 SceneNode::SceneNode(Category::Type type)
     : type_(type)
-{
-
-}
+{ }
 
 void SceneNode::addChild(SceneNodePtr child)
 {
     child->parent_ = this;
-    children_.push_back(std::move(child));
+    children_.push_back(child);
 }
 
 void SceneNode::removeChild(const SceneNode& child)

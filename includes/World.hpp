@@ -63,7 +63,7 @@ private:
     const FontHolder&                           fontHolder_;
     sf::RenderWindow&                           window_;
     CommandQueue                                commandQueue_;
-    std::unique_ptr<SceneNode>                  sceneGraph_;
+    std::shared_ptr<SceneNode>                  sceneGraph_;
     Aircraft*                                   player_;
     std::array<SceneNode*, Layer::LAYER_COUNT>  layers_;
     sf::View                                    view_;
@@ -71,7 +71,7 @@ private:
     sf::Vector2f                                playerSpawnPos_;
     float                                       scrollSpeed_;
     std::vector<SpawnPosition>                  enemiesSpawnPos_;
-    std::vector<Aircraft*>                      activeEnemies_ ;
+    std::vector<std::shared_ptr<Aircraft>>      activeEnemies_ ;
     std::vector<Command>                        queuededCommands_;
 };
 

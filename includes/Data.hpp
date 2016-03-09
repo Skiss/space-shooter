@@ -6,6 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include <functional>
+#include <memory>
 #include <vector>
 
 
@@ -33,11 +34,11 @@ namespace Data
 
     struct ProjectileData
     {
-        int             damage;
-        float           speed;
-        float           homingFactor;
-        Aircraft*       target_;
-        TextureID       textureID;
+        int                     damage;
+        float                   speed;
+        float                   homingFactor;
+        std::weak_ptr<Aircraft> target_;
+        TextureID               textureID;
     };
 
     struct PickupData

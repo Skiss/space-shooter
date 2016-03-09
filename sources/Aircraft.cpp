@@ -28,7 +28,7 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
-    auto textNode = std::make_unique<TextNode>("", fontHolder);
+    auto textNode = std::make_shared<TextNode>("", fontHolder);
     healthText_ = textNode.get();
     healthText_->setPosition(0, -50.f);
 
@@ -45,7 +45,7 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
         createProjectile(*node, textureHolder, Projectile::AllyMissile);
     };
 
-    addChild(std::move(textNode));
+    addChild(textNode);
 }
 
 void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -68,7 +68,7 @@ void Aircraft::setIsLaunchingMissile()
     isLaunchingMissile_ = true;
 }
 
-void Aircraft::setEnemyList(std::vector<Aircraft*>& list)
+void Aircraft::setEnemyList(std::vector<std::shared_ptr<Aircraft>>& list)
 {
     enemyList_ = &list;
 }
@@ -101,18 +101,18 @@ void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHol
 
         if (!enemyList_->empty())
         {
-            Aircraft* target = nullptr;
+            const std::shared_ptr<Aircraft>* target = nullptr;
             float maxDistance = std::numeric_limits<float>::max();
 
-            for (const auto e : *enemyList_)
+            for (const auto& e : *enemyList_)
             {
                 float length = std::abs((e->getPosition().x - getPosition().x) + (e->getPosition().y - getPosition().y));
 
                 if (length < maxDistance)
-                    target = e;
+                    target = &e;
             }
 
-            projectile->setMissileTarget(target);
+            projectile->setMissileTarget(*target);
         }
     }
 

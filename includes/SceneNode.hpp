@@ -19,7 +19,7 @@ struct Command;
 class SceneNode : public sf::Drawable, public sf::Transformable
 {
 public:
-    typedef std::unique_ptr<SceneNode> SceneNodePtr;
+    typedef std::shared_ptr<SceneNode> SceneNodePtr;
     typedef std::pair<SceneNode*, SceneNode*> SceneNodePair;
 
     SceneNode(Category::Type type = Category::Empty);

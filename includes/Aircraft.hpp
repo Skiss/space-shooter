@@ -34,7 +34,7 @@ public:
 
     void setIsFiring();
     void setIsLaunchingMissile();
-    void setEnemyList(std::vector<Aircraft*>& list);
+    void setEnemyList(std::vector<std::shared_ptr<Aircraft>>& list);
 
     void increaseFireRate() { data_.fireRate *= 2.f; }
     void repair(int healAmount);
@@ -56,7 +56,7 @@ private:
     Data::AircraftData  data_;
     TextNode*           healthText_;
 
-    const std::vector<Aircraft*>*   enemyList_ = nullptr;
+    const std::vector<std::shared_ptr<Aircraft>>*   enemyList_ = nullptr;
 
     CommandQueue&       commandQueue_;
     Command             fireCommand_;

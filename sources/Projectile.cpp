@@ -26,12 +26,13 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
 
 void Projectile::updateCurrent(const sf::Time& dt)
 {
+    auto target = data_.target_.lock();
+
     // Handle missile auto-guidance
-    if (type_ & Projectile::Missile)
+    if (type_ & Projectile::Missile && target)
     {
-        sf::Vector2f newVelocity = (data_.target_ && !data_.target_->isDestroyed())
-                                    ? utils::normalize(data_.target_->getPosition() - getPosition())
-                                    : utils::normalize(velocity_);
+        sf::Vector2f newVelocity = (!target->isDestroyed()) ? utils::normalize(target->getPosition() - getPosition())
+                                                            : utils::normalize(velocity_);
 
         newVelocity = utils::normalize(newVelocity + (velocity_ * data_.homingFactor));
         newVelocity *= data_.speed;

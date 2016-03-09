@@ -100,25 +100,25 @@ CommandQueue& World::getCommandQueue()
 void World::buildScene()
 {
     // Root node
-    sceneGraph_ = std::make_unique<SceneNode>();
+    sceneGraph_ = std::make_shared<SceneNode>();
 
     // Background layer
-    auto bgLayer = std::make_unique<SceneNode>();
+    auto bgLayer = std::make_shared<SceneNode>();
     layers_[Layer::BACKGROUND] = bgLayer.get();
-    sceneGraph_->addChild(std::move(bgLayer));
+    sceneGraph_->addChild(bgLayer);
 
     // Air layer
-    auto airLayer = std::make_unique<SceneNode>(Category::SceneAirLayer);
+    auto airLayer = std::make_shared<SceneNode>(Category::SceneAirLayer);
     layers_[Layer::AIR] = airLayer.get();
-    sceneGraph_->addChild(std::move(airLayer));
+    sceneGraph_->addChild(airLayer);
 
     // Player node
-    auto player = std::make_unique<Aircraft>(Aircraft::Eagle, commandQueue_, textureHolder_, fontHolder_);
+    auto player = std::make_shared<Aircraft>(Aircraft::Eagle, commandQueue_, textureHolder_, fontHolder_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
     player->setEnemyList(activeEnemies_);
     player_ = player.get();
-    layers_[Layer::AIR]->addChild(std::move(player));
+    layers_[Layer::AIR]->addChild(player);
     
     // Background texture has to be repeated
     auto& texture = textureHolder_.get(TextureID::Background);
@@ -126,9 +126,9 @@ void World::buildScene()
     texture.setRepeated(true);
 
     // Background node
-    auto bg = std::make_unique<SpriteNode>(textureHolder_.get(TextureID::Background), textureRect);
+    auto bg = std::make_shared<SpriteNode>(textureHolder_.get(TextureID::Background), textureRect);
     bg->setPosition(worldBounds_.left, worldBounds_.top);
-    layers_[Layer::BACKGROUND]->addChild(std::move(bg));
+    layers_[Layer::BACKGROUND]->addChild(bg);
 
     // Adding spawn positions
     addSpawnPoints();
@@ -227,11 +227,11 @@ void World::spawnEnemies()
 {
     if (!enemiesSpawnPos_.empty() && isInsideSpawnZone(enemiesSpawnPos_.back()))
     {
-        auto enemy = std::make_unique<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
+        auto enemy = std::make_shared<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
         enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
         enemy->setRotation(180.f);
-        activeEnemies_.push_back(enemy.get());
-        layers_[Layer::AIR]->addChild(std::move(enemy));
+        activeEnemies_.push_back(enemy);
+        layers_[Layer::AIR]->addChild(enemy);
 
         enemiesSpawnPos_.pop_back();
     }
@@ -249,12 +249,12 @@ void World::destroyEnemies()
         if (isOutOfGameZone(e->getPosition()))
         {
             e->setIsOutOfGameZone(true);
-            queuededCommands_.emplace_back(createRemoveMissileTargetAction(e), Category::AllyProjectile);
+            queuededCommands_.emplace_back(createRemoveMissileTargetAction(e.get()), Category::AllyProjectile);
             commandQueue_.push(queuededCommands_.back());
         }
     }
 
-    auto iter = std::remove_if(begin(activeEnemies_), end(activeEnemies_), [](const Aircraft* a)
+    auto iter = std::remove_if(begin(activeEnemies_), end(activeEnemies_), [](const std::shared_ptr<Aircraft>& a)
     {
         return a->isDestroyed();
     });

@@ -25,6 +25,7 @@ public:
     };
 
     Projectile(Type type, const TextureHolder& textureHolder);
+    ~Projectile() = default;
 
     int getDamage() const { return data_.damage; }
     float getSpeed() const { return data_.speed; }
@@ -32,9 +33,13 @@ public:
     const Aircraft* getMissileTarget() const
     {
         assert(type_ & Type::Missile);
-        return data_.target_;
+
+        if (auto res = data_.target_.lock())
+            return res.get();
+        else
+            return nullptr;
     }
-    void setMissileTarget(Aircraft* target)
+    void setMissileTarget(const std::shared_ptr<Aircraft>& target)
     {
         assert(type_ & Type::Missile);
         data_.target_ = target;
