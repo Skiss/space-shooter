@@ -21,11 +21,9 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     , id_(idCpt_++)
     , type_(type)
     , data_(data[type_])
+    , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
     , commandQueue_(commandQueue)
 {
-    Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
-    Entity::sprite_.setTextureRect(data_.textureRect);
-
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
@@ -80,6 +78,11 @@ void Aircraft::repair(int healAmount)
 
     if (hp_ > data_.maxHp)
         hp_ = data_.maxHp;
+}
+
+sf::FloatRect Aircraft::getBoundingBox() const
+{
+    return getWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
 void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)

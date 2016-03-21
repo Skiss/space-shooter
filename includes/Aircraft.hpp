@@ -39,6 +39,8 @@ public:
     void increaseFireRate() { data_.fireRate *= 2.f; }
     void repair(int healAmount);
 
+    sf::FloatRect getBoundingBox() const override final;
+
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
     void updateCurrent(const sf::Time& dt) override final;
@@ -51,9 +53,10 @@ private:
 
     static unsigned     idCpt_;
     unsigned            id_;
-    
+
     Type                type_;
     Data::AircraftData  data_;
+    sf::Sprite          sprite_;
     TextNode*           healthText_;
 
     const std::vector<std::shared_ptr<Aircraft>>*   enemyList_ = nullptr;

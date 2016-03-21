@@ -12,10 +12,8 @@ namespace
 Pickup::Pickup(Type type, const TextureHolder& textureHolder)
     : Entity(1)
     , data_(data[type])
-{
-    Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
-    Entity::sprite_.setTextureRect(data_.textureRect);
-}
+    , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
+{ }
 
 unsigned Pickup::getCategory() const
 {
@@ -25,6 +23,11 @@ unsigned Pickup::getCategory() const
 void Pickup::applyEffect(Aircraft& a) const
 {
     data_.action(a);
+}
+
+sf::FloatRect Pickup::getBoundingBox() const
+{
+    return getWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
 void Pickup::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const

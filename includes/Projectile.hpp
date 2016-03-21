@@ -47,6 +47,8 @@ public:
 
     bool isMissile() const { return type_ == Type::Missile; }
 
+    sf::FloatRect getBoundingBox() const override final;
+
 private:
     void updateCurrent(const sf::Time& dt) override;
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -55,6 +57,7 @@ private:
 
     Type                    type_;
     Data::ProjectileData    data_;
+    sf::Sprite              sprite_;
 };
 
 #endif

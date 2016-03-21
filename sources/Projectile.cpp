@@ -15,14 +15,17 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
     : Entity(1)
     , type_(type)
     , data_(data[type])
+    , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
 {
-    Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
-    Entity::sprite_.setTextureRect(data_.textureRect);
-
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
     setVelocity(sf::Vector2f(0.f, -1.f));
+}
+
+sf::FloatRect Projectile::getBoundingBox() const
+{
+    return getWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
 void Projectile::updateCurrent(const sf::Time& dt)

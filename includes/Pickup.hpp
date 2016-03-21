@@ -25,10 +25,13 @@ public:
 
     void applyEffect(Aircraft& a) const;
 
+    sf::FloatRect getBoundingBox() const override final;
+
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
     Data::PickupData    data_;
+    sf::Sprite          sprite_;
 };
 
 #endif
