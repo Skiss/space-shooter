@@ -11,16 +11,8 @@ namespace sf
 enum class TextureID
 {
     Background,
-    Eagle,
-    Raptor,
-    Avenger,
-    Missile,
-    Bullet,
+    Entities,
     TitleScreen,
-    FireRate,
-    FireSpread,
-    HealthRefill,
-    MissileRefill
 };
 
 enum class FontID

@@ -17,6 +17,7 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
     , data_(data[type])
 {
     Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
+    Entity::sprite_.setTextureRect(data_.textureRect);
 
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);

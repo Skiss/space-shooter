@@ -14,6 +14,7 @@ Pickup::Pickup(Type type, const TextureHolder& textureHolder)
     , data_(data[type])
 {
     Entity::sprite_.setTexture(textureHolder.get(data_.textureID));
+    Entity::sprite_.setTextureRect(data_.textureRect);
 }
 
 unsigned Pickup::getCategory() const

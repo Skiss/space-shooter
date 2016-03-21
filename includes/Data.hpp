@@ -4,6 +4,7 @@
 #include "ResourceIDs.hpp"
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 #include <functional>
 #include <memory>
@@ -28,6 +29,7 @@ namespace Data
         float                   speed;
         float                   fireRate;
         TextureID               textureID;
+        sf::IntRect             textureRect;
         std::vector<Movement>   movements;
         unsigned                movementsIndex = 0;
     };
@@ -39,11 +41,13 @@ namespace Data
         float                   homingFactor;
         std::weak_ptr<Aircraft> target_;
         TextureID               textureID;
+        sf::IntRect             textureRect;
     };
 
     struct PickupData
     {
         TextureID                       textureID;
+        sf::IntRect                     textureRect;
         std::function<void(Aircraft&)>  action;
     };
 
