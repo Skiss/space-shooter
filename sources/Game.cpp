@@ -10,7 +10,7 @@
 
 
 Game::Game()
-    : window_(sf::VideoMode(640, 480), "Shooter")
+    : window_(sf::VideoMode(1024, 768), "Shooter")
     , stateStack_({window_, textureHolder_, fontHolder_})
 {
     window_.setKeyRepeatEnabled(false);

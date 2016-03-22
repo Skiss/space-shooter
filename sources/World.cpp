@@ -5,8 +5,6 @@
 #include "ResourceHolder.hpp"
 #include "SpriteNode.hpp"
 
-#include <iostream>
-
 
 namespace
 {
@@ -55,7 +53,7 @@ World::World(sf::RenderWindow& window, TextureHolder& textureHolder, const FontH
     , sceneGraph_(nullptr)
     , player_(nullptr)
     , view_(window_.getDefaultView())
-    , worldBounds_(0.f, 0.f, view_.getSize().x, 2000.f)
+    , worldBounds_(0.f, 0.f, view_.getSize().x, 5000.f)
     , playerSpawnPos_(view_.getSize().x / 2.f, worldBounds_.height - view_.getSize().y / 2.f)
     , scrollSpeed_(-50.f)
 {
@@ -205,15 +203,15 @@ bool World::isOutOfGameZone(const sf::Vector2f& pos) const
 
 void World::addSpawnPoints()
 {
-    float xCenter = view_.getCenter().x;
+    const float xCenter = view_.getCenter().x;
 
-    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 1300.f);
-    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter + 100.f, 1100.f);
-    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter - 100.f, 900.f);
-    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 1500.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 4100.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter + 100.f, 3500.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter - 100.f, 2900.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Raptor, xCenter, 3000.f);
 
-    enemiesSpawnPos_.emplace_back(Aircraft::Avenger, xCenter + 50.f, 500.f);
-    enemiesSpawnPos_.emplace_back(Aircraft::Avenger, xCenter - 50.f, 500.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Avenger, xCenter - 50.f, 3800.f);
+    enemiesSpawnPos_.emplace_back(Aircraft::Avenger, xCenter + 50.f, 3800.f);
     
     std::sort(begin(enemiesSpawnPos_),
               end(enemiesSpawnPos_),
