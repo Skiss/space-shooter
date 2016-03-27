@@ -22,6 +22,7 @@ struct Command
     {}
     ~Command() = default;
 
+    Command(const Command&) = default;
     Command(Command&& c)
         : action_(c.action_)
         , category_(c.category_)
