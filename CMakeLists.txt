@@ -54,7 +54,7 @@ SET(HDRS
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/;${CMAKE_MODULE_PATH}")
-SET(SFML_ROOT "E:/SFML-2.3.1" CACHE PATH "SFML top-level directory")
+SET(SFML_ROOT "G:/SFML-2.3.2" CACHE PATH "SFML top-level directory")
 
 FIND_PACKAGE(SFML 2 COMPONENTS audio graphics window system network)
 
