@@ -14,7 +14,8 @@ namespace Category
         EnemyAircraft = 1 << 4,
         EnemyProjectile = 1 << 5,
         SceneAirLayer = 1 << 6,
-        PickUp = 1 << 7
+        PickUp = 1 << 7,
+        ParticleSystem = 1 << 8
     };
 }
 

@@ -7,7 +7,7 @@
 class Entity : public SceneNode
 {
 public:
-    Entity(int hp)
+    explicit Entity(int hp)
         : hp_(hp)
     {}
 

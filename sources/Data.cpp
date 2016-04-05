@@ -1,6 +1,7 @@
 #include "Data.hpp"
 
 #include "Aircraft.hpp"
+#include "ParticleNode.hpp"
 #include "Pickup.hpp"
 #include "Projectile.hpp"
 
@@ -77,6 +78,19 @@ namespace Data
         data[Pickup::HealthRefill].textureID = TextureID::Entities;
         data[Pickup::HealthRefill].textureRect = { 0, 64, 40, 40 };
         data[Pickup::HealthRefill].action = [](Aircraft& a) { a.repair(20); };
+
+        return data;
+    }
+
+    std::vector<Data::ParticleData> initParticleData()
+    {
+        std::vector<Data::ParticleData> data(Particle::Count);
+
+        data[Particle::Smoke].color_ = sf::Color(50, 50, 50);
+        data[Particle::Smoke].lifeTime_ = sf::seconds(4.f);
+
+        data[Particle::Trail].color_ = sf::Color(255, 255, 50);
+        data[Particle::Trail].lifeTime_ = sf::seconds(0.6f);
 
         return data;
     }

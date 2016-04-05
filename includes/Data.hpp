@@ -3,8 +3,11 @@
 
 #include "ResourceIDs.hpp"
 
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Color.hpp>
+
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Time.hpp>
 
 #include <functional>
 #include <memory>
@@ -51,9 +54,16 @@ namespace Data
         std::function<void(Aircraft&)>  action;
     };
 
+    struct ParticleData
+    {
+        sf::Color   color_;
+        sf::Time    lifeTime_;
+    };
+
     std::vector<AircraftData> initAircraftData();
     std::vector<ProjectileData> initProjectileData();
     std::vector<PickupData> initPickupData();
+    std::vector<ParticleData> initParticleData();
 }
 
 #endif

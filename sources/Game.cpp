@@ -108,4 +108,5 @@ void Game::loadTextures()
 {
     textureHolder_.load(TextureID::Background, "../Media/Textures/Jungle.png");
     textureHolder_.load(TextureID::Entities, "../Media/Textures/entities.png");
+    textureHolder_.load(TextureID::Particle, "../Media/Textures/Particle.png");
 }

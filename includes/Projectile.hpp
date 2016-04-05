@@ -51,7 +51,7 @@ public:
 
 private:
     void updateCurrent(const sf::Time& dt) override;
-    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     unsigned getCategory() const override final;
 
