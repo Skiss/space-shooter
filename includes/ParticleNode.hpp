@@ -44,6 +44,9 @@ private:
     void updateCurrent(const sf::Time& dt) override;
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+    void computeVertices() const;
+    void addVertex(float x, float y, float textX, float textY, const sf::Color& c) const;
+
     std::deque<Particle>    particles_;
     Particle::Type          type_;
     const sf::Texture&      texture_;
