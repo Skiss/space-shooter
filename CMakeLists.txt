@@ -24,6 +24,7 @@ SET(SRC
 	sources/Pickup.cpp
 	sources/GameOverState.cpp
 	sources/ParticleNode.cpp
+	sources/EmiterNode.cpp
 	)
 
 SET(HDRS
@@ -52,6 +53,7 @@ SET(HDRS
 	includes/Pickup.hpp
 	includes/GameOverState.hpp
 	includes/ParticleNode.hpp
+	includes/EmiterNode.hpp
 	)
 
 SET(SFML_STATIC_LIBRARIES TRUE BOOL "Use static SFML librares")
