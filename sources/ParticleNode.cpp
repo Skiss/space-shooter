@@ -28,12 +28,12 @@ void ParticleNode::updateCurrent(const sf::Time & dt)
     // Removing out of date particles
     while (!particles_.empty() && particles_.front().remainingTime < sf::Time::Zero)
         particles_.pop_front();
-        needUpdate_ = true;
-    }
 
     // Updating the remaining particles
     for (auto& p : particles_)
         p.remainingTime -= dt;
+
+    needUpdate_ = true;
 }
 
 void ParticleNode::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
