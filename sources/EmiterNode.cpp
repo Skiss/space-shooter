@@ -7,11 +7,6 @@ EmiterNode::EmiterNode(Particle::Type type)
 
 }
 
-void EmiterNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
-{
-
-}
-
 void EmiterNode::updateCurrent(const sf::Time& dt)
 {
     if (particleNode_)

@@ -11,7 +11,6 @@ public:
     explicit EmiterNode(Particle::Type type);
 
 private:
-    void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
     void updateCurrent(const sf::Time& dt) override;
 
     void emitParticles(float dt);
