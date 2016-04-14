@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 #include "Aircraft.hpp"
+#include "ParticleNode.hpp"
 #include "Pickup.hpp"
 #include "ResourceHolder.hpp"
 #include "SpriteNode.hpp"
@@ -127,6 +128,12 @@ void World::buildScene()
     auto bg = std::make_shared<SpriteNode>(textureHolder_.get(TextureID::Background), textureRect);
     bg->setPosition(worldBounds_.left, worldBounds_.top);
     layers_[Layer::BACKGROUND]->addChild(bg);
+
+    // Particle nodes
+    auto smokeParticle = std::make_shared<ParticleNode>(Particle::Smoke, textureHolder_);
+    auto trailParticle = std::make_shared<ParticleNode>(Particle::Trail, textureHolder_);
+    layers_[Layer::AIR]->addChild(smokeParticle);
+    layers_[Layer::AIR]->addChild(trailParticle);
 
     // Adding spawn positions
     addSpawnPoints();
