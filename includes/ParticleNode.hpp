@@ -18,15 +18,15 @@ struct Particle
         Count
     };
 
-    Particle(sf::Vector2f pos, sf::Color color, sf::Time lifeTime)
+    Particle(sf::Vector2f pos, sf::Color color, sf::Time remainingTime)
         : pos(pos)
         , color(color)
-        , lifeTime(lifeTime)
+        , remainingTime(remainingTime)
     {}
 
     sf::Vector2f    pos;
     sf::Color       color;
-    sf::Time        lifeTime;
+    sf::Time        remainingTime;
 };
 
 class ParticleNode : public SceneNode

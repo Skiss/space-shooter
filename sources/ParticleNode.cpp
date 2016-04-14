@@ -26,15 +26,14 @@ void ParticleNode::addParticle(const sf::Vector2f& pos)
 void ParticleNode::updateCurrent(const sf::Time & dt)
 {
     // Removing out of date particles
-    while (!particles_.empty() && particles_.front().lifeTime < sf::Time::Zero)
-    {
+    while (!particles_.empty() && particles_.front().remainingTime < sf::Time::Zero)
         particles_.pop_front();
         needUpdate_ = true;
     }
 
     // Updating the remaining particles
     for (auto& p : particles_)
-        p.lifeTime -= dt;
+        p.remainingTime -= dt;
 }
 
 void ParticleNode::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
@@ -61,7 +60,7 @@ void ParticleNode::computeVertices() const
         auto pos = p.pos;
         auto color = p.color;
 
-        float visibility = p.lifeTime.asSeconds() / data[type_].lifeTime_.asSeconds();
+        float visibility = p.remainingTime.asSeconds() / data[type_].lifeTime_.asSeconds();
         color.a = static_cast<sf::Uint8>(255.f * std::max(visibility, 0.f));
 
         addVertex(pos.x - half.x, pos.y - half.y, 0.f, 0.f, color);
