@@ -19,5 +19,5 @@ void EmiterNode::updateCurrent(const sf::Time& dt)
 
 void EmiterNode::emitParticles(float dt)
 {
-
+    particleNode_->addParticle(getWorldPosition());
 }

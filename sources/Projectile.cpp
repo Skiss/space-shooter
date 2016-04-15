@@ -2,6 +2,7 @@
 
 #include "Aircraft.hpp"
 #include "Category.hpp"
+#include "EmiterNode.hpp"
 #include "ResourceHolder.hpp"
 #include "Utils.hpp"
 
@@ -21,6 +22,13 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
     setVelocity(sf::Vector2f(0.f, -1.f));
+
+    if (isMissile())
+    {
+        auto smoke = std::make_shared<EmiterNode>(Particle::Smoke);
+        smoke->setPosition(0.f, getBoundingBox().height / 2.f);
+        addChild(smoke);
+    }
 }
 
 sf::FloatRect Projectile::getBoundingBox() const
