@@ -94,7 +94,7 @@ void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHol
 
     int projectileDirection = (isPlayer()) ? -1 : 1;
 
-    auto projectile = std::make_unique<Projectile>(type, textureHolder);
+    auto projectile = std::make_unique<Projectile>(type, textureHolder, commandQueue_);
 
     projectile->setPosition(this->getPosition());
     projectile->setVelocity({0, projectile->getSpeed() * projectileDirection});

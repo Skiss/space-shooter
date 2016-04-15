@@ -10,6 +10,9 @@
 #include <cassert>
 
 
+class CommandQueue;
+
+
 class Projectile : public Entity
 {
 public:
@@ -24,7 +27,7 @@ public:
         TypeCount
     };
 
-    Projectile(Type type, const TextureHolder& textureHolder);
+    Projectile(Type type, const TextureHolder& textureHolder, CommandQueue& commandQueue);
     ~Projectile() = default;
 
     int getDamage() const { return data_.damage; }
@@ -58,6 +61,7 @@ private:
     Type                    type_;
     Data::ProjectileData    data_;
     sf::Sprite              sprite_;
+    CommandQueue&           commandQueue_;
 };
 
 #endif

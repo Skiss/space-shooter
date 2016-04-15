@@ -12,11 +12,12 @@ namespace
     std::vector<Data::ProjectileData> data = Data::initProjectileData();
 }
 
-Projectile::Projectile(Type type, const TextureHolder& textureHolder)
+Projectile::Projectile(Type type, const TextureHolder& textureHolder, CommandQueue& commandQueue)
     : Entity(1)
     , type_(type)
     , data_(data[type])
     , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
+    , commandQueue_(commandQueue)
 {
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -25,7 +26,7 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder)
 
     if (isMissile())
     {
-        auto smoke = std::make_shared<EmiterNode>(Particle::Smoke);
+        auto smoke = std::make_shared<EmiterNode>(Particle::Smoke, commandQueue_);
         smoke->setPosition(0.f, getBoundingBox().height / 2.f);
         addChild(smoke);
     }

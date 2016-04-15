@@ -5,10 +5,12 @@
 #include "SceneNode.hpp"
 
 
+class CommandQueue;
+
 class EmiterNode : public SceneNode
 {
 public:
-    explicit EmiterNode(Particle::Type type);
+    explicit EmiterNode(Particle::Type type, CommandQueue& commandQueue);
 
 private:
     void updateCurrent(const sf::Time& dt) override;
@@ -18,6 +20,7 @@ private:
     Particle::Type  type_;
     sf::Time        accTime_;
     ParticleNode*   particleNode_ = nullptr;
+    CommandQueue&   commandQueue_;
 };
 
 #endif
