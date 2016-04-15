@@ -45,7 +45,7 @@ public:
         data_.target_ = target;
     }
 
-    bool isMissile() const { return type_ == Type::Missile; }
+    bool isMissile() const { return (type_ & Type::Missile) > 0; }
 
     sf::FloatRect getBoundingBox() const override final;
 
