@@ -16,12 +16,13 @@ namespace
     std::vector<Data::AircraftData> data = Data::initAircraftData();
 }
 
-Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder)
+Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder, const sf::View& view)
     : Entity(data[type].hp)
     , id_(idCpt_++)
     , type_(type)
     , data_(data[type_])
     , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
+    , view_(view)
     , commandQueue_(commandQueue)
 {
     sf::FloatRect bounds = sprite_.getLocalBounds();
@@ -94,7 +95,7 @@ void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHol
 
     int projectileDirection = (isPlayer()) ? -1 : 1;
 
-    auto projectile = std::make_unique<Projectile>(type, textureHolder, commandQueue_);
+    auto projectile = std::make_unique<Projectile>(type, textureHolder, commandQueue_, view_);
 
     projectile->setPosition(this->getPosition());
     projectile->setVelocity({0, projectile->getSpeed() * projectileDirection});

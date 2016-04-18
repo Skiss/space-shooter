@@ -24,7 +24,7 @@ public:
         TypeCount
     };
 
-    Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder);
+    Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& textureHolder, const FontHolder& fontHolder, const sf::View& view);
     ~Aircraft() = default;
 
     unsigned getCategory() const override final;
@@ -58,6 +58,7 @@ private:
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
     TextNode*           healthText_;
+    const sf::View&     view_;
 
     const std::vector<std::shared_ptr<Aircraft>>*   enemyList_ = nullptr;
 

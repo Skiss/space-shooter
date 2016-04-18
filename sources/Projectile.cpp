@@ -12,12 +12,13 @@ namespace
     std::vector<Data::ProjectileData> data = Data::initProjectileData();
 }
 
-Projectile::Projectile(Type type, const TextureHolder& textureHolder, CommandQueue& commandQueue)
+Projectile::Projectile(Type type, const TextureHolder& textureHolder, CommandQueue& commandQueue, const sf::View& view)
     : Entity(1)
     , type_(type)
     , data_(data[type])
     , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
     , commandQueue_(commandQueue)
+    , view_(view)
 {
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -40,6 +41,8 @@ sf::FloatRect Projectile::getBoundingBox() const
 void Projectile::updateCurrent(const sf::Time& dt)
 {
     auto target = data_.target_.lock();
+
+    destroyIfOutOfView();
 
     // Handle missile auto-guidance
     if (type_ & Projectile::Missile && target)
@@ -69,4 +72,19 @@ unsigned Projectile::getCategory() const
         return Category::AllyProjectile;
     else
         return Category::EnemyProjectile;
+}
+
+void Projectile::destroyIfOutOfView()
+{
+    const float bottomScreen = view_.getCenter().y + view_.getSize().y / 2.f;
+    const float topScreen = view_.getCenter().y - view_.getSize().y / 2.f;
+    const float rightScreen = view_.getCenter().x + view_.getSize().x / 2.f;
+    const float leftScreen = view_.getCenter().x - view_.getSize().x / 2.f;
+    const auto& pos = this->getPosition();
+
+    if (pos.y < topScreen - 50.f || pos.y > bottomScreen + 50.f ||
+        pos.x < leftScreen - 15.f || pos.x > rightScreen + 15.f)
+    {
+        this->destroy();
+    }
 }

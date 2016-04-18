@@ -112,7 +112,7 @@ void World::buildScene()
     sceneGraph_->addChild(airLayer);
 
     // Player node
-    auto player = std::make_shared<Aircraft>(Aircraft::Eagle, commandQueue_, textureHolder_, fontHolder_);
+    auto player = std::make_shared<Aircraft>(Aircraft::Eagle, commandQueue_, textureHolder_, fontHolder_, view_);
     player->setPosition(playerSpawnPos_);
     player->setVelocity(0.f, scrollSpeed_);
     player->setEnemyList(activeEnemies_);
@@ -232,7 +232,7 @@ void World::spawnEnemies()
 {
     if (!enemiesSpawnPos_.empty() && isInsideSpawnZone(enemiesSpawnPos_.back()))
     {
-        auto enemy = std::make_shared<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_);
+        auto enemy = std::make_shared<Aircraft>(enemiesSpawnPos_.back().type, commandQueue_, textureHolder_, fontHolder_, view_);
         enemy->setPosition(enemiesSpawnPos_.back().x, enemiesSpawnPos_.back().y);
         enemy->setRotation(180.f);
         activeEnemies_.push_back(enemy);

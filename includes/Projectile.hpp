@@ -27,8 +27,7 @@ public:
         TypeCount
     };
 
-    Projectile(Type type, const TextureHolder& textureHolder, CommandQueue& commandQueue);
-    ~Projectile() = default;
+    Projectile(Type type, const TextureHolder& textureHolder, CommandQueue& commandQueue, const sf::View& view);
 
     int getDamage() const { return data_.damage; }
     float getSpeed() const { return data_.speed; }
@@ -57,11 +56,13 @@ private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     unsigned getCategory() const override final;
+    void destroyIfOutOfView();
 
     Type                    type_;
     Data::ProjectileData    data_;
     sf::Sprite              sprite_;
     CommandQueue&           commandQueue_;
+    const sf::View&         view_;
 };
 
 #endif
