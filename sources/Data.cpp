@@ -87,10 +87,10 @@ namespace Data
         std::vector<Data::ParticleData> data(Particle::Count);
 
         data[Particle::Smoke].color_ = sf::Color(50, 50, 50);
-        data[Particle::Smoke].lifeTime_ = sf::seconds(0.5f);
+        data[Particle::Smoke].lifeTime_ = sf::seconds(2.f);
 
         data[Particle::Trail].color_ = sf::Color(255, 255, 50);
-        data[Particle::Trail].lifeTime_ = sf::seconds(0.1f);
+        data[Particle::Trail].lifeTime_ = sf::seconds(0.4f);
 
         return data;
     }
