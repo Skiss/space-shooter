@@ -49,5 +49,14 @@ void EmiterNode::updateCurrent(const sf::Time& dt)
 
 void EmiterNode::emitParticles(float dt)
 {
-    particleNode_->addParticle(getWorldPosition());
+    const float emissionRate = 50.f;
+    const sf::Time interval = sf::seconds(1.f / emissionRate);
+
+    accTime_ += sf::seconds(dt);
+
+    while (accTime_ > interval)
+    {
+        accTime_ -= interval;
+        particleNode_->addParticle(getWorldPosition());
+    }
 }
