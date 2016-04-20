@@ -30,6 +30,10 @@ Projectile::Projectile(Type type, const TextureHolder& textureHolder, CommandQue
         auto smoke = std::make_shared<EmiterNode>(Particle::Smoke, commandQueue_);
         smoke->setPosition(0.f, getBoundingBox().height / 2.f);
         addChild(smoke);
+
+        auto trail= std::make_shared<EmiterNode>(Particle::Trail, commandQueue_);
+        smoke->setPosition(0.f, getBoundingBox().height / 2.f);
+        addChild(trail);
     }
 }
 
