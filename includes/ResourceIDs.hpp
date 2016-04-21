@@ -13,7 +13,8 @@ enum class TextureID
     Background,
     Entities,
     TitleScreen,
-    Particle
+    Particle,
+    Explosion
 };
 
 enum class FontID
