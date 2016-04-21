@@ -4,6 +4,7 @@
 #include "Command.hpp"
 #include "Data.hpp"
 #include "Entity.hpp"
+#include "Animation.hpp"
 #include "Projectile.hpp"
 #include "ResourceIDs.hpp"
 
@@ -58,6 +59,7 @@ private:
     Data::AircraftData  data_;
     sf::Sprite          sprite_;
     TextNode*           healthText_;
+    Animation           explosion_;
     const sf::View&     view_;
 
     const std::vector<std::shared_ptr<Aircraft>>*   enemyList_ = nullptr;

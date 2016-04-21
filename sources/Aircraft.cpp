@@ -22,6 +22,7 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     , type_(type)
     , data_(data[type_])
     , sprite_(textureHolder.get(data_.textureID), data_.textureRect)
+    , explosion_(textureHolder.get(TextureID::Explosion), sf::Vector2i(256, 256), 16, sf::seconds(1))
     , view_(view)
     , commandQueue_(commandQueue)
 {
