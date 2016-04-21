@@ -4,8 +4,11 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 
-Animation::Animation(const sf::Texture& texture)
+Animation::Animation(const sf::Texture& texture, const sf::Vector2i& frameSize, unsigned nbFrames, const sf::Time& duration)
     : sprite_(texture)
+    , frameSize_(frameSize)
+    , nbFrames_(nbFrames)
+    , duration_(duration)
 {
 }
 

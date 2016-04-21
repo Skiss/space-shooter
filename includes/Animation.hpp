@@ -10,7 +10,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 {
 public:
     Animation() = default;
-    Animation(const sf::Texture& texture);
+    Animation(const sf::Texture& texture, const sf::Vector2i& frameSize, unsigned nbFrames, const sf::Time& duration);
     virtual ~Animation() = default;
 
     void update(const sf::Time& dt);
