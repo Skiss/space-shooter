@@ -51,7 +51,10 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
 
 void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(sprite_, states);
+    if (isDestroyed())
+        target.draw(explosion_, states);
+    else
+        target.draw(sprite_, states);
 }
 
 unsigned Aircraft::getCategory() const
@@ -85,6 +88,11 @@ void Aircraft::repair(int healAmount)
 sf::FloatRect Aircraft::getBoundingBox() const
 {
     return getWorldTransform().transformRect(sprite_.getGlobalBounds());
+}
+
+bool Aircraft::mustBeRemoved() const
+{
+    return isDestroyed() && explosion_.isFinished();
 }
 
 void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHolder, Projectile::Type type)
@@ -127,6 +135,12 @@ void Aircraft::createProjectile(SceneNode& node, const TextureHolder& textureHol
 
 void Aircraft::updateCurrent(const sf::Time& dt)
 {
+    if (isDestroyed())
+    {
+        explosion_.update(dt);
+        return;
+    }
+
     updateMovements(dt);
 
     fireProjectiles(dt);

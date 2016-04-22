@@ -15,6 +15,9 @@ public:
 
     void update(const sf::Time& dt);
 
+    bool isFinished() const { return currentFrame_ >= nbFrames_; }
+    const sf::Vector2i& getFrameSize() const { return frameSize_; }
+
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

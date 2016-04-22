@@ -41,6 +41,7 @@ public:
     void repair(int healAmount);
 
     sf::FloatRect getBoundingBox() const override final;
+    bool mustBeRemoved() const override;
 
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override final;
