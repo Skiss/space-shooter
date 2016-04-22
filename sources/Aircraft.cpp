@@ -29,6 +29,10 @@ Aircraft::Aircraft(Type type, CommandQueue& commandQueue, const TextureHolder& t
     sf::FloatRect bounds = sprite_.getLocalBounds();
     sprite_.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
+    sf::FloatRect explosionBounds(explosion_.getOrigin(), static_cast<sf::Vector2f>(explosion_.getFrameSize()));
+    explosion_.setOrigin(std::floor(explosionBounds.left + explosionBounds.width / 2.f),
+                         std::floor(explosionBounds.top + explosionBounds.height / 2.f));
+
     auto textNode = std::make_shared<TextNode>("", fontHolder);
     healthText_ = textNode.get();
     healthText_->setPosition(0, -50.f);
